@@ -1,9 +1,14 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Request, Response } from "express";
 import Word from "../db/models/word";
 import { IWord } from "../types";
 import connectDB from "../db/mongoose";
 
-export const createWord: RequestHandler = async (req, res) => {
+/**
+ * Create a new word.
+ * @route POST /api/dictionary/createword
+ */
+
+export const createWord: RequestHandler = async (req: Request, res: Response) => {
   try {
     const word = new Word(req.body);
     await word.save();
@@ -13,7 +18,12 @@ export const createWord: RequestHandler = async (req, res) => {
   }
 };
 
-export const getWords: RequestHandler = async (_, res) => {
+
+/**
+ * Get all words.
+ * @route GET /api/dictionary/getwords
+ */
+export const getWords: RequestHandler = async (req: Request, res: Response) => {
   try {
     const words = await Word.find({});
     res.json(words);
@@ -22,7 +32,11 @@ export const getWords: RequestHandler = async (_, res) => {
   }
 };
 
-export const getWord: RequestHandler = async (req, res) => {
+/**
+ * Get one word.
+ * @route GET /api/dictionary/getwords/:id
+ */
+export const getWord: RequestHandler = async (req: Request, res: Response) => {
   try {
     let id = req.params.id;
     const word = await Word.find({ title: id });
@@ -32,7 +46,11 @@ export const getWord: RequestHandler = async (req, res) => {
   }
 };
 
-export const getWordRandom: RequestHandler = async (req, res) => {
+/**
+ * Get one random word.
+ * @route GET /api/dictionary/getword/random
+ */
+export const getWordRandom: RequestHandler = async (req: Request, res: Response) => {
   try {
     const word = await Word.aggregate([{ $sample: { size: 1 } }]);
     res.json(word);
@@ -41,7 +59,11 @@ export const getWordRandom: RequestHandler = async (req, res) => {
   }
 };
 
-export const deleteWord: RequestHandler = async (req, res) => {
+/**
+ * Delete the given word.
+ * @route DELETE /api/dictionary/deleteword
+ */
+export const deleteWord: RequestHandler = async (req: Request, res: Response) => {
   try {
     await Word.findOneAndDelete({ title: req.body.title as string }).then(
       (result) => {
@@ -53,7 +75,11 @@ export const deleteWord: RequestHandler = async (req, res) => {
   }
 };
 
-export const updateWord: RequestHandler = async (req, res) => {
+/**
+ * Update a word.
+ * @route PUT /api/dictionary/updateword
+ */
+export const updateWord: RequestHandler = async (req: Request, res: Response) => {
   try {
     await Word.findOneAndUpdate(
       { title: req.body.title },
