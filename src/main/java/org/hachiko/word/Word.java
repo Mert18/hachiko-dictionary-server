@@ -1,22 +1,21 @@
 package org.hachiko.word;
 
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import java.util.Set;
 
-public class Word extends PanacheMongoEntity {
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.types.ObjectId;
+
+import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
+
+public class Word extends PanacheMongoEntityBase {
+
+  @BsonProperty("_id")
+  @BsonId
+  public ObjectId id;
   public String title;
-  public String[] kind;
-  public String[] description;
-  public String[] synonyms;
-  public String[] sentences;
-
-  public Word() {
-
-  }
-
-  public Word(String title, String[] kind, String[] description, String[] synonyms, String[] sentences) {
-    this.title = title;
-    this.kind = kind;
-    this.description = description;
-    this.synonyms = synonyms;
-  }
+  public Set<String> kind;
+  public Set<String> description;
+  public Set<String> synonyms;
+  public Set<String> sentences;
 }
