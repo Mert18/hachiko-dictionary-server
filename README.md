@@ -13,3 +13,5 @@ You can run your application in dev mode that enables live coding using:
 
 ## OpenAPI
 Project uses openAPI documentation that can be reached at http://localhost:8080/q/swagger-ui/.
+
+!!! Migration in progress. Application still uses the old (NodeJS) version. !!!
