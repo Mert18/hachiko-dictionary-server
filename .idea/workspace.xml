@@ -5,76 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e04b185-0199-4301-9c88-c4ecf2fece2e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/controller/AccountController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDto.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDtoConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/CreateAccountRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/WordDto.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/WordDtoConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/exception/AccountNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/model/Account.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/model/LearnedWord.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/model/Word.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/repository/AccountRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/service/AccountService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/class-diagram.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/er-diagram.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/dependencies-accessors/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/hachiko-dictionary.main.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/CustomUserDetails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" afterPath="$PROJECT_DIR$/HELP.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/HachikoDictionaryApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/config/SecurityConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/controller/WordController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/dto/WordRequest$WordRequestBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/dto/WordRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/dto/WordResponse$WordResponseBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/dto/WordResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/model/Word$WordBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/model/Word.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/repository/WordRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/m2t/hachikodictionary/service/WordService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/SecurityConfig.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/HachikoDictionaryApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/HachikoDictionaryApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/config/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/controller/WordController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/WordRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/WordResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/model/Word.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/repository/WordRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/service/WordService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/m2t/hachikodictionary/HachikoDictionaryApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/m2t/hachikodictionary/HachikoDictionaryApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDtoConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDtoConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/CreateAccountRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/CreateAccountRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/model/Account.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/model/Account.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,8 +28,8 @@
       <list>
         <option value="Kotlin File" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -123,6 +65,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;825c4e10852d2c20e73f12b2a3fdd8b1&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -155,7 +98,8 @@
       <updated>1683040846036</updated>
       <workItem from="1683040846038" duration="130000" />
       <workItem from="1683040986781" duration="1584000" />
-      <workItem from="1683042732520" duration="5438000" />
+      <workItem from="1683042732520" duration="5601000" />
+      <workItem from="1683052984857" duration="4682000" />
     </task>
     <servers />
   </component>

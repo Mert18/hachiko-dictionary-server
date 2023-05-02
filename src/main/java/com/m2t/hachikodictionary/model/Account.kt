@@ -21,7 +21,7 @@ data class Account(
     val username: String,
     val password: String,
     val email: String,
-    val role: String,
+    val role: String = "USER",
 
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "account_id")
