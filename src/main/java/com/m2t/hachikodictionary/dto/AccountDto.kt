@@ -1,10 +1,12 @@
 package com.m2t.hachikodictionary.dto
 
+import com.m2t.hachikodictionary.model.Role
+
 data class AccountDto(
     val id: String?,
     val username: String,
     val email: String,
-    val role: String = "USER"
+    val role: Role = Role.USER
 ) {
-    constructor() : this(null, "", "", "")
+    constructor() : this(null, "", "", Role.USER)
 }

@@ -1,39 +1,85 @@
 package com.m2t.hachikodictionary.model
 
-import jakarta.persistence.CascadeType
-import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.OneToMany
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import org.hibernate.annotations.GenericGenerator
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @Table(name = "accounts")
-data class Account(
+data class Account (
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator") // Generate UUID
     val id: String?,
 
-    val username: String,
-    val password: String,
+    // Defined as private, thus the default getter and setters are not used.
+    // Because we wanted to override these methods from UserDetails.
+    private val username: String,
+    private val password: String,
     val email: String,
-    val role: String = "USER",
+
+    @Enumerated(EnumType.STRING)
+    val role: Role = Role.USER,
 
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "account_id")
     val learnedWords: Set<LearnedWord>
-){
-    constructor() : this(null, "", "", "", "", setOf())
+): UserDetails {
+    constructor() : this(null, "", "", "", Role.USER, setOf())
     constructor(username: String, password: String, email: String): this (
         null,
         username,
         password,
         email,
-        "USER",
+        Role.USER,
         setOf()
     )
+
+    constructor(username: String, password: String, role: Role) : this(
+        null,
+        username,
+        password,
+        "",
+        role,
+        setOf()
+    )
+
+    constructor(username: String, password: String, email: String, role: Role) : this(
+        null,
+        username,
+        password,
+        email,
+        role,
+        setOf()
+    )
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        return mutableListOf(SimpleGrantedAuthority(role.name))
+    }
+
+    override fun getPassword(): String {
+        return password
+    }
+
+    override fun getUsername(): String {
+        return username
+    }
+
+    override fun isAccountNonExpired(): Boolean {
+        return true
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        return true
+    }
+
+    override fun isCredentialsNonExpired(): Boolean {
+        return true
+    }
+
+    override fun isEnabled(): Boolean {
+        return true
+    }
 }
