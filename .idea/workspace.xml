@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e04b185-0199-4301-9c88-c4ecf2fece2e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDtoConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/AccountDtoConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/CreateAccountRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/dto/CreateAccountRequest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/model/Account.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/model/Account.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/m2t/hachikodictionary/service/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +89,8 @@
       <workItem from="1683040846038" duration="130000" />
       <workItem from="1683040986781" duration="1584000" />
       <workItem from="1683042732520" duration="5601000" />
-      <workItem from="1683052984857" duration="4682000" />
+      <workItem from="1683052984857" duration="4901000" />
+      <workItem from="1683109647162" duration="37000" />
     </task>
     <servers />
   </component>
