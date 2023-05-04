@@ -36,7 +36,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegistrationRequest registrationRequest) {
         Account account = new Account(registrationRequest.getUsername(), passwordEncoder.encode(registrationRequest.getPassword()), registrationRequest.getEmail(), Role.USER);
         accountRepository.save(account);
-        return new AuthenticationResponse(jwtService.generateToken(account));
+        return jwtService.generateToken(account);
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
@@ -47,7 +47,19 @@ public class AuthenticationService {
                 )
         );
         Account account = accountRepository.findAccountByUsername(loginRequest.getUsername());
-        String token = jwtService.generateToken(account);
-        return new AuthenticationResponse(token);
+        return jwtService.generateToken(account);
+    }
+
+    public AuthenticationResponse refreshToken(String token) {
+        String username = jwtService.extractUsername(token);
+        logger.info("Username: " + username);
+        Account account = accountService.loadUserByUsername(username);
+        logger.info("Account: " + account);
+        if(!jwtService.isTokenValid(token, account)) {
+            logger.error("Invalid token");
+            return null;
+        }
+    logger.info("Token is valid");
+        return jwtService.generateToken(account);
     }
 }
