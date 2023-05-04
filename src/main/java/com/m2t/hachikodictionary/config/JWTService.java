@@ -6,6 +6,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.function.Function;
 public class JWTService {
 
     private final String jwtSecretKey = "5368566D597133743677397A24432646294A404E635166546A576E5A72347537";
+    private final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -46,9 +49,11 @@ public class JWTService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(String token, Account account) {
         final String username = extractUsername(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+        boolean isTokenValid = username.equals(account.getUsername()) && !isTokenExpired(token);
+        logger.info("Is token valid inside: " + isTokenValid);
+        return isTokenValid;
     }
 
     private boolean isTokenExpired(String token) {

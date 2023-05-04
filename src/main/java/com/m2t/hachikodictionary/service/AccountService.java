@@ -5,6 +5,8 @@ import com.m2t.hachikodictionary.dto.CreateAccountRequest;
 import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.repository.AccountRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
+    private final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
@@ -33,6 +36,7 @@ public class AccountService implements UserDetailsService {
         accountRepository.save(account);
     }
     public AccountDto getAccountById(String accountId) {
+        logger.info("AccountService.getAccountById: accountId = " + accountId);
         return accountRepository.findById(accountId)
                 .map(account -> new AccountDto(account.getId(), account.getUsername(), account.getEmail(), account.getRole()))
                 .orElseThrow(() -> new AccountNotFoundException(accountId));
@@ -46,9 +50,9 @@ public class AccountService implements UserDetailsService {
         return new AccountDto(account.getId(), account.getUsername(), account.getEmail(), account.getRole());
     }
 
-    public UserDetails loadUserByUsername(String username) {
+    public Account loadUserByUsername(String username) {
         Account account = accountRepository.findAccountByUsername(username);
-        return new Account(account.getUsername(), account.getPassword(), account.getRole());
+        return new Account(account.getId(), account.getUsername(), account.getPassword(), account.getEmail(), account.getRole());
     }
 
     @Bean
