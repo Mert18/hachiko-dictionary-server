@@ -2,6 +2,7 @@ package com.m2t.hachikodictionary.controller;
 
 import com.m2t.hachikodictionary.dto.AuthenticationResponse;
 import com.m2t.hachikodictionary.dto.LoginRequest;
+import com.m2t.hachikodictionary.dto.RefreshRequest;
 import com.m2t.hachikodictionary.dto.RegistrationRequest;
 import com.m2t.hachikodictionary.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,11 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(authenticationService.login(loginRequest));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthenticationResponse> refresh(@RequestBody RefreshRequest refreshRequest) {
+        return ResponseEntity.ok(authenticationService.refreshToken(refreshRequest.getRefreshToken()));
     }
 
 }

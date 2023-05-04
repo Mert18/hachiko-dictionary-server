@@ -73,6 +73,15 @@ data class Account (
         setOf()
     )
 
+    constructor(username: String) : this(
+        null,
+        username,
+        "",
+        "",
+        Role.USER,
+        setOf()
+    )
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return mutableListOf(SimpleGrantedAuthority(role.name))
     }
