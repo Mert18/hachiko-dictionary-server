@@ -16,8 +16,10 @@ data class Account (
 
     // Defined as private, thus the default getter and setters are not used.
     // Because we wanted to override these methods from UserDetails.
+    @Column(unique = true)
     private val username: String,
     private val password: String,
+    @Column(unique = true)
     val email: String,
 
     @Enumerated(EnumType.STRING)

@@ -1,7 +1,6 @@
 package com.m2t.hachikodictionary.controller;
 
 import com.m2t.hachikodictionary.dto.AccountDto;
-import com.m2t.hachikodictionary.dto.CreateAccountRequest;
 import com.m2t.hachikodictionary.service.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +22,6 @@ public class AccountController {
     @GetMapping("/username/{username}")
     public ResponseEntity<AccountDto> getAccountByUsername(@PathVariable String username) {
         return ResponseEntity.ok(accountService.getAccountByUsername(username));
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<Void> createAccount(@RequestBody CreateAccountRequest createAccountRequest) {
-        accountService.createAccount(createAccountRequest);
-        return ResponseEntity.ok().build();
     }
 
 }

@@ -4,6 +4,8 @@ import com.m2t.hachikodictionary.config.JWTService;
 import com.m2t.hachikodictionary.dto.AuthenticationResponse;
 import com.m2t.hachikodictionary.dto.LoginRequest;
 import com.m2t.hachikodictionary.dto.RegistrationRequest;
+import com.m2t.hachikodictionary.dto.Response;
+import com.m2t.hachikodictionary.exception.*;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.model.Role;
 import com.m2t.hachikodictionary.repository.AccountRepository;
@@ -33,33 +35,71 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public AuthenticationResponse register(RegistrationRequest registrationRequest) {
-        Account account = new Account(registrationRequest.getUsername(), passwordEncoder.encode(registrationRequest.getPassword()), registrationRequest.getEmail(), Role.USER);
-        accountRepository.save(account);
-        return jwtService.generateToken(account);
-    }
-
-    public AuthenticationResponse login(LoginRequest loginRequest) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                )
-        );
-        Account account = accountRepository.findAccountByUsername(loginRequest.getUsername());
-        return jwtService.generateToken(account);
-    }
-
-    public AuthenticationResponse refreshToken(String token) {
-        String username = jwtService.extractUsername(token);
-        logger.info("Username: " + username);
-        Account account = accountService.loadUserByUsername(username);
-        logger.info("Account: " + account);
-        if(!jwtService.isTokenValid(token, account)) {
-            logger.error("Invalid token");
-            return null;
+    public Response register(RegistrationRequest registrationRequest) {
+        if(accountRepository.existsByUsername(registrationRequest.getUsername())) {
+            throw new UsernameAlreadyExistsException("Username already exists.");
         }
-    logger.info("Token is valid");
-        return jwtService.generateToken(account);
+        if(accountRepository.existsByEmail(registrationRequest.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists.");
+        }
+
+        try {
+            Account account = new Account(registrationRequest.getUsername(), passwordEncoder.encode(registrationRequest.getPassword()), registrationRequest.getEmail(), Role.USER);
+            accountRepository.save(account);
+            AuthenticationResponse authResponse = jwtService.generateToken(account);
+            Response response = new Response(true, "Registration successful.", authResponse);
+            return response;
+        } catch (Exception e) {
+            throw new RuntimeException("Registration failed: " + e.getMessage());
+        }
+
+
+    }
+
+    public Response login(LoginRequest loginRequest) throws Exception {
+        try {
+            Account user = accountService.loadUserByUsername(loginRequest.getUsername());
+            if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+                throw new InvalidCredentialsException("Invalid credentials.");
+            }
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsername(),
+                            loginRequest.getPassword()
+                    )
+            );
+            Account account = accountRepository.findAccountByUsername(loginRequest.getUsername());
+            AuthenticationResponse authResponse = jwtService.generateToken(account);
+            Response response = new Response(true, "Login successful.", authResponse);
+            return response;
+        } catch (AccountNotFoundException e) {
+            throw new AccountNotFoundException("Account not found.");
+        } catch (InvalidCredentialsException e) {
+            throw new InvalidCredentialsException("Invalid credentials.");
+        } catch (Exception e) {
+            throw new Exception("Login failed: " + e.getMessage());
+        }
+
+
+    }
+
+    public Response refreshToken(String token) {
+        try {
+            String username = jwtService.extractUsername(token);
+            Account account = accountService.loadUserByUsername(username);
+            if(!jwtService.isTokenValid(token, account)) {
+                throw new InvalidTokenException("Token is invalid.");
+            }
+            AuthenticationResponse authResponse = jwtService.generateToken(account);
+            Response response = new Response(true, "Token refreshed.", authResponse);
+            return response;
+        }
+        catch (InvalidTokenException e) {
+            throw new InvalidTokenException("Token is invalid.");
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Token refresh failed: " + e.getMessage());
+        }
+
     }
 }
