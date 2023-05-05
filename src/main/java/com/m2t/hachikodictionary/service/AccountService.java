@@ -1,7 +1,6 @@
 package com.m2t.hachikodictionary.service;
 
 import com.m2t.hachikodictionary.dto.AccountDto;
-import com.m2t.hachikodictionary.dto.CreateAccountRequest;
 import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.repository.AccountRepository;
@@ -28,13 +27,6 @@ public class AccountService implements UserDetailsService {
         this.accountRepository = accountRepository;
     }
 
-    public void createAccount(CreateAccountRequest createAccountRequest) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-        Account account = new Account(createAccountRequest.getUsername(), bCryptPasswordEncoder.encode(createAccountRequest.getPassword())
-        , createAccountRequest.getEmail());
-        accountRepository.save(account);
-    }
     public AccountDto getAccountById(String accountId) {
         logger.info("AccountService.getAccountById: accountId = " + accountId);
         return accountRepository.findById(accountId)
@@ -52,6 +44,9 @@ public class AccountService implements UserDetailsService {
 
     public Account loadUserByUsername(String username) {
         Account account = accountRepository.findAccountByUsername(username);
+        if(account == null) {
+            throw new AccountNotFoundException("Account not found.");
+        }
         return new Account(account.getId(), account.getUsername(), account.getPassword(), account.getEmail(), account.getRole());
     }
 
