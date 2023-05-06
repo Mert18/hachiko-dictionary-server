@@ -44,16 +44,24 @@ public class AuthenticationService {
         }
 
         try {
-            Account account = new Account(registrationRequest.getUsername(), passwordEncoder.encode(registrationRequest.getPassword()), registrationRequest.getEmail(), Role.USER);
+            // Create new account model
+            Account account = new Account(
+                    registrationRequest.getUsername(),
+                    passwordEncoder.encode(registrationRequest.getPassword()),
+                    registrationRequest.getEmail(),
+                    Role.USER
+            );
+
+            // Save it to the database
             accountRepository.save(account);
+
+            // Generate the response with the JWT tokens
             AuthenticationResponse authResponse = jwtService.generateToken(account);
             Response response = new Response(true, "Registration successful.", authResponse);
             return response;
         } catch (Exception e) {
             throw new RuntimeException("Registration failed: " + e.getMessage());
         }
-
-
     }
 
     public Response login(LoginRequest loginRequest) throws Exception {

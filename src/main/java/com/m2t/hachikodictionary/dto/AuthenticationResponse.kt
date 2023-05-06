@@ -1,7 +1,6 @@
 package com.m2t.hachikodictionary.dto
 
 import java.time.LocalDateTime
-import java.util.Date
 
 data class AuthenticationResponse(
     val accessToken: String,

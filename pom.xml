@@ -99,7 +99,11 @@
 				<configuration>
 					<compilerPlugins>
 						<plugin>jpa</plugin>
+						<plugin>no-arg</plugin>
 					</compilerPlugins>
+					<pluginOptions>
+						<option>no-arg:annotation=com.m2t.Annotation</option>
+					</pluginOptions>
 				</configuration>
 				<dependencies>
 					<dependency>

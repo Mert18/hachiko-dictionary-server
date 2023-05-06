@@ -9,6 +9,5 @@ data class WordDto(
     val antonyms: Set<String>,
     val sentences: Set<String>,
 ) {
-    constructor() : this(null, "", "", "", setOf(), setOf(), setOf())
 }
 

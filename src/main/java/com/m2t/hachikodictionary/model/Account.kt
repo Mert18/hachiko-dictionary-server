@@ -29,42 +29,6 @@ data class Account (
     @JoinColumn(name = "account_id")
     val learnedWords: Set<LearnedWord>
 ): UserDetails {
-    constructor() : this(null, "", "", "", Role.USER, setOf())
-    constructor(id: String, username: String, password: String, email: String): this (
-        id,
-        username,
-        password,
-        email,
-        Role.USER,
-        setOf()
-    )
-
-    constructor(username: String, password: String, role: Role) : this(
-        null,
-        username,
-        password,
-        "",
-        role,
-        setOf()
-    )
-
-    constructor(username: String, password: String, email: String, role: Role) : this(
-        null,
-        username,
-        password,
-        email,
-        role,
-        setOf()
-    )
-
-    constructor(username: String, password: String, email: String) : this(
-        null,
-        username,
-        password,
-        email,
-        Role.USER,
-        setOf()
-    )
 
     constructor(id: String, username: String, password: String, email: String, role: Role) : this(
         id,
@@ -72,17 +36,21 @@ data class Account (
         password,
         email,
         role,
-        setOf()
-    )
+        emptySet()
+    ) {
 
-    constructor(username: String) : this(
+    }
+    constructor(username: String, password: String, email: String, role: Role) : this(
         null,
         username,
-        "",
-        "",
-        Role.USER,
-        setOf()
-    )
+        password,
+        email,
+        role,
+        emptySet()
+    ) {
+
+    }
+
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return mutableListOf(SimpleGrantedAuthority(role.name))
@@ -111,4 +79,5 @@ data class Account (
     override fun isEnabled(): Boolean {
         return true
     }
+
 }

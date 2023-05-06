@@ -37,7 +37,10 @@ public class AccountService implements UserDetailsService {
         if (account == null) {
             throw new AccountNotFoundException(username);
         }
-        return new AccountDto(account.getId(), account.getUsername(), account.getEmail(), account.getRole());
+
+        // Create the AccountDTO object
+        AccountDto accountDto = new AccountDto(account.getId(), account.getUsername(), account.getEmail(), account.getRole());
+        return accountDto;
     }
 
     public Account loadUserByUsername(String username) {
@@ -45,7 +48,8 @@ public class AccountService implements UserDetailsService {
         if(account == null) {
             throw new AccountNotFoundException("Account not found.");
         }
-        return new Account(account.getId(), account.getUsername(), account.getPassword(), account.getEmail(), account.getRole());
+
+        return account;
     }
 
     @Bean
