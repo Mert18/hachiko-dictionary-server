@@ -24,4 +24,20 @@ data class Word(
     @ElementCollection
     val sentences: Set<String>,
 ) {
+    constructor(
+        title: String,
+        kind: String,
+        description: String,
+        synonyms: MutableSet<String>,
+        antonyms: MutableSet<String>,
+        sentences: MutableSet<String>
+    ) : this(
+        null,
+        title,
+        kind,
+        description,
+        synonyms,
+        antonyms,
+        sentences
+    )
 }
