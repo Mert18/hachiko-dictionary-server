@@ -1,5 +1,6 @@
 package com.m2t.hachikodictionary.model
 
+import jakarta.persistence.ElementCollection
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -16,9 +17,11 @@ data class Word(
     val title: String,
     val kind: String,
     val description: String,
+    @ElementCollection
     val synonyms: Set<String>,
+    @ElementCollection
     val antonyms: Set<String>,
+    @ElementCollection
     val sentences: Set<String>,
 ) {
-    constructor() : this(null, "", "", "", setOf(), setOf(), setOf())
 }

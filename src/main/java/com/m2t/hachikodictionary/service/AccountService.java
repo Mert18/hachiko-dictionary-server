@@ -54,8 +54,11 @@ public class AccountService implements UserDetailsService {
     }
 
     public AccountDto getAccountById(String id) {
-        Account account = findAccountById(id);
-        return converter.accountDtoConverter(account);
+        return converter.accountDtoConverter(findAccountById(id));
+    }
+
+    public AccountDto getAccountByUsername(String username) {
+        return converter.accountDtoConverter(findAccountByUsername(username));
     }
 
     // Beans for authentication process.

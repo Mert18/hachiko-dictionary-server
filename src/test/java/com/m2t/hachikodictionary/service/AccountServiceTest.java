@@ -54,6 +54,6 @@ class AccountServiceTest {
 
         AccountDto result = service.getAccountById("1");
 
-        assertEquals(result, account);
+        assertEquals(result, accountDto);
     }
 }

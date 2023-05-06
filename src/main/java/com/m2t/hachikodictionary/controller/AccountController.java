@@ -17,12 +17,12 @@ public class AccountController {
     }
 
     @GetMapping("/id/{accountId}")
-    public ResponseEntity<Account> getAccountById(@PathVariable String accountId) {
-        return ResponseEntity.ok(accountService.findAccountById(accountId));
+    public ResponseEntity<AccountDto> getAccountById(@PathVariable String accountId) {
+        return ResponseEntity.ok(accountService.getAccountById(accountId));
     }
     @GetMapping("/username/{username}")
-    public ResponseEntity<Account> getAccountByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(accountService.findAccountByUsername(username));
+    public ResponseEntity<AccountDto> getAccountByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(accountService.getAccountByUsername(username));
     }
 
 }
