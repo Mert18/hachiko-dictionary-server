@@ -1,6 +1,7 @@
 package com.m2t.hachikodictionary.service;
 
 import com.m2t.hachikodictionary.dto.AccountDto;
+import com.m2t.hachikodictionary.dto.AccountDtoConverter;
 import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.repository.AccountRepository;
@@ -20,27 +21,27 @@ import org.springframework.stereotype.Service;
 public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
+    private final AccountDtoConverter converter;
     private final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, AccountDtoConverter converter) {
         this.accountRepository = accountRepository;
+        this.converter = converter;
     }
 
-    public AccountDto getAccountById(String accountId) {
+    public Account findAccountById(String accountId) {
         return accountRepository.findById(accountId)
-                .map(account -> new AccountDto(account.getId(), account.getUsername(), account.getEmail(), account.getRole()))
                 .orElseThrow(() -> new AccountNotFoundException("Account not found."));
     }
 
-    public AccountDto getAccountByUsername(String username) {
+    public Account findAccountByUsername(String username) {
         Account account = accountRepository.findAccountByUsername(username);
         if (account == null) {
             throw new AccountNotFoundException(username);
         }
 
         // Create the AccountDTO object
-        AccountDto accountDto = new AccountDto(account.getId(), account.getUsername(), account.getEmail(), account.getRole());
-        return accountDto;
+        return account;
     }
 
     public Account loadUserByUsername(String username) {
@@ -52,6 +53,12 @@ public class AccountService implements UserDetailsService {
         return account;
     }
 
+    public AccountDto getAccountById(String id) {
+        Account account = findAccountById(id);
+        return converter.accountDtoConverter(account);
+    }
+
+    // Beans for authentication process.
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();

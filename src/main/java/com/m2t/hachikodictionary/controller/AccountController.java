@@ -1,6 +1,7 @@
 package com.m2t.hachikodictionary.controller;
 
 import com.m2t.hachikodictionary.dto.AccountDto;
+import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.service.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,12 @@ public class AccountController {
     }
 
     @GetMapping("/id/{accountId}")
-    public ResponseEntity<AccountDto> getAccountById(@PathVariable String accountId) {
-        return ResponseEntity.ok(accountService.getAccountById(accountId));
+    public ResponseEntity<Account> getAccountById(@PathVariable String accountId) {
+        return ResponseEntity.ok(accountService.findAccountById(accountId));
     }
     @GetMapping("/username/{username}")
-    public ResponseEntity<AccountDto> getAccountByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(accountService.getAccountByUsername(username));
+    public ResponseEntity<Account> getAccountByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(accountService.findAccountByUsername(username));
     }
 
 }
