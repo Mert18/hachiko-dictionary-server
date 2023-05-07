@@ -13,15 +13,31 @@ data class Word(
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator") // Generate UUID
-    val id: String?,
-    val title: String,
-    val kind: String,
-    val description: String,
+    var id: String?,
+    var title: String,
+    var kind: String,
+    var description: String,
     @ElementCollection
-    val synonyms: Set<String>,
+    var synonyms: Set<String>,
     @ElementCollection
-    val antonyms: Set<String>,
+    var antonyms: Set<String>,
     @ElementCollection
-    val sentences: Set<String>,
+    var sentences: Set<String>,
 ) {
+    constructor(
+        title: String,
+        kind: String,
+        description: String,
+        synonyms: MutableSet<String>,
+        antonyms: MutableSet<String>,
+        sentences: MutableSet<String>
+    ) : this(
+        null,
+        title,
+        kind,
+        description,
+        synonyms,
+        antonyms,
+        sentences
+    )
 }
