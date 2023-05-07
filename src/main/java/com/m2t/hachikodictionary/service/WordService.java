@@ -3,6 +3,7 @@ package com.m2t.hachikodictionary.service;
 import com.m2t.hachikodictionary.dto.CreateWordRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.WordAlreadyExistsException;
+import com.m2t.hachikodictionary.exception.WordNotFoundException;
 import com.m2t.hachikodictionary.model.Word;
 import com.m2t.hachikodictionary.repository.WordRepository;
 import org.slf4j.Logger;
@@ -18,6 +19,21 @@ public class WordService {
 
     public WordService(WordRepository wordRepository) {
         this.wordRepository = wordRepository;
+    }
+
+    public Response getWordByTitle(String title) {
+        try {
+            Word word = wordRepository.findWordByTitle(title);
+            if(word == null) {
+                throw new WordNotFoundException("Word not found.");
+            }
+            Response response = new Response(true, "Word retrieval successful.", word);
+            return response;
+        } catch(WordNotFoundException e) {
+            throw new WordNotFoundException("Word not found.");
+        } catch (Exception e) {
+            throw new RuntimeException("Word retrieval failed: " + e.getMessage());
+        }
     }
 
     public Response createWord(CreateWordRequest createWordRequest) {

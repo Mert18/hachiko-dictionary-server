@@ -3,6 +3,7 @@ package com.m2t.hachikodictionary.controller;
 import com.m2t.hachikodictionary.dto.CreateWordRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.WordAlreadyExistsException;
+import com.m2t.hachikodictionary.exception.WordNotFoundException;
 import com.m2t.hachikodictionary.model.Word;
 import com.m2t.hachikodictionary.service.WordService;
 import jakarta.validation.Valid;
@@ -17,6 +18,22 @@ public class WordController {
 
     public WordController(WordService wordService) {
         this.wordService = wordService;
+    }
+
+    @GetMapping("/{title}")
+    public ResponseEntity<Response> getWordByTitle(@PathVariable String title) {
+        try {
+            return ResponseEntity
+                    .ok(wordService.getWordByTitle(title));
+        } catch(WordNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new Response(false, e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new Response(false, "Word retrieval failed."));
+        }
     }
 
     @PostMapping("/create")
