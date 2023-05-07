@@ -21,18 +21,25 @@ public class AuthenticationService {
 
     private final AccountRepository accountRepository;
     private final AccountService accountService;
+    private final MailService mailService;
+    private final ConfirmationService confirmationService;
     private final JWTService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
-    public AuthenticationService(AccountRepository accountRepository, AccountService accountService, JWTService jwtService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
+    public AuthenticationService(AccountRepository accountRepository, AccountService accountService,
+                                 JWTService jwtService, AuthenticationManager authenticationManager,
+                                 PasswordEncoder passwordEncoder, MailService mailService,
+                                 ConfirmationService confirmationService) {
         this.accountRepository = accountRepository;
         this.accountService = accountService;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
+        this.confirmationService = confirmationService;
     }
 
     public Response register(RegistrationRequest registrationRequest) {
@@ -44,7 +51,6 @@ public class AuthenticationService {
         }
 
         try {
-            // Create new account model
             Account account = new Account(
                     registrationRequest.getUsername(),
                     passwordEncoder.encode(registrationRequest.getPassword()),
@@ -52,11 +58,13 @@ public class AuthenticationService {
                     Role.USER
             );
 
-            // Save it to the database
             accountRepository.save(account);
 
-            // Generate the response with the JWT tokens
             AuthenticationResponse authResponse = jwtService.generateToken(account);
+
+            String token = confirmationService.create(registrationRequest.getEmail());
+            mailService.sendConfirmationEmail(registrationRequest, token);
+
             Response response = new Response(true, "Registration successful.", authResponse);
             return response;
         } catch (Exception e) {
