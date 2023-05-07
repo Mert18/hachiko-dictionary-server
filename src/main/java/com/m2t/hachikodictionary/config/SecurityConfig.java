@@ -33,6 +33,9 @@ public class SecurityConfig {
                                 auth
                                         .requestMatchers("/api/v1/auth/**").permitAll()
                                         .requestMatchers("/api/v1/word/create").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/word/delete").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/word/update").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/word/**").permitAll()
                                         .anyRequest().authenticated()
                                         .and()
                                         .sessionManagement()
