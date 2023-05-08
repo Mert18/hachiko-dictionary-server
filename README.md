@@ -1,3 +1,3 @@
-# hachiko-dictionary-server
+# ! REMAKE is in progress for this project. !
 
-A dictionary server currently only serves the Word route.
+Please see `remake` branch for the current version. This branch will be merged ASAP.
