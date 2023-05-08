@@ -24,6 +24,7 @@ data class Account (
 
     @Enumerated(EnumType.STRING)
     val role: Role = Role.USER,
+    val confirmed: Boolean = false,
 
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "account_id")
@@ -36,6 +37,7 @@ data class Account (
         password,
         email,
         role,
+        false,
         emptySet()
     ) {
 
@@ -46,6 +48,19 @@ data class Account (
         password,
         email,
         role,
+        false,
+        emptySet(),
+    ) {
+
+    }
+
+    constructor(id: String, username: String, password: String, email: String, role: Role, confirmed: Boolean) : this(
+        id,
+        username,
+        password,
+        email,
+        role,
+        confirmed,
         emptySet()
     ) {
 

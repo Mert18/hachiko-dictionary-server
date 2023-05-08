@@ -1,7 +1,10 @@
 package com.m2t.hachikodictionary.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.m2t.hachikodictionary.dto.AccountDto;
 import com.m2t.hachikodictionary.dto.AccountDtoConverter;
+import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.repository.AccountRepository;
@@ -59,6 +62,43 @@ public class AccountService implements UserDetailsService {
 
     public AccountDto getAccountByUsername(String username) {
         return converter.accountDtoConverter(findAccountByUsername(username));
+    }
+
+    public void confirmAccount(String email) {
+        try {
+            Account account = accountRepository.findAccountByEmail(email);
+
+            Account updatedAccount = new Account(
+                    account.getId(),
+                    account.getUsername(),
+                    account.getPassword(),
+                    account.getEmail(),
+                    account.getRole(),
+                    true
+            );
+            accountRepository.save(updatedAccount);
+        } catch (AccountNotFoundException e) {
+            throw new AccountNotFoundException("Account not found.");
+        }
+    }
+
+    public Response isAccountConfirmed(String id) {
+        try {
+            Account account = accountRepository.findById(id)
+                    .orElseThrow(() -> new AccountNotFoundException("Account not found."));
+
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode jsonObject = mapper.createObjectNode();
+            jsonObject.put("confirmed", account.getConfirmed());
+            jsonObject.put("email", account.getEmail());
+            jsonObject.put("id", account.getId());
+
+            return new Response(true, "Check is completed.", jsonObject);
+        } catch (AccountNotFoundException e) {
+            throw new AccountNotFoundException("Account not found.");
+        } catch (Exception e) {
+            throw new RuntimeException("Error checking if account is confirmed: " + e.getMessage());
+        }
     }
 
     // Beans for authentication process.

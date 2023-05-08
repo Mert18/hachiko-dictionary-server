@@ -13,9 +13,11 @@ import java.util.UUID;
 public class ConfirmationService {
 
     private final ConfirmationRepository confirmationRepository;
+    private final AccountService accountService;
 
-    public ConfirmationService(ConfirmationRepository confirmationRepository) {
+    public ConfirmationService(ConfirmationRepository confirmationRepository, AccountService accountService) {
         this.confirmationRepository = confirmationRepository;
+        this.accountService = accountService;
     }
 
     public Boolean existsByEmail(String email) {
@@ -47,6 +49,7 @@ public class ConfirmationService {
 
             if (confirmation.getToken().equals(confirmEmailRequest.getToken())) {
                 confirmationRepository.delete(confirmation);
+                accountService.confirmAccount(confirmEmailRequest.getEmail());
                 return new Response(true, "Email is successfully confirmed.");
             } else {
                 throw new RuntimeException("Invalid token.");

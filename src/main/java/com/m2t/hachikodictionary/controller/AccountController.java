@@ -1,6 +1,7 @@
 package com.m2t.hachikodictionary.controller;
 
 import com.m2t.hachikodictionary.dto.AccountDto;
+import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.service.AccountService;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,11 @@ public class AccountController {
     @GetMapping("/username/{username}")
     public ResponseEntity<AccountDto> getAccountByUsername(@PathVariable String username) {
         return ResponseEntity.ok(accountService.getAccountByUsername(username));
+    }
+
+    @GetMapping("/isconfirmed/{id}")
+    public ResponseEntity<Response> isConfirmed(@PathVariable String id) {
+        return ResponseEntity.ok(accountService.isAccountConfirmed(id));
     }
 
 }

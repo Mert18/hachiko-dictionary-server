@@ -32,6 +32,8 @@ public class SecurityConfig {
                             try {
                                 auth
                                         .requestMatchers("/api/v1/auth/**").permitAll()
+                                        .requestMatchers("/api/v1/confirmation/**").permitAll()
+                                        .requestMatchers("/api/v1/account/**").hasAnyAuthority("USER")
                                         .requestMatchers("/api/v1/word/create").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/word/delete/**").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/word/update/**").hasAnyAuthority("ADMIN")
