@@ -43,6 +43,10 @@ public class AuthenticationService {
     }
 
     public Response register(RegistrationRequest registrationRequest) {
+        System.out.println("Registration request: " + registrationRequest);
+        if(!registrationRequest.getPassword().equals(registrationRequest.getConfirmPassword())) {
+            throw new PasswordsDoNotMatchException("Passwords do not match.");
+        }
         if(accountRepository.existsByUsername(registrationRequest.getUsername())) {
             throw new UsernameAlreadyExistsException("Username already exists.");
         }

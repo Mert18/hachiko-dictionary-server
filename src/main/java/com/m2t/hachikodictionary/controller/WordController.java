@@ -6,6 +6,7 @@ import com.m2t.hachikodictionary.exception.WordAlreadyExistsException;
 import com.m2t.hachikodictionary.exception.WordNotFoundException;
 import com.m2t.hachikodictionary.service.WordService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,25 @@ public class WordController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Response> getAllWords() {
+    public ResponseEntity<Response> getAllWords(Pageable pageable) {
         try {
             return ResponseEntity
-                    .ok(wordService.getAllWords());
+                    .ok(wordService.getAllWords(pageable));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new Response(false, "Word retrieval failed."));
+        }
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Response> getWord(@PathVariable String id) {
+        try {
+            return ResponseEntity
+                    .ok(wordService.getWord(id));
+        } catch(WordNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -30,11 +46,11 @@ public class WordController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Response> getWord(@PathVariable String id) {
+    @GetMapping("/title/{title}")
+    public ResponseEntity<Response> getWordByTitle(@PathVariable String title) {
         try {
             return ResponseEntity
-                    .ok(wordService.getWord(id));
+                    .ok(wordService.getWordByTitle(title));
         } catch(WordNotFoundException e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)

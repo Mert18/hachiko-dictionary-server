@@ -14,6 +14,7 @@ data class RegistrationRequest(
     @field:NotBlank(message = "Password cannot be blank.")
     @field:Size(min = 6, message = "Password must be at least 6 characters.")
     val password: String,
+    val confirmPassword: String,
 
     @field:Email(message = "Email must be valid.")
     val email: String,

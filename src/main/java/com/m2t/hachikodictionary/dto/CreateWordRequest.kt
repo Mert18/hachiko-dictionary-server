@@ -8,7 +8,7 @@ data class CreateWordRequest(
     @field:NotBlank(message = "Kind cannot be blank.")
     val kind: String,
     @field:NotBlank(message = "Description cannot be blank.")
-    val description: String,
+    val descriptions: Set<String>,
     val synonyms: Set<String>,
     val antonyms: Set<String>,
     val sentences: Set<String>,

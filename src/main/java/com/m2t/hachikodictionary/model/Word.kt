@@ -16,7 +16,9 @@ data class Word(
     var id: String?,
     var title: String,
     var kind: String,
-    var description: String,
+
+    @ElementCollection
+    var descriptions: Set<String>,
     @ElementCollection
     var synonyms: Set<String>,
     @ElementCollection
@@ -27,7 +29,7 @@ data class Word(
     constructor(
         title: String,
         kind: String,
-        description: String,
+        descriptions: MutableSet<String>,
         synonyms: MutableSet<String>,
         antonyms: MutableSet<String>,
         sentences: MutableSet<String>
@@ -35,7 +37,7 @@ data class Word(
         null,
         title,
         kind,
-        description,
+        descriptions,
         synonyms,
         antonyms,
         sentences
