@@ -43,6 +43,7 @@ public class SecurityConfig {
                                         .requestMatchers("/api/v1/word/create").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/word/delete/**").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/word/update/**").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/word/all").hasAnyAuthority("USER")
                                         .requestMatchers("/api/v1/word/**").permitAll()
                                         .anyRequest().authenticated()
                                         .and()
