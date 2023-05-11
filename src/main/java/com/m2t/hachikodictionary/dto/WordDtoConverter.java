@@ -9,11 +9,11 @@ import java.util.Optional;
 public class WordDtoConverter {
 
     public Word dtoWordConverter(WordDto from) {
-        return new Word(from.getId(), from.getTitle(), from.getKind(), from.getDescriptions(),
+        return new Word(from.getId(), from.getTitle(), from.getKind(), from.getDifficulty(), from.getDescriptions(),
                 from.getSynonyms(), from.getAntonyms(), from.getSentences());
     }
     public WordDto wordDtoConverter(Word from) {
-        return new WordDto(from.getId(), from.getTitle(), from.getKind(),
+        return new WordDto(from.getId(), from.getTitle(), from.getKind(), from.getDifficulty(),
                 from.getDescriptions(), from.getSynonyms(),
                 from.getAntonyms(), from.getSentences());
     }

@@ -2,6 +2,7 @@ package com.m2t.hachikodictionary.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.m2t.hachikodictionary.config.JWTService;
 import com.m2t.hachikodictionary.dto.AccountDto;
 import com.m2t.hachikodictionary.dto.AccountDtoConverter;
 import com.m2t.hachikodictionary.dto.Response;
@@ -53,6 +54,14 @@ public class AccountService implements UserDetailsService {
             throw new AccountNotFoundException("Account not found.");
         }
 
+        return account;
+    }
+
+    public Account loadUserByEmail(String email) {
+        Account account = accountRepository.findAccountByEmail(email);
+        if(account == null) {
+            throw new AccountNotFoundException("Account not found.");
+        }
         return account;
     }
 

@@ -43,7 +43,6 @@ public class AuthenticationService {
     }
 
     public Response register(RegistrationRequest registrationRequest) {
-        System.out.println("Registration request: " + registrationRequest);
         if(!registrationRequest.getPassword().equals(registrationRequest.getConfirmPassword())) {
             throw new PasswordsDoNotMatchException("Passwords do not match.");
         }
@@ -78,17 +77,17 @@ public class AuthenticationService {
 
     public Response login(LoginRequest loginRequest) throws Exception {
         try {
-            Account user = accountService.loadUserByUsername(loginRequest.getUsername());
+            Account user = accountService.loadUserByEmail(loginRequest.getEmail());
             if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
                 throw new InvalidCredentialsException("Invalid credentials.");
             }
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUsername(),
+                            user.getUsername(),
                             loginRequest.getPassword()
                     )
             );
-            Account account = accountRepository.findAccountByUsername(loginRequest.getUsername());
+            Account account = accountRepository.findAccountByEmail(loginRequest.getEmail());
             AuthenticationResponse authResponse = jwtService.generateToken(account);
             Response response = new Response(true, "Login successful.", authResponse);
             return response;
@@ -97,6 +96,7 @@ public class AuthenticationService {
         } catch (InvalidCredentialsException e) {
             throw new InvalidCredentialsException("Invalid credentials.");
         } catch (Exception e) {
+            System.out.println("exception happened: " + e);
             throw new Exception("Login failed: " + e.getMessage());
         }
 

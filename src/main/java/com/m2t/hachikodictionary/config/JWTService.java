@@ -57,6 +57,10 @@ public class JWTService {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractAccountId(String token) {
+        return extractClaim(token, claims -> claims.get("accountId", String.class));
+    }
+
     // Generic method for extracting one claim from the token
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -72,6 +76,8 @@ public class JWTService {
         if(roles.contains(new SimpleGrantedAuthority("USER"))) {
             extraClaims.put("isUser", true);
         }
+        extraClaims.put("accountId", account.getId());
+        extraClaims.put("email", account.getEmail());
         String accessToken = generateAccessToken(extraClaims, account);
         String refreshToken = generateRefreshToken(extraClaims, account);
         Claims accessTokenClaims = extractAllClaims(accessToken);
@@ -87,7 +93,10 @@ public class JWTService {
                         accessTokenExpiresAt,
                         refreshTokenExpiresAt,
                         roles.contains(new SimpleGrantedAuthority("USER")),
-                        roles.contains(new SimpleGrantedAuthority("ADMIN"))
+                        roles.contains(new SimpleGrantedAuthority("ADMIN")),
+                        account.getUsername(),
+                        account.getEmail(),
+                        account.getRole()
                 );
 
         return authenticationResponse;

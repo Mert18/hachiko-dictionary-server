@@ -1,5 +1,6 @@
 package com.m2t.hachikodictionary.dto
 
+import com.m2t.hachikodictionary.model.Role
 import java.time.LocalDateTime
 
 data class AuthenticationResponse(
@@ -10,5 +11,8 @@ data class AuthenticationResponse(
     val refreshExpiresAt: LocalDateTime,
     val isUser: Boolean,
     val isAdmin: Boolean,
+    val username: String,
+    val email: String,
+    val role: Role
 ) {
 }

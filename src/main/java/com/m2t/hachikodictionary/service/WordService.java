@@ -78,6 +78,23 @@ public class WordService {
         }
     }
 
+    public Response getOneWordByDifficulty(String difficulty) {
+        try {
+            Word word = wordRepository.findRandomWordByDifficulty(difficulty);
+            if(word == null) {
+                throw new WordNotFoundException("Word not found.");
+            }
+            WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
+
+            Response response = new Response(true, "Random word retrieval successful.", wordDto);
+            return response;
+        } catch(WordNotFoundException e) {
+            throw new WordNotFoundException("Word not found.");
+        } catch (Exception e) {
+            throw new RuntimeException("Word retrieval failed: " + e.getMessage());
+        }
+    }
+
     public Response createWord(CreateWordRequest createWordRequest) {
         if(wordRepository.existsByTitle(createWordRequest.getTitle())) {
             throw new WordAlreadyExistsException("Word already exists.");

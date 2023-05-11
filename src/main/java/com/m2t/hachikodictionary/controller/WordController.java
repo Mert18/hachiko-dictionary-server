@@ -46,6 +46,17 @@ public class WordController {
         }
     }
 
+    @GetMapping("/one/{difficulty}")
+    public ResponseEntity<Response> getOneWordByDifficulty(@PathVariable String difficulty) {
+        try {
+            return ResponseEntity.ok(wordService.getOneWordByDifficulty(difficulty));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new Response(false, "Word retrieval failed."));
+        }
+    }
+
     @GetMapping("/title/{title}")
     public ResponseEntity<Response> getWordByTitle(@PathVariable String title) {
         try {
