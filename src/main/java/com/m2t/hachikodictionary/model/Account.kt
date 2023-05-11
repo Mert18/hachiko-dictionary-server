@@ -26,8 +26,7 @@ data class Account (
     val role: Role = Role.USER,
     val confirmed: Boolean = false,
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "account_id")
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val learnedWords: Set<LearnedWord>
 ): UserDetails {
 

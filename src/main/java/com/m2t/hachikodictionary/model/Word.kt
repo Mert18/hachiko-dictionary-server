@@ -1,10 +1,6 @@
 package com.m2t.hachikodictionary.model
 
-import jakarta.persistence.ElementCollection
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import org.hibernate.annotations.GenericGenerator
 import org.springframework.boot.context.properties.bind.DefaultValue
 
@@ -28,6 +24,9 @@ data class Word(
     var antonyms: Set<String>,
     @ElementCollection
     var sentences: Set<String>,
+
+    @OneToMany(mappedBy = "word", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    val learnedWords: Set<LearnedWord>
 ) {
     constructor(
         title: String,
@@ -35,7 +34,7 @@ data class Word(
         descriptions: MutableSet<String>,
         synonyms: MutableSet<String>,
         antonyms: MutableSet<String>,
-        sentences: MutableSet<String>
+        sentences: MutableSet<String>,
     ) : this(
         null,
         title,
@@ -44,7 +43,8 @@ data class Word(
         descriptions,
         synonyms,
         antonyms,
-        sentences
+        sentences,
+        emptySet()
     )
 
     constructor(
@@ -54,7 +54,7 @@ data class Word(
         descriptions: MutableSet<String>,
         synonyms: MutableSet<String>,
         antonyms: MutableSet<String>,
-        sentences: MutableSet<String>
+        sentences: MutableSet<String>,
     ) : this(
         null,
         title,
@@ -63,7 +63,29 @@ data class Word(
         descriptions,
         synonyms,
         antonyms,
-        sentences
+        sentences,
+        emptySet()
+    )
+
+    constructor(
+        id: String,
+        title: String,
+        kind: String,
+        difficulty: String,
+        descriptions: MutableSet<String>,
+        synonyms: MutableSet<String>,
+        antonyms: MutableSet<String>,
+        sentences: MutableSet<String>
+    ) : this(
+        id,
+        title,
+        kind,
+        difficulty,
+        descriptions,
+        synonyms,
+        antonyms,
+        sentences,
+        emptySet()
     )
 
 

@@ -48,6 +48,8 @@ public class SecurityConfig {
                                         .requestMatchers("/api/v1/quote/create").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/quote/delete").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/quote/**").permitAll()
+                                        .requestMatchers("/api/v1/learned-word/**").permitAll()
+
                                         .anyRequest().authenticated()
                                         .and()
                                         .sessionManagement()

@@ -44,6 +44,17 @@ public class WordService {
         }
     }
 
+    public Word findWordById(String id) {
+        try {
+            Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
+            return word;
+        } catch(WordNotFoundException e) {
+            throw new WordNotFoundException("Word not found.");
+        } catch (Exception e) {
+            throw new RuntimeException("Word retrieval failed: " + e.getMessage());
+        }
+    }
+
     public Response getWordByTitle(String title) {
         try {
             Word word = wordRepository.findWordByTitle(title);

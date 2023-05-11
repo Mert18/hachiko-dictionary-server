@@ -9,6 +9,7 @@ data class AccountDto(
     val password: String,
     val email: String,
     val role: Role? = Role.USER
+
 ) {
 
 }

@@ -2,7 +2,6 @@ package com.m2t.hachikodictionary.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.m2t.hachikodictionary.config.JWTService;
 import com.m2t.hachikodictionary.dto.AccountDto;
 import com.m2t.hachikodictionary.dto.AccountDtoConverter;
 import com.m2t.hachikodictionary.dto.Response;
