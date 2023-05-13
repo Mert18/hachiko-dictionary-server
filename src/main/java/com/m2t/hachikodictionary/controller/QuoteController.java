@@ -22,7 +22,7 @@ public class QuoteController {
             return ResponseEntity.ok(quoteService.getRandomQuote(difficulty));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(500)
                     .body(new Response(false, "Quote retrieval failed."));
         }
     }
@@ -33,7 +33,7 @@ public class QuoteController {
             return ResponseEntity.ok(quoteService.createQuote(quote));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(500)
                     .body(new Response(false, "Quote creation failed."));
         }
 
@@ -45,7 +45,7 @@ public class QuoteController {
             return ResponseEntity.ok(quoteService.deleteQuote(id));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(500)
                     .body(new Response(false, "Quote deletion failed."));
         }
     }

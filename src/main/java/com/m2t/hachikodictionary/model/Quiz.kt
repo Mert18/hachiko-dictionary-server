@@ -15,7 +15,7 @@ data class Quiz(
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    val id: String,
+    val id: String?,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
@@ -25,4 +25,13 @@ data class Quiz(
     val difficulty: String
 
 ) {
+    constructor(account: Account, correctAnswers: Int, incorrectAnswers: Int, difficulty: String) : this(
+        null,
+        account,
+        correctAnswers,
+        incorrectAnswers,
+        difficulty
+    ) {
+
+    }
 }
