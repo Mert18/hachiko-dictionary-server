@@ -49,7 +49,7 @@ public class SecurityConfig {
                                         .requestMatchers("/api/v1/quote/delete").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/quote/**").permitAll()
                                         .requestMatchers("/api/v1/learned-word/**").hasAnyAuthority("USER", "ADMIN")
-                                        .requestMatchers("/api/v1/quiz/complete").hasAnyAuthority("USER", "ADMIN")
+                                        .requestMatchers("/api/v1/quiz/**").hasAnyAuthority("USER", "ADMIN")
 
 
                                         .anyRequest().authenticated()

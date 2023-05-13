@@ -48,6 +48,15 @@ public class QuizController {
         }
     }
 
+    @GetMapping("/generate/{difficulty}")
+    public ResponseEntity<Response> generateQuiz(@PathVariable String difficulty) {
+        try {
+            return ResponseEntity.ok(quizService.generateQuiz(difficulty));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new Response(false, e.getMessage()));
+        }
+    }
+
     @GetMapping("/my-quizzes")
     public ResponseEntity<Response> getMyQuizzes(@RequestHeader("Authorization") String token) {
         try {
