@@ -4,6 +4,8 @@ import com.m2t.hachikodictionary.config.JWTService;
 import com.m2t.hachikodictionary.dto.CompleteQuizRequest;
 import com.m2t.hachikodictionary.dto.QuizDto;
 import com.m2t.hachikodictionary.dto.Response;
+import com.m2t.hachikodictionary.exception.AccountNotFoundException;
+import com.m2t.hachikodictionary.exception.QuizNotValidException;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.model.Quiz;
 import com.m2t.hachikodictionary.service.AccountService;
@@ -29,15 +31,30 @@ public class QuizController {
     @PostMapping("/complete")
     public ResponseEntity<Response> completeQuiz(@RequestBody CompleteQuizRequest completeQuizRequest, @RequestHeader("Authorization") String token) {
         try {
-            System.out.println("completeQuizRequest: " + completeQuizRequest);
+            if(completeQuizRequest.getCorrectAnswers() + completeQuizRequest.getIncorrectAnswers() != 10) {
+                throw new QuizNotValidException("Quiz must have 10 questions.");
+            }
             String jwtToken = token.substring(7);
             String accountId = jwtService.extractAccountId(jwtToken);
-            System.out.println("accountId: " + accountId);
             Account account = accountService.findAccountById(accountId);
 
             Quiz quiz = new Quiz(account, completeQuizRequest.getCorrectAnswers(), completeQuizRequest.getIncorrectAnswers(), completeQuizRequest.getDifficulty());
 
             return ResponseEntity.ok(quizService.completeQuiz(quiz));
+        } catch (AccountNotFoundException | QuizNotValidException e) {
+            return ResponseEntity.badRequest().body(new Response(false, e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new Response(false, e.getMessage()));
+        }
+    }
+
+    @GetMapping("/my-quizzes")
+    public ResponseEntity<Response> getMyQuizzes(@RequestHeader("Authorization") String token) {
+        try {
+            String jwtToken = token.substring(7);
+            String accountId = jwtService.extractAccountId(jwtToken);
+            Account account = accountService.findAccountById(accountId);
+            return ResponseEntity.ok(quizService.getAccountQuizzes(account));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(new Response(false, e.getMessage()));
         }
