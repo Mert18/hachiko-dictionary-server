@@ -1,11 +1,13 @@
 package com.m2t.hachikodictionary.controller;
 
-import com.m2t.hachikodictionary.dto.*;
+import com.m2t.hachikodictionary.dto.LoginRequest;
+import com.m2t.hachikodictionary.dto.RefreshRequest;
+import com.m2t.hachikodictionary.dto.RegistrationRequest;
+import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.EmailAlreadyExistsException;
 import com.m2t.hachikodictionary.exception.InvalidCredentialsException;
 import com.m2t.hachikodictionary.exception.UsernameAlreadyExistsException;
 import com.m2t.hachikodictionary.service.AuthenticationService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +28,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
+    public ResponseEntity<Response> register(@RequestBody RegistrationRequest registrationRequest) {
         try {
             return ResponseEntity
                     .ok(authenticationService.register(registrationRequest));
@@ -42,7 +44,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Response> login(@RequestBody @Valid LoginRequest loginRequest) {
+    public ResponseEntity<Response> login(@RequestBody LoginRequest loginRequest) {
         try {
             return ResponseEntity
                     .ok(authenticationService.login(loginRequest));
@@ -60,7 +62,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<Response> refresh(@RequestBody @Valid RefreshRequest refreshRequest) {
+    public ResponseEntity<Response> refresh(@RequestBody  RefreshRequest refreshRequest) {
         return ResponseEntity.ok(authenticationService.refreshToken(refreshRequest.getRefreshToken()));
     }
 
