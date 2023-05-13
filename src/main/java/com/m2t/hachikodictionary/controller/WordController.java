@@ -5,14 +5,15 @@ import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.WordAlreadyExistsException;
 import com.m2t.hachikodictionary.exception.WordNotFoundException;
 import com.m2t.hachikodictionary.service.WordService;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/word")
+@Validated
 public class WordController {
     private final WordService wordService;
     public WordController(WordService wordService) {
@@ -74,7 +75,7 @@ public class WordController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Response> createWord(@RequestBody @Valid CreateWordRequest createWordRequest) {
+    public ResponseEntity<Response> createWord(@RequestBody CreateWordRequest createWordRequest) {
         try {
             return ResponseEntity
                     .ok(wordService.createWord(createWordRequest));
@@ -90,7 +91,7 @@ public class WordController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Response> updateWord(@PathVariable String id, @RequestBody @Valid CreateWordRequest createWordRequest) {
+    public ResponseEntity<Response> updateWord(@PathVariable String id, @RequestBody CreateWordRequest createWordRequest) {
         try {
             return ResponseEntity
                     .ok(wordService.updateWord(id, createWordRequest));

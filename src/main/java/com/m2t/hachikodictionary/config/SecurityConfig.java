@@ -39,16 +39,18 @@ public class SecurityConfig {
                                 auth
                                         .requestMatchers("/api/v1/auth/**").permitAll()
                                         .requestMatchers("/api/v1/confirmation/**").permitAll()
-                                        .requestMatchers("/api/v1/account/**").hasAnyAuthority("USER")
+                                        .requestMatchers("/api/v1/account/**").hasAnyAuthority("USER", "ADMIN")
                                         .requestMatchers("/api/v1/word/create").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/word/delete/**").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/word/update/**").hasAnyAuthority("ADMIN")
-                                        .requestMatchers("/api/v1/word/all").hasAnyAuthority("USER")
+                                        .requestMatchers("/api/v1/word/all").hasAnyAuthority("USER", "ADMIN")
                                         .requestMatchers("/api/v1/word/**").permitAll()
                                         .requestMatchers("/api/v1/quote/create").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/quote/delete").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/quote/**").permitAll()
-                                        .requestMatchers("/api/v1/learned-word/**").permitAll()
+                                        .requestMatchers("/api/v1/learned-word/**").hasAnyAuthority("USER", "ADMIN")
+                                        .requestMatchers("/api/v1/quiz/complete").hasAnyAuthority("USER", "ADMIN")
+
 
                                         .anyRequest().authenticated()
                                         .and()

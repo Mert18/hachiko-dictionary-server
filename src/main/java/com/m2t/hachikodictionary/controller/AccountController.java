@@ -21,10 +21,9 @@ public class AccountController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<AccountDto> getAccount(HttpServletRequest request) {
-        var header = request.getHeader("Authorization");
-        String token = header.substring(7);
-        String accountId = jwtService.extractAccountId(token);
+    public ResponseEntity<AccountDto> getAccount(@RequestHeader("Authorization") String token) {
+        String jwtToken = token.substring(7);
+        String accountId = jwtService.extractAccountId(jwtToken);
         return ResponseEntity.ok(accountService.getAccountById(accountId));
     }
     @GetMapping("/id/{accountId}")
