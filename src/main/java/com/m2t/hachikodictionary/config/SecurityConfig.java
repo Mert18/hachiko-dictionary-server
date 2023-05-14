@@ -1,41 +1,88 @@
 package com.m2t.hachikodictionary.config;
 
+import com.m2t.hachikodictionary.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final AccountService accountService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public SecurityConfig(AccountService accountService, JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {
+        this.accountService = accountService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .httpBasic().and()
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/api/word").permitAll().and()
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/api/word").hasRole("ADMIN").anyRequest().authenticated();
+        http.cors().and().csrf().disable()
+                .authorizeHttpRequests((auth) -> {
+                            try {
+                                auth
+                                        .requestMatchers("/api/v1/auth/**").permitAll()
+                                        .requestMatchers("/api/v1/confirmation/**").permitAll()
+                                        .requestMatchers("/api/v1/account/**").hasAnyAuthority("USER", "ADMIN")
+                                        .requestMatchers("/api/v1/word/create").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/word/delete/**").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/word/update/**").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/word/all").hasAnyAuthority("USER", "ADMIN")
+                                        .requestMatchers("/api/v1/word/**").permitAll()
+                                        .requestMatchers("/api/v1/quote/create").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/quote/delete").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/quote/**").permitAll()
+                                        .requestMatchers("/api/v1/learned-word/**").hasAnyAuthority("USER", "ADMIN")
+                                        .requestMatchers("/api/v1/quiz/**").hasAnyAuthority("USER", "ADMIN")
+
+
+                                        .anyRequest().authenticated()
+                                        .and()
+                                        .sessionManagement()
+                                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                                        .and()
+                                        .authenticationProvider(accountService.authenticationProvider())
+                                        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                );
         return http.build();
     }
-    @Bean
-    public UserDetailsService userDetailsService() {
-        PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("{bcrypt}$2a$10$OgkNmUyrvVZd.XGig065HOh7CUFB/rUctFx/glt/YgqEfOWju/FSK")
-                .roles("ADMIN")
-                .build();
 
-        return new InMemoryUserDetailsManager(user);
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(accountService);
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
