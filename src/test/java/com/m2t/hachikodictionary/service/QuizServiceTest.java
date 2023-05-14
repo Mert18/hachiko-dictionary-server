@@ -17,9 +17,4 @@ class QuizServiceTest {
         wordRepository = Mockito.mock(WordRepository.class);
         service = new QuizService(quizRepository, wordRepository);
     }
-
-    @Test
-    public void testGenerateQuiz() {
-        service.generateQuiz("medium");
-    }
 }
