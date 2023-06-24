@@ -1,22 +1,9 @@
 # Hachiko Dictionary Server
 
-A dictionary server that serves words.
+## Hachiko Dictionary
 
-- Models and DTOs are written in Kotlin for easiness and readability.
-- PostgreSQL as database.
+Hachiko Dictionary offers an immersive learning experience for expanding one's vocabulary.
 
-Packages
+Mastering new words can be challenging, but Hachiko Dictionary provides effective aids such as example sentences, videos, and interactive games to enhance memorization. This comprehensive approach sets Hachiko Dictionary apart!
 
-- Spring Web
-- Spring Data JPA (Hibernate): For ORM
-- Spring Security: For authentication and authorization
-- Spring Data JDBC: For database integration.
-- postgresql: For database.
-
-ER Diagram
-
-![ER Diagram](/src/main/resources/static/er-diagram.png)
-
-Class Diagram
-
-![Class Diagram](/src/main/resources/static/class-diagram.png)
+Client resides here: [https://github.com/Mert18/hachiko-dictionary](https://github.com/Mert18/hachiko-dictionary)
