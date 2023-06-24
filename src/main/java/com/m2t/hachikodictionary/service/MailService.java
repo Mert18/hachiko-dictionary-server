@@ -22,6 +22,8 @@ public class MailService {
         this.sendGridApiKey = sendGridApiKey;
     }
 
+
+
     public String sendConfirmationEmail(RegistrationRequest registrationRequest, String token) {
         Email from = new Email("mertplayschess@outlook.com");
         String subject = "Welcome to Hachiko Dictionary";
@@ -29,7 +31,7 @@ public class MailService {
         Content content = new Content("text/plain",
                 "Welcome to Hachiko Dictionary, " + registrationRequest.getUsername() + "!\n" +
                         "You can use the link below to confirm your account.\n\n" +
-                        "http://localhost:3000/confirm-email?token=" + token + "&email=" + registrationRequest.getEmail());
+                        "https://hachikodictionary.com/confirm-email?token=" + token + "&email=" + registrationRequest.getEmail());
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendGridApiKey);
