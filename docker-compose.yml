@@ -14,12 +14,15 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/hachiko-dictionary
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
 
   PostgreSQL:
     image: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - ./src/main/resources/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./src/main/resources/schema.sql:/data/schema.sql
+      - ./src/main/resources/data.sql:/data/data.sql
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
