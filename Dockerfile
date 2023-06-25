@@ -12,4 +12,4 @@ WORKDIR hachiko-dictionary
 COPY target/*.jar hachiko-dictionary.jar
 
 ENTRYPOINT ["java","-jar","hachiko-dictionary.jar"]
-EXPOSE 8080
+EXPOSE 8888

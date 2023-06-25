@@ -1,12 +1,12 @@
 version: '3.1'
 services:
   dictionary:
-    image: 'dictionary'
+    image: 'hachiko2k/hachiko-dictionary'
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8888:8888"
     depends_on:
       PostgreSQL:
         condition: service_healthy
