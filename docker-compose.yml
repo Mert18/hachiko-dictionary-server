@@ -2,9 +2,6 @@ version: '3.1'
 services:
   dictionary:
     image: 'hachiko2k/hachiko-dictionary'
-    build:
-      context: .
-      dockerfile: Dockerfile
     ports:
       - "8888:8888"
     depends_on:
