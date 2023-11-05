@@ -4,9 +4,8 @@ import com.m2t.hachikodictionary.dto.LoginRequest;
 import com.m2t.hachikodictionary.dto.RefreshRequest;
 import com.m2t.hachikodictionary.dto.RegistrationRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.EmailAlreadyExistsException;
-import com.m2t.hachikodictionary.exception.InvalidCredentialsException;
-import com.m2t.hachikodictionary.exception.UsernameAlreadyExistsException;
+import com.m2t.hachikodictionary.exception.*;
+import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.service.AuthenticationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,15 +29,14 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<Response> register(@RequestBody RegistrationRequest registrationRequest) {
         try {
+            return ResponseEntity.ok(authenticationService.register(registrationRequest));
+        } catch (PasswordsDoNotMatchException | UsernameAlreadyExistsException | EmailAlreadyExistsException e) {
             return ResponseEntity
-                    .ok(authenticationService.register(registrationRequest));
-        } catch (UsernameAlreadyExistsException | EmailAlreadyExistsException e) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
+                    .status(HttpStatus.BAD_REQUEST)
                     .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.NO_CONTENT)
                     .body(new Response(false, "Registration failed."));
         }
     }
@@ -48,22 +46,30 @@ public class AuthenticationController {
         try {
             return ResponseEntity
                     .ok(authenticationService.login(loginRequest));
-        }
-        catch (InvalidCredentialsException e) {
+        } catch (AccountNotFoundException | InvalidCredentialsException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(new Response(false, e.getMessage()));
-            }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.NO_CONTENT)
                     .body(new Response(false, "Login failed."));
         }
     }
 
     @PostMapping("/refresh")
     public ResponseEntity<Response> refresh(@RequestBody  RefreshRequest refreshRequest) {
-        return ResponseEntity.ok(authenticationService.refreshToken(refreshRequest.getRefreshToken()));
+        try {
+            return ResponseEntity.ok(authenticationService.refreshToken(refreshRequest.getRefreshToken()));
+        } catch (InvalidTokenException e) {
+                return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(new Response(false, e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .body(new Response(false, "Refresh token failed."));
+        }
     }
 
 }

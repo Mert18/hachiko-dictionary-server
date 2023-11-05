@@ -147,7 +147,6 @@ class AuthenticationServiceTest {
                 Role.USER);
             when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
             when(accountService.loadUserByEmail(anyString())).thenReturn(account);
-            when(accountRepository.findAccountByEmail(anyString())).thenReturn(account);
             when(jwtService.generateToken(any(Account.class))).thenReturn(authenticationResponse);
         // Act
         Response response = service.login(loginRequest);
@@ -158,7 +157,6 @@ class AuthenticationServiceTest {
         assertNotNull(response.getData());
 
         verify(jwtService, times(1)).generateToken(any(Account.class));
-        verify(accountRepository, times(1)).findAccountByEmail(anyString());
     }
 
     @Test
@@ -187,7 +185,7 @@ class AuthenticationServiceTest {
         when(accountService.loadUserByEmail(anyString())).thenReturn(null);
 
         // Act & Assert
-        assertThrows(InvalidCredentialsException.class, () -> service.login(loginRequest));
+        assertThrows(AccountNotFoundException.class, () -> service.login(loginRequest));
     }
 
     @Test
