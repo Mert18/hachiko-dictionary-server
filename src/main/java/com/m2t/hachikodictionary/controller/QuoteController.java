@@ -22,7 +22,7 @@ public class QuoteController {
             return ResponseEntity.ok(quoteService.getRandomQuote(difficulty));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(500)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Quote retrieval failed."));
         }
     }
@@ -33,7 +33,7 @@ public class QuoteController {
             return ResponseEntity.ok(quoteService.createQuote(quote));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(500)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Quote creation failed."));
         }
 

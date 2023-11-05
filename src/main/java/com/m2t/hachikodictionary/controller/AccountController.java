@@ -47,7 +47,7 @@ public class AccountController {
                     .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.NO_CONTENT)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, e.getMessage()));
         }
     }
