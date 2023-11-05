@@ -14,12 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountServiceTest {
-
     private AccountService service;
     private AccountRepository accountRepository;
     private AccountDtoConverter converter;

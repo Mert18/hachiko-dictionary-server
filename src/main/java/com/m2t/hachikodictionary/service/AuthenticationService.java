@@ -9,8 +9,6 @@ import com.m2t.hachikodictionary.exception.*;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.model.Role;
 import com.m2t.hachikodictionary.repository.AccountRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
-
     private final AccountRepository accountRepository;
     private final AccountService accountService;
     private final MailService mailService;
@@ -26,8 +23,6 @@ public class AuthenticationService {
     private final JWTService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
-
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
     public AuthenticationService(AccountRepository accountRepository, AccountService accountService,
                                  JWTService jwtService, AuthenticationManager authenticationManager,
@@ -68,8 +63,7 @@ public class AuthenticationService {
             String token = confirmationService.create(registrationRequest.getEmail());
             mailService.sendConfirmationEmail(registrationRequest, token);
 
-            Response response = new Response(true, "Registration successful.", authResponse);
-            return response;
+            return new Response(true, "Registration successful.", authResponse);
         } catch (Exception e) {
             throw new RuntimeException("Registration failed: " + e.getMessage());
         }
