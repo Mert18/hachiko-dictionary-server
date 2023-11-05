@@ -5,10 +5,7 @@ import com.m2t.hachikodictionary.dto.AuthenticationResponse;
 import com.m2t.hachikodictionary.dto.LoginRequest;
 import com.m2t.hachikodictionary.dto.RegistrationRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.EmailAlreadyExistsException;
-import com.m2t.hachikodictionary.exception.InvalidCredentialsException;
-import com.m2t.hachikodictionary.exception.PasswordsDoNotMatchException;
-import com.m2t.hachikodictionary.exception.UsernameAlreadyExistsException;
+import com.m2t.hachikodictionary.exception.*;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.model.Role;
 import com.m2t.hachikodictionary.repository.AccountRepository;
@@ -191,5 +188,53 @@ class AuthenticationServiceTest {
 
         // Act & Assert
         assertThrows(InvalidCredentialsException.class, () -> service.login(loginRequest));
+    }
+
+    @Test
+    public void testRefreshToken_whenSuccessful_shouldReturnSuccessfulResponse() {
+        // Arrange
+        Account account = new Account("1", "testuser", "testpassword", "testuser@gmail.com", Role.USER, true);
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse("accessToken",
+                "refreshToken",
+                "bearer",
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                true,
+                false,
+                "testuser",
+                "testuser@gmail.com",
+                Role.USER);
+        Response response = new Response(true, "Token refreshed.");
+        when(jwtService.extractUsername(anyString())).thenReturn("testuser");
+        when(accountService.loadUserByUsername(anyString())).thenReturn(account);
+        when(jwtService.isTokenValid(anyString(), any(Account.class))).thenReturn(true);
+        when(jwtService.generateToken(any(Account.class))).thenReturn(authenticationResponse);
+
+        // Act
+        Response actualResponse = service.refreshToken(anyString());
+
+        // Assert
+        assertEquals(actualResponse, response);
+        assertNotNull(actualResponse.getData());
+
+        verify(jwtService, times(1)).extractUsername(anyString());
+        verify(jwtService, times(1)).isTokenValid(anyString(), any(Account.class));
+        verify(accountService, times(1)).loadUserByUsername(anyString());
+        verify(jwtService, times(1)).generateToken(any(Account.class));
+    }
+
+    @Test
+    public void testRefreshToken_whenTokenIsInvalid_shouldThrowInvalidTokenException() {
+        // Arrange
+        Account account = new Account("1", "testuser", "testpassword", "testuser@gmail.com", Role.USER, true);
+        when(jwtService.extractUsername(anyString())).thenReturn("testuser");
+        when(accountService.loadUserByUsername(anyString())).thenReturn(account);
+        when(jwtService.isTokenValid(anyString(), any(Account.class))).thenReturn(false);
+
+        // Act & Assert
+        assertThrows(InvalidTokenException.class, () -> service.refreshToken(anyString()));
+        verify(jwtService, times(1)).extractUsername(anyString());
+        verify(accountService, times(1)).loadUserByUsername(anyString());
+        verify(jwtService, times(1)).isTokenValid(anyString(), any(Account.class));
     }
 }
