@@ -73,21 +73,21 @@ public class AccountService implements UserDetailsService {
     }
 
     public void confirmAccount(String email) {
-        try {
-            Account account = accountRepository.findAccountByEmail(email);
-
-            Account updatedAccount = new Account(
-                    account.getId(),
-                    account.getUsername(),
-                    account.getPassword(),
-                    account.getEmail(),
-                    account.getRole(),
-                    true
-            );
-            accountRepository.save(updatedAccount);
-        } catch (AccountNotFoundException e) {
+        Account account = accountRepository.findAccountByEmail(email);
+        if(account == null) {
             throw new AccountNotFoundException("Account not found.");
+
         }
+
+        Account updatedAccount = new Account(
+                account.getId(),
+                account.getUsername(),
+                account.getPassword(),
+                account.getEmail(),
+                account.getRole(),
+                true
+        );
+        accountRepository.save(updatedAccount);
     }
 
     public Response isAccountConfirmed(String id) {
