@@ -8,8 +8,6 @@ import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.repository.AccountRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,10 +20,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService implements UserDetailsService {
-
     private final AccountRepository accountRepository;
     private final AccountDtoConverter converter;
-    private final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     public AccountService(AccountRepository accountRepository, AccountDtoConverter converter) {
         this.accountRepository = accountRepository;
