@@ -27,7 +27,7 @@ public class WordController {
                     .ok(wordService.getAllWords(pageable));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Word retrieval failed."));
         }
     }
@@ -42,7 +42,7 @@ public class WordController {
                     .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Word retrieval failed."));
         }
     }
@@ -53,7 +53,7 @@ public class WordController {
             return ResponseEntity.ok(wordService.getOneWordByDifficulty(difficulty));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Word retrieval failed."));
         }
     }
@@ -69,7 +69,7 @@ public class WordController {
                     .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Word retrieval failed."));
         }
     }
@@ -85,7 +85,7 @@ public class WordController {
                     .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Word creation failed."));
         }
     }
@@ -101,7 +101,7 @@ public class WordController {
                     .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Word update failed."));
         }
     }
@@ -117,7 +117,7 @@ public class WordController {
                     .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Word deletion failed."));
         }
     }

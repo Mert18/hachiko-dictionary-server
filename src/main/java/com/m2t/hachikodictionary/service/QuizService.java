@@ -27,58 +27,46 @@ public class QuizService {
     }
 
     public Response completeQuiz(Quiz quiz) {
-        try {
-            quizRepository.save(quiz);
-            return new Response(true, "Quiz completed successfully");
-        } catch (Exception e) {
-            logger.error("Error creating quiz", e);
-            return new Response(false, "Error creating quiz.");
-        }
+        quizRepository.save(quiz);
+        logger.info("{} completed quiz with {} correct answers and {} incorrect answers.",
+                quiz.getAccount().getUsername(), quiz.getCorrectAnswers(), quiz.getIncorrectAnswers());
+        return new Response(true, "Quiz completed successfully.");
     }
 
     public Response generateQuiz(String difficulty) {
-        try {
-            List<QuizQuestion> quizQuestions = new ArrayList<>();
+        List<QuizQuestion> quizQuestions = new ArrayList<>();
 
-            while(quizQuestions.size() < 10) {
-                Word newWord = wordRepository.findRandomWordByDifficulty(difficulty);
+        while(quizQuestions.size() < 10) {
+            Word newWord = wordRepository.findRandomWordByDifficulty(difficulty);
+            List<String> choices = new ArrayList<>(4);
+            choices.add(newWord.getTitle());
+            for(int i=0; i<3; i++) {
+                String choice = wordRepository.findRandomWordByDifficulty(difficulty).getTitle();
 
-                List<String> choices = new ArrayList<>(4);
-                choices.add(newWord.getTitle());
-                for(int i=0; i<3; i++) {
-                    String choice = wordRepository.findRandomWordByDifficulty(difficulty).getTitle();
-
-                    while(choices.contains(choice)) {
-                        choice = wordRepository.findRandomWordByDifficulty(difficulty).getTitle();
-                    }
-                    choices.add(choice);
+                while(choices.contains(choice)) {
+                    choice = wordRepository.findRandomWordByDifficulty(difficulty).getTitle();
                 }
-                Collections.shuffle(choices);
-                QuizQuestion newQuizQuestion = new QuizQuestion(newWord.getDescriptions().iterator().next(), newWord.getTitle(), choices);
-                quizQuestions.add(newQuizQuestion);
+                choices.add(choice);
             }
-            System.out.println("new quiz questions: " + quizQuestions);
-            NewQuiz newQuiz = new NewQuiz(quizQuestions, difficulty);
-            return new Response(true, "Quiz generated successfully.", newQuiz);
-        } catch (Exception e) {
-            logger.error("Error generating quiz", e);
-            return new Response(false, "Error generating quiz.");
+            Collections.shuffle(choices);
+            QuizQuestion newQuizQuestion = new QuizQuestion(newWord.getDescriptions().iterator().next(), newWord.getTitle(), choices);
+            quizQuestions.add(newQuizQuestion);
         }
+
+        NewQuiz newQuiz = new NewQuiz(quizQuestions, difficulty);
+        logger.info("Quiz generated with difficulty {}.", difficulty);
+
+        return new Response(true, "Quiz generated successfully.", newQuiz);
     }
 
     public Response getAccountQuizzes(Account account) {
-        try {
-            List<Quiz> quizzes =  quizRepository.findAllByAccountId(account.getId());
-            int gameCount = quizzes.size();
-            int correctAnswers = quizzes.stream().mapToInt(Quiz::getCorrectAnswers).sum();
-            int incorrectAnswers = quizzes.stream().mapToInt(Quiz::getIncorrectAnswers).sum();
+        List<Quiz> quizzes =  quizRepository.findAllByAccountId(account.getId());
+        int gameCount = quizzes.size();
+        int correctAnswers = quizzes.stream().mapToInt(Quiz::getCorrectAnswers).sum();
+        int incorrectAnswers = quizzes.stream().mapToInt(Quiz::getIncorrectAnswers).sum();
 
-            QuizResponse quizResponse = new QuizResponse(account.getId(), gameCount, correctAnswers, incorrectAnswers);
+        QuizResponse quizResponse = new QuizResponse(account.getId(), gameCount, correctAnswers, incorrectAnswers);
 
-            return new Response(true, "Quizzes retrieved successfully.", quizResponse);
-        } catch (Exception e) {
-            logger.error("Error getting quizzes", e);
-            return new Response(false, "Error getting quizzes.");
-        }
+        return new Response(true, "Quizzes retrieved successfully.", quizResponse);
     }
 }

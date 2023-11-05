@@ -32,136 +32,88 @@ public class WordService {
     }
 
     public Response getWord(String id) {
-        try {
-            Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
-            WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
-            Response response = new Response(true, "Word retrieval successful.", wordDto);
-            return response;
-        } catch(WordNotFoundException e) {
-            throw new WordNotFoundException("Word not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Word retrieval failed: " + e.getMessage());
-        }
+        Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
+        WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
+        Response response = new Response(true, "Word retrieval successful.", wordDto);
+        return response;
     }
 
     public Word findWordById(String id) {
-        try {
-            Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
-            return word;
-        } catch(WordNotFoundException e) {
-            throw new WordNotFoundException("Word not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Word retrieval failed: " + e.getMessage());
-        }
+        Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
+        return word;
     }
 
     public Response getWordByTitle(String title) {
-        try {
-            Word word = wordRepository.findWordByTitle(title);
-            if(word == null) {
-                throw new WordNotFoundException("Word not found.");
-            }
-
-            WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
-
-            Response response = new Response(true, "Word retrieval successful.", wordDto);
-            return response;
-        } catch(WordNotFoundException e) {
+        Word word = wordRepository.findWordByTitle(title);
+        if(word == null) {
             throw new WordNotFoundException("Word not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Word retrieval failed: " + e.getMessage());
         }
+
+        WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
+
+        Response response = new Response(true, "Word retrieval successful.", wordDto);
+        return response;
     }
 
     public Response getAllWords(Pageable pageable) {
-        try {
-            Iterable<Word> words = wordPagingRepository.findAll(pageable);
-            if(words == null) {
-                throw new WordNotFoundException("Word not found.");
-            }
-
-            Response response = new Response(true, "Word retrieval successful.", words);
-            return response;
-        } catch(WordNotFoundException e) {
+        Iterable<Word> words = wordPagingRepository.findAll(pageable);
+        if(words == null) {
             throw new WordNotFoundException("Word not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Word retrieval failed: " + e.getMessage());
         }
+
+        Response response = new Response(true, "Word retrieval successful.", words);
+        return response;
     }
 
     public Response getOneWordByDifficulty(String difficulty) {
-        try {
-            Word word = wordRepository.findRandomWordByDifficulty(difficulty);
-            if(word == null) {
-                throw new WordNotFoundException("Word not found.");
-            }
-            WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
-
-            Response response = new Response(true, "Random word retrieval successful.", wordDto);
-            return response;
-        } catch(WordNotFoundException e) {
+        Word word = wordRepository.findRandomWordByDifficulty(difficulty);
+        if(word == null) {
             throw new WordNotFoundException("Word not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Word retrieval failed: " + e.getMessage());
         }
+        WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
+
+        Response response = new Response(true, "Random word retrieval successful.", wordDto);
+        return response;
     }
 
     public Response createWord(CreateWordRequest createWordRequest) {
         if(wordRepository.existsByTitle(createWordRequest.getTitle())) {
             throw new WordAlreadyExistsException("Word already exists.");
         }
-        try {
-            Word word = new Word(
-                    createWordRequest.getTitle(),
-                    createWordRequest.getKind(),
-                    createWordRequest.getDescriptions(),
-                    createWordRequest.getSynonyms(),
-                    createWordRequest.getAntonyms(),
-                    createWordRequest.getSentences()
-            );
-            wordRepository.save(word);
+        Word word = new Word(
+                createWordRequest.getTitle(),
+                createWordRequest.getKind(),
+                createWordRequest.getDescriptions(),
+                createWordRequest.getSynonyms(),
+                createWordRequest.getAntonyms(),
+                createWordRequest.getSentences()
+        );
+        wordRepository.save(word);
 
-            Response response = new Response(true, "Word creation successful.", word);
-            return response;
-        } catch (Exception e) {
-            throw new RuntimeException("Word creation failed: " + e.getMessage());
-        }
+        Response response = new Response(true, "Word creation successful.", word);
+        return response;
     }
 
     public Response updateWord(String id, CreateWordRequest createWordRequest) {
-        try {
-            Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
-            word.setTitle(createWordRequest.getTitle());
-            word.setKind(createWordRequest.getKind());
-            word.setDescriptions(createWordRequest.getDescriptions());
-            word.setSynonyms(createWordRequest.getSynonyms());
-            word.setAntonyms(createWordRequest.getAntonyms());
-            word.setSentences(createWordRequest.getSentences());
+        Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
+        word.setTitle(createWordRequest.getTitle());
+        word.setKind(createWordRequest.getKind());
+        word.setDescriptions(createWordRequest.getDescriptions());
+        word.setSynonyms(createWordRequest.getSynonyms());
+        word.setAntonyms(createWordRequest.getAntonyms());
+        word.setSentences(createWordRequest.getSentences());
 
-            wordRepository.save(word);
-            WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
+        wordRepository.save(word);
+        WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
 
-            Response response = new Response(true, "Word update successful.", wordDto);
-            return response;
-        } catch (WordNotFoundException e) {
-            throw new WordNotFoundException("Word not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Word update failed: " + e.getMessage());
-        }
+        Response response = new Response(true, "Word update successful.", wordDto);
+        return response;
     }
 
     public Response deleteWord(String id) {
-        try {
-            Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
-            wordRepository.delete(word);
-            Response response = new Response(true, "Word deletion successful.", null);
-            return response;
-        } catch (WordNotFoundException e) {
-            throw new WordNotFoundException("Word not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Word deletion failed: " + e.getMessage());
-        }
-
+        Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
+        wordRepository.delete(word);
+        Response response = new Response(true, "Word deletion successful.", null);
+        return response;
     }
-
 }
