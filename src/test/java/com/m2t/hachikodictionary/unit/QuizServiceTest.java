@@ -1,7 +1,8 @@
-package com.m2t.hachikodictionary.service;
+package com.m2t.hachikodictionary.unit;
 
 import com.m2t.hachikodictionary.repository.QuizRepository;
 import com.m2t.hachikodictionary.repository.WordRepository;
+import com.m2t.hachikodictionary.service.QuizService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
