@@ -87,22 +87,16 @@ public class AccountService implements UserDetailsService {
     }
 
     public Response isAccountConfirmed(String id) {
-        try {
-            Account account = accountRepository.findById(id)
-                    .orElseThrow(() -> new AccountNotFoundException("Account not found."));
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new AccountNotFoundException("Account not found."));
 
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectNode jsonObject = mapper.createObjectNode();
-            jsonObject.put("confirmed", account.getConfirmed());
-            jsonObject.put("email", account.getEmail());
-            jsonObject.put("id", account.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode jsonObject = mapper.createObjectNode();
+        jsonObject.put("confirmed", account.getConfirmed());
+        jsonObject.put("email", account.getEmail());
+        jsonObject.put("id", account.getId());
 
-            return new Response(true, "Check is completed.", jsonObject);
-        } catch (AccountNotFoundException e) {
-            throw new AccountNotFoundException("Account not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Error checking if account is confirmed: " + e.getMessage());
-        }
+        return new Response(true, "Check is completed.", jsonObject);
     }
 
     // Beans for authentication process.
