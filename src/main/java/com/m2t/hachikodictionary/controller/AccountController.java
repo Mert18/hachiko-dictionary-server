@@ -3,8 +3,10 @@ package com.m2t.hachikodictionary.controller;
 import com.m2t.hachikodictionary.config.JWTService;
 import com.m2t.hachikodictionary.dto.AccountDto;
 import com.m2t.hachikodictionary.dto.Response;
+import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +39,16 @@ public class AccountController {
 
     @GetMapping("/isconfirmed/{id}")
     public ResponseEntity<Response> isConfirmed(@PathVariable String id) {
-        return ResponseEntity.ok(accountService.isAccountConfirmed(id));
+        try {
+            return ResponseEntity.ok(accountService.isAccountConfirmed(id));
+        } catch (AccountNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new Response(false, e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .body(new Response(false, e.getMessage()));
+        }
     }
-
 }
