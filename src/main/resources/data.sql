@@ -57,7 +57,6 @@ INSERT INTO public.words (id, difficulty, kind, title) VALUES ('6866972a-657a-40
 INSERT INTO public.words (id, difficulty, kind, title) VALUES ('943230f8-d377-4b0b-8c04-5f0339b3a2cb', 'medium', 'verb', 'coddle');
 INSERT INTO public.words (id, difficulty, kind, title) VALUES ('f9d15829-2995-44b8-baee-e22880fedd91', 'medium', 'adjective', 'pernicious');
 INSERT INTO public.words (id, difficulty, kind, title) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'medium', 'verb', 'bleach');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('c4fdf448-3ab1-400a-a86a-36a441daab17', 'medium', 'noun', 'samedim.');
 INSERT INTO public.words (id, difficulty, kind, title) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', 'medium', 'verb', 'abhor');
 INSERT INTO public.words (id, difficulty, kind, title) VALUES ('e24fe190-66c4-4923-ac4b-2e98d95e36e4', 'medium', 'verb', 'subvert');
 INSERT INTO public.words (id, difficulty, kind, title) VALUES ('acebb5cf-48d3-44fc-8199-bb8044d061b2', 'medium', 'adjective', 'amiable');
