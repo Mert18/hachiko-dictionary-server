@@ -24,7 +24,18 @@ SET row_security = off;
 -- Data for Name: accounts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-\c hachiko-dictionary
+TRUNCATE public.accounts CASCADE;
+TRUNCATE public.words CASCADE;
+TRUNCATE public.quotes CASCADE;
+TRUNCATE public.word_synonyms CASCADE;
+TRUNCATE public.word_antonyms CASCADE;
+TRUNCATE public.word_descriptions CASCADE;
+TRUNCATE public.word_sentences CASCADE;
+TRUNCATE public.learned_words CASCADE;
+TRUNCATE public.confirmations CASCADE;
+TRUNCATE public.quizzes CASCADE;
+
+
 
 INSERT INTO public.accounts (id, confirmed, email, password, role, username) VALUES ('845d0b58-74fc-46b9-915e-b5d370a479e3', false, 'xddnreonezpdcq@exelica.com', '$2a$10$bc.2pBJ52Lx/Ysw15fBS4uhZKHPfLTK5DgBeVzoRjJB5H5l.8cdFW', 'USER', '12312');
 INSERT INTO public.accounts (id, confirmed, email, password, role, username) VALUES ('a02ff42c-9023-4419-9518-d4d5841f8868', false, 'mertplayschess@outlook.com', '$2a$10$O4l9qy0VFrNQM/EOevPAx.WsqqvJkdxll4V8NYNos1DNb30lqlm4i', 'USER', 'sdfdsfs');
@@ -174,7 +185,9 @@ INSERT INTO public.quizzes (id, correct_answers, difficulty, incorrect_answers, 
 -- Data for Name: quotes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-
+INSERT INTO public.quotes (id, author, difficulty, quote) VALUES ('febd3eaf-4564-4740-8d98-6c957587cf47', 'Annie Dillard', 'medium', 'How we spend our days is, of course, how we spend our lives.');
+INSERT INTO public.quotes (id, author, difficulty, quote) VALUES ('h2584b62-8d35-42cd-b7d9-0ac2d558f65a', 'J.K. Rowling', 'easy', 'It is our choices, Harry, that show what we truly are, far more than our abilities.');
+INSERT INTO public.quotes (id, author, difficulty, quote) VALUES ('d2184n7d-9d15-d2hv-yj71-1w8n42sqs6nr', 'J.K. Rowling', 'hard', 'It is impossible to live without failing at something, unless you live so cautiously that you might as well not have lived at all - in which case, you fail by default.');
 
 --
 -- TOC entry 3382 (class 0 OID 16645)
@@ -205,9 +218,6 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f9d15829-2995-44b8
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f9d15829-2995-44b8-baee-e22880fedd91', 'helpful');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'darken');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'deepen');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('c4fdf448-3ab1-400a-a86a-36a441daab17', 'alp');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('e24fe190-66c4-4923-ac4b-2e98d95e36e4', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('acebb5cf-48d3-44fc-8199-bb8044d061b2', 'disagreeable');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('acebb5cf-48d3-44fc-8199-bb8044d061b2', 'ill-natured');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('acebb5cf-48d3-44fc-8199-bb8044d061b2', 'unamiable');
@@ -220,7 +230,6 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('acb2f9cc-e711-4f60
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('acb2f9cc-e711-4f60-af46-a9d3ce1b8014', 'condemn');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('987a58bf-3c20-4507-a781-eec26cff4f01', 'calm');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('987a58bf-3c20-4507-a781-eec26cff4f01', 'peace');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('316efa33-872e-4623-9f2e-df78062241fd', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('0dca143e-8982-40af-bd4f-64e3cd0fca63', 'stay');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('0dca143e-8982-40af-bd4f-64e3cd0fca63', 'direct');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('0dca143e-8982-40af-bd4f-64e3cd0fca63', 'straight');
@@ -229,17 +238,10 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('d9ef9cb7-31e9-4628
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('d9ef9cb7-31e9-4628-bc62-c1b9778778c2', 'maintain');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('d9ef9cb7-31e9-4628-bc62-c1b9778778c2', 'anger');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('d9ef9cb7-31e9-4628-bc62-c1b9778778c2', 'upset');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('71366083-b515-4ac8-ba69-116911fcada7', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('084036ee-4f42-4204-902a-fda4c5d41c91', 'enduring');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('084036ee-4f42-4204-902a-fda4c5d41c91', 'lasting');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('084036ee-4f42-4204-902a-fda4c5d41c91', 'long');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('084036ee-4f42-4204-902a-fda4c5d41c91', 'perpetual');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('ee557660-2f69-41e5-ad9b-dd4d9df7591b', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('34f2aa4b-1ec7-4c07-bb2b-d16a87fac240', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('b0e8bac4-c7c1-4388-9c16-9f9b84dec659', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('03a0bc9a-c7cd-4135-9f91-174495842c37', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('476d3e0b-e79f-456e-b601-25441b787659', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('974d1246-7159-4b4e-acef-3d715c5b4235', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('22b9ea85-49a9-4da4-8861-98c3d7604c96', 'shallow');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('22b9ea85-49a9-4da4-8861-98c3d7604c96', 'superficial');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('dfd48a8d-b268-4101-a378-de9414367622', 'face');
@@ -249,26 +251,19 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('75ed7c46-7355-4c45
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('75ed7c46-7355-4c45-a012-bfce4c2c5f1d', 'disregard');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('75ed7c46-7355-4c45-a012-bfce4c2c5f1d', 'ignorance');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('75ed7c46-7355-4c45-a012-bfce4c2c5f1d', 'negligence');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('1c53242a-5232-4387-b151-c851f3d9969f', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('8288696d-b528-42e4-b838-67581d2e7121', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('9938b09a-b46c-4e10-bbda-0127c92350da', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('ed61669f-3f4b-4e8f-915e-a791efe85ff1', 'danger');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('8c0596ec-e800-4865-8541-25a594f8db9f', 'free');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('8c0596ec-e800-4865-8541-25a594f8db9f', 'liberate');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('8c0596ec-e800-4865-8541-25a594f8db9f', 'release');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('8c0596ec-e800-4865-8541-25a594f8db9f', 'ignore');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('8c0596ec-e800-4865-8541-25a594f8db9f', 'increase');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('8b4c1639-1213-49ee-ba3f-b81d2fcebe95', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f61d8598-6a3e-4957-a7fa-e9ea17344ab3', 'distasteful');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f61d8598-6a3e-4957-a7fa-e9ea17344ab3', 'repellent');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f61d8598-6a3e-4957-a7fa-e9ea17344ab3', 'repulsive');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f61d8598-6a3e-4957-a7fa-e9ea17344ab3', 'unattractive');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('1923b62b-38b7-4557-a9d5-4dfa346725f8', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('a8a53ea3-21f2-44bf-8ef0-8a53a9ba9dc0', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('04439f1a-7f9b-4bf8-b783-ad4727dded06', 'unaffecting');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('04439f1a-7f9b-4bf8-b783-ad4727dded06', 'unemotional');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('04439f1a-7f9b-4bf8-b783-ad4727dded06', 'unimpressive');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('5db1ee1b-43e0-4b96-bb10-3f130439c6a9', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('496ffa5e-55e2-4836-bc92-bd2b86215638', 'conceal');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('496ffa5e-55e2-4836-bc92-bd2b86215638', 'keep');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('496ffa5e-55e2-4836-bc92-bd2b86215638', 'protect');
@@ -278,13 +273,9 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f1d3a83b-78af-42cb
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f1d3a83b-78af-42cb-ac63-dfc34cb737b6', 'not bother');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f1d3a83b-78af-42cb-ac63-dfc34cb737b6', 'quiet');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('f1d3a83b-78af-42cb-ac63-dfc34cb737b6', 'soothe');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('e22273fb-23ae-4cc6-8327-4bbd29d1fa65', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('3c953a0c-3e3d-486f-8979-1ff3b0965ce1', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('3552979c-f9fa-473a-83d5-f388a5deadef', 'adult');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('3552979c-f9fa-473a-83d5-f388a5deadef', 'full-blown');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('3552979c-f9fa-473a-83d5-f388a5deadef', 'mature');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('26b59c3f-f7b0-4429-bb71-10c6593fce89', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4b6aa1ec-1298-416d-8c1f-cc4813a237b8', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('891c3316-8b90-4b16-92ac-ef25a9700323', 'absolve');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('891c3316-8b90-4b16-92ac-ef25a9700323', 'clear');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('891c3316-8b90-4b16-92ac-ef25a9700323', 'vindicate');
@@ -292,26 +283,19 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('ca523e1d-1c77-4cde
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('ca523e1d-1c77-4cde-b585-f8f05eaaad38', 'comfort');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('ca523e1d-1c77-4cde-b585-f8f05eaaad38', 'health');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('ca523e1d-1c77-4cde-b585-f8f05eaaad38', 'happiness');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('e3a07a46-4ddf-44d4-a582-26f87eaac9aa', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('8489e353-b834-4461-83e8-88baee167ec4', 'disharmonize');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4dc02076-1ce8-40ce-8a55-7f4250271bc4', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('88ef1792-5446-487e-96f6-20406d9c9029', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('71747417-ea91-4796-a3aa-e74ac64ace23', 'esteem');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('71747417-ea91-4796-a3aa-e74ac64ace23', 'honor');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('71747417-ea91-4796-a3aa-e74ac64ace23', 'respect');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('492e060c-9aa4-4495-9e61-7604396cc3a0', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('fe58474c-bae6-4082-bed0-bd08720be1f2', 'dull');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('fe58474c-bae6-4082-bed0-bd08720be1f2', 'strip');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('fe58474c-bae6-4082-bed0-bd08720be1f2', 'reveal');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('bda5fb6c-ff7d-415f-82c6-5454fc006a83', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('25f2a9db-982a-4015-ac0f-27a3bb67048f', 'help');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('25f2a9db-982a-4015-ac0f-27a3bb67048f', 'faciliate');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('25f2a9db-982a-4015-ac0f-27a3bb67048f', 'assist');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('c8e06366-f076-4778-881f-bec5d3e53127', 'degrade');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('c8e06366-f076-4778-881f-bec5d3e53127', 'humble');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('c8e06366-f076-4778-881f-bec5d3e53127', 'humiliate');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('22e71fef-c4be-49d3-a5a8-ce72d1891f1f', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('3c645c59-1764-46fc-97b8-39943d6adac9', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('3d81b6f5-9d85-4574-829c-0f1b4437b76b', 'impossibility');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('3d81b6f5-9d85-4574-829c-0f1b4437b76b', 'unlikelihood');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('7b860f3a-4f78-4467-ab84-952cbd41c997', 'be honest');
@@ -349,7 +333,6 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('74a52231-0363-4786
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('74a52231-0363-4786-a2a9-f9d4e18bcc1e', 'tender');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('74a52231-0363-4786-a2a9-f9d4e18bcc1e', 'kindly');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('74a52231-0363-4786-a2a9-f9d4e18bcc1e', 'warm');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('6ae6bdf5-6653-48e6-b11d-58bc7bf934bb', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('0a73a9be-0202-4b09-822e-d8feaaa90787', 'common');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('0a73a9be-0202-4b09-822e-d8feaaa90787', 'unimpressive');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('0a73a9be-0202-4b09-822e-d8feaaa90787', 'unrespected');
@@ -366,8 +349,6 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('6c613b4a-d6a4-4b6e
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('6c613b4a-d6a4-4b6e-aa65-98790347f901', 'encourage');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('bb2efe7b-3b69-4cfb-a9b9-e3b7ba92c85d', 'opposite');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('bb2efe7b-3b69-4cfb-a9b9-e3b7ba92c85d', 'reverse');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('833f82a4-e3f5-47e3-b80e-f27ffc07aaef', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4fde5db4-864f-4035-86c0-41fecf525196', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('988faa4a-9f5e-4308-b053-75131d130e98', 'allow');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('988faa4a-9f5e-4308-b053-75131d130e98', 'assert');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('988faa4a-9f5e-4308-b053-75131d130e98', 'claim');
@@ -378,12 +359,10 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('e5c16ad5-239b-45d3
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('e5c16ad5-239b-45d3-aa06-a757cbe32280', 'unbounded');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('e5c16ad5-239b-45d3-aa06-a757cbe32280', 'free');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('e5c16ad5-239b-45d3-aa06-a757cbe32280', 'unrestricted');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('2c24e3f5-4331-48b9-a673-5ba0ffb76e18', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('75d3b2dd-1a0e-4e25-a31e-da7366ee438d', 'aid');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('75d3b2dd-1a0e-4e25-a31e-da7366ee438d', 'assist');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('75d3b2dd-1a0e-4e25-a31e-da7366ee438d', 'enable');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('75d3b2dd-1a0e-4e25-a31e-da7366ee438d', 'help');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('65e88d9b-e1f2-4511-85c2-56777bfa6b84', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4c67b28e-6c56-4ff7-9997-a21f09648d21', 'abandon');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4c67b28e-6c56-4ff7-9997-a21f09648d21', 'ignore');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4c67b28e-6c56-4ff7-9997-a21f09648d21', 'lack');
@@ -393,12 +372,9 @@ INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('5b0bce95-acde-4650
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('5b0bce95-acde-4650-8166-eeb17d1e9da2', 'fighting');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('5b0bce95-acde-4650-8166-eeb17d1e9da2', 'resistant');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('5b0bce95-acde-4650-8166-eeb17d1e9da2', 'unyielding');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('6b96acd8-45f8-458b-8dd0-c84c17f8a7a1', '');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('86528a08-88b7-4e04-adf9-65aeadfb2c9a', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4017d565-14b5-46f5-9d36-e43d23b458cc', 'homely');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4017d565-14b5-46f5-9d36-e43d23b458cc', 'ugly');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('4017d565-14b5-46f5-9d36-e43d23b458cc', 'insignificant');
-INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('c29a9b26-5235-4093-a1f7-821b7735a0ff', '');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('73d8c390-cff8-4c0a-858a-1c1867a5b0f1', 'common');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('73d8c390-cff8-4c0a-858a-1c1867a5b0f1', 'ordinary');
 INSERT INTO public.word_antonyms (word_id, antonyms) VALUES ('73d8c390-cff8-4c0a-858a-1c1867a5b0f1', 'unexceptional');
@@ -437,7 +413,6 @@ INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('943230f8-d
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('f9d15829-2995-44b8-baee-e22880fedd91', 'having a very harmful effect or influence.');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'to remove color or stains from');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'to make whiter or lighter especially by physical or chemical removal of color.');
-INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('c4fdf448-3ab1-400a-a86a-36a441daab17', 'Another awesome man working in robolaunch.');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', 'to hate a way of behaving or thinking, often because you think it is not moral.');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('e24fe190-66c4-4923-ac4b-2e98d95e36e4', 'to overturn or overthrow from the foundation: RUIN');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('e24fe190-66c4-4923-ac4b-2e98d95e36e4', 'to pervert or corrupt by an undermining of morals, allegiance, or faith');
@@ -484,7 +459,6 @@ INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('75ed7c46-7
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('1c53242a-5232-4387-b151-c851f3d9969f', 'an act or instance of burning');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('1c53242a-5232-4387-b151-c851f3d9969f', 'a usually rapid chemical process (such as oxidation) that produces heat and usually light');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('8288696d-b528-42e4-b838-67581d2e7121', 'to eliminate the mystifying features of');
-INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('8288696d-b528-42e4-b838-67581d2e7121', '');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('9938b09a-b46c-4e10-bbda-0127c92350da', 'marked by contemptuous or cocky boldness or disregard of others');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('ed61669f-3f4b-4e8f-915e-a791efe85ff1', 'an inviolable place of refure and protection giving shelter to criminals and debtors: SANCTUARY');
 INSERT INTO public.word_descriptions (word_id, descriptions) VALUES ('ed61669f-3f4b-4e8f-915e-a791efe85ff1', 'a place of retreat and security: SHELTER');
@@ -636,7 +610,6 @@ INSERT INTO public.word_sentences (word_id, sentences) VALUES ('f9d15829-2995-44
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('f9d15829-2995-44b8-baee-e22880fedd91', 'The book focuses on the pernicious effects of slavery.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'She bleached her hair blonde.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'Bones bleached white by the sun.');
-INSERT INTO public.word_sentences (word_id, sentences) VALUES ('c4fdf448-3ab1-400a-a86a-36a441daab17', 'I like samet very much.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', 'I abhor all forms of racism.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', 'Indeed, they argue that this preoccupation leads us, as gerontologists, to perpetuate the very conditions that we abhor.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('e24fe190-66c4-4923-ac4b-2e98d95e36e4', 'They conspired to subvert the government');
@@ -707,7 +680,6 @@ INSERT INTO public.word_sentences (word_id, sentences) VALUES ('496ffa5e-55e2-48
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('f1d3a83b-78af-42cb-ac63-dfc34cb737b6', 'I didn''t want to agitate her by telling her.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('f1d3a83b-78af-42cb-ac63-dfc34cb737b6', 'The unions continue to agitate for higher pay.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('e22273fb-23ae-4cc6-8327-4bbd29d1fa65', 'She sat back for a minute to ponder her next move in the game.');
-INSERT INTO public.word_sentences (word_id, sentences) VALUES ('3c953a0c-3e3d-486f-8979-1ff3b0965ce1', '');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('3552979c-f9fa-473a-83d5-f388a5deadef', 'her budding career as a lawyer');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('3552979c-f9fa-473a-83d5-f388a5deadef', 'the budding romance between the coworkers was the talk of the office');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('26b59c3f-f7b0-4429-bb71-10c6593fce89', 'It''s been bruited about that he''s going to leave the company.');
@@ -868,7 +840,6 @@ INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('f9d15829-2995-44b8
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'blench');
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'dull');
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'fade');
-INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('c4fdf448-3ab1-400a-a86a-36a441daab17', 'tamer abi');
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', 'abominate');
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', 'detest');
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', 'loathe');
