@@ -1,7 +1,11 @@
 package com.m2t.hachikodictionary.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.service.AccountService;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,23 +52,43 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        jwt = authorizationHeader.substring(7);
-        username = jwtService.extractUsername(jwt);
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Account account = accountService.loadUserByUsername(username);
+        try {
+            jwt = authorizationHeader.substring(7);
+            username = jwtService.extractUsername(jwt);
+            if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                Account account = accountService.loadUserByUsername(username);
 
-            if(jwtService.isTokenValid(jwt, account)) {
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        account,
-                        null,
-                        account.getAuthorities()
-                );
-                authenticationToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                if (jwtService.isTokenValid(jwt, account)) {
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                            account,
+                            null,
+                            account.getAuthorities()
+                    );
+                    authenticationToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(request)
+                    );
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
             }
-            filterChain.doFilter(request, response);
+        } catch (ExpiredJwtException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+
+            // Set CORS headers to allow requests from your frontend domain
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "*");
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+
+
+            response.getWriter().write(objectMapper.writeValueAsString(
+                    new Response(false, "Your JWT token has expired. Please log in again.")
+            ));
+            return;
         }
+
+        filterChain.doFilter(request, response);
     }
 }

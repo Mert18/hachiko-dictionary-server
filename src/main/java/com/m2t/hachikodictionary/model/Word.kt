@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator
 import org.springframework.boot.context.properties.bind.DefaultValue
 
 @Entity
-@Table(name = "words")
+@Table(name = "words", schema = "public")
 data class Word(
     @Id
     @GeneratedValue(generator = "UUID")
@@ -17,12 +17,16 @@ data class Word(
     var difficulty: String = "medium",
 
     @ElementCollection
+    @CollectionTable(name = "word_descriptions", schema = "public")
     var descriptions: Set<String>,
     @ElementCollection
+    @CollectionTable(name = "word_synonyms", schema = "public")
     var synonyms: Set<String>,
     @ElementCollection
+    @CollectionTable(name = "word_antonyms", schema = "public")
     var antonyms: Set<String>,
     @ElementCollection
+    @CollectionTable(name = "word_sentences", schema = "public")
     var sentences: Set<String>,
 
     @OneToMany(mappedBy = "word", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])

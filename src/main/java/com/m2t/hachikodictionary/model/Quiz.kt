@@ -10,7 +10,7 @@ import jakarta.persistence.Table
 import org.hibernate.annotations.GenericGenerator
 
 @Entity
-@Table(name= "quizzes")
+@Table(name= "quizzes", schema = "public")
 data class Quiz(
     @Id
     @GeneratedValue(generator = "UUID")

@@ -10,6 +10,7 @@ import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.model.Quiz;
 import com.m2t.hachikodictionary.service.AccountService;
 import com.m2t.hachikodictionary.service.QuizService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +43,9 @@ public class QuizController {
 
             return ResponseEntity.ok(quizService.completeQuiz(quiz));
         } catch (AccountNotFoundException | QuizNotValidException e) {
-            return ResponseEntity.badRequest().body(new Response(false, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(false, e.getMessage()));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(new Response(false, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response(false, e.getMessage()));
         }
     }
 
@@ -53,7 +54,7 @@ public class QuizController {
         try {
             return ResponseEntity.ok(quizService.generateQuiz(difficulty));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(new Response(false, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response(false, e.getMessage()));
         }
     }
 
@@ -65,7 +66,8 @@ public class QuizController {
             Account account = accountService.findAccountById(accountId);
             return ResponseEntity.ok(quizService.getAccountQuizzes(account));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(new Response(false, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response(false, e.getMessage()));
         }
     }
 }

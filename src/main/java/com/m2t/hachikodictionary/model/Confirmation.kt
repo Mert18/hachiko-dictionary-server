@@ -8,7 +8,7 @@ import jakarta.persistence.Table
 import org.hibernate.annotations.GenericGenerator
 
 @Entity
-@Table(name = "confirmations")
+@Table(name = "confirmations", schema = "public")
 data class Confirmation(
     @Id
     @GeneratedValue(generator = "UUID")

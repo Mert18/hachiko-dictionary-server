@@ -20,41 +20,23 @@ public class QuoteService {
     }
 
     public Response getRandomQuote(String difficulty) {
-        try {
-            Quote quote = quoteRepository.getRandomQuote(difficulty);
-            if (quote == null) {
-                throw new QuoteNotFoundException("Quote not found.");
-            }
-            logger.info("Quote returned.");
-            return new Response(true, "Quote retrieved successfully.", quote);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return new Response(false, "Quote retrieval failed.");
+        Quote quote = quoteRepository.getRandomQuote(difficulty);
+        if (quote == null) {
+            throw new QuoteNotFoundException("Quote not found.");
         }
+        return new Response(true, "Quote retrieved successfully.", quote, false);
     }
 
     public Response createQuote(CreateQuoteRequest quote) {
-        try {
-            Quote newQuote = new Quote(quote.getQuote(), quote.getAuthor(), quote.getDifficulty());
-            quoteRepository.save(newQuote);
-            logger.info("Quote created.");
-            return new Response(true, "Quote created successfully.", newQuote);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return new Response(false, "Quote creation failed.");
-        }
+        Quote newQuote = new Quote(quote.getQuote(), quote.getAuthor(), quote.getDifficulty());
+        quoteRepository.save(newQuote);
+        logger.info("Quote created: {}", quote.getQuote());
+        return new Response(true, "Quote created successfully.", newQuote);
     }
 
     public Response deleteQuote(String id) {
-        try {
-            quoteRepository.deleteById(id);
-            logger.info("Quote deleted.");
-            return new Response(true, "Quote deleted successfully.");
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return new Response(false, "Quote deletion failed.");
-        }
+        quoteRepository.deleteById(id);
+        logger.info("Quote deleted: {}", id);
+        return new Response(true, "Quote deleted successfully.");
     }
-
-
 }

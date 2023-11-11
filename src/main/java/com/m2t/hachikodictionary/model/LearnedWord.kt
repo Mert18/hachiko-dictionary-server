@@ -11,7 +11,7 @@ import jakarta.persistence.Table
 import org.hibernate.annotations.GenericGenerator
 
 @Entity
-@Table(name = "learned_words")
+@Table(name = "learned_words", schema = "public")
 @IdClass(LearnedWordId::class)
 data class LearnedWord(
     @ManyToOne(fetch = FetchType.LAZY)

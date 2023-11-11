@@ -2,6 +2,7 @@ package com.m2t.hachikodictionary.controller;
 
 import com.m2t.hachikodictionary.dto.CreateQuoteRequest;
 import com.m2t.hachikodictionary.dto.Response;
+import com.m2t.hachikodictionary.exception.QuoteNotFoundException;
 import com.m2t.hachikodictionary.service.QuoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,13 @@ public class QuoteController {
     public ResponseEntity<Response> getOneQuoteByDifficulty(@PathVariable String difficulty) {
         try {
             return ResponseEntity.ok(quoteService.getRandomQuote(difficulty));
-        } catch (Exception e) {
+        } catch (QuoteNotFoundException e) {
             return ResponseEntity
-                    .status(500)
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new Response(false, e.getMessage()));
+        }catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Quote retrieval failed."));
         }
     }
@@ -33,7 +38,7 @@ public class QuoteController {
             return ResponseEntity.ok(quoteService.createQuote(quote));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(500)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Quote creation failed."));
         }
 

@@ -9,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator
 
 
 @Entity
-@Table(name = "quotes")
+@Table(name = "quotes", schema = "public")
 data class Quote(
     @Id
     @GeneratedValue(generator = "UUID")

@@ -8,8 +8,6 @@ import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.repository.AccountRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,10 +20,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService implements UserDetailsService {
-
     private final AccountRepository accountRepository;
     private final AccountDtoConverter converter;
-    private final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     public AccountService(AccountRepository accountRepository, AccountDtoConverter converter) {
         this.accountRepository = accountRepository;
@@ -73,40 +69,34 @@ public class AccountService implements UserDetailsService {
     }
 
     public void confirmAccount(String email) {
-        try {
-            Account account = accountRepository.findAccountByEmail(email);
-
-            Account updatedAccount = new Account(
-                    account.getId(),
-                    account.getUsername(),
-                    account.getPassword(),
-                    account.getEmail(),
-                    account.getRole(),
-                    true
-            );
-            accountRepository.save(updatedAccount);
-        } catch (AccountNotFoundException e) {
+        Account account = accountRepository.findAccountByEmail(email);
+        if(account == null) {
             throw new AccountNotFoundException("Account not found.");
+
         }
+
+        Account updatedAccount = new Account(
+                account.getId(),
+                account.getUsername(),
+                account.getPassword(),
+                account.getEmail(),
+                account.getRole(),
+                true
+        );
+        accountRepository.save(updatedAccount);
     }
 
     public Response isAccountConfirmed(String id) {
-        try {
-            Account account = accountRepository.findById(id)
-                    .orElseThrow(() -> new AccountNotFoundException("Account not found."));
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new AccountNotFoundException("Account not found."));
 
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectNode jsonObject = mapper.createObjectNode();
-            jsonObject.put("confirmed", account.getConfirmed());
-            jsonObject.put("email", account.getEmail());
-            jsonObject.put("id", account.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode jsonObject = mapper.createObjectNode();
+        jsonObject.put("confirmed", account.getConfirmed());
+        jsonObject.put("email", account.getEmail());
+        jsonObject.put("id", account.getId());
 
-            return new Response(true, "Check is completed.", jsonObject);
-        } catch (AccountNotFoundException e) {
-            throw new AccountNotFoundException("Account not found.");
-        } catch (Exception e) {
-            throw new RuntimeException("Error checking if account is confirmed: " + e.getMessage());
-        }
+        return new Response(true, "Check is completed.", jsonObject, false);
     }
 
     // Beans for authentication process.

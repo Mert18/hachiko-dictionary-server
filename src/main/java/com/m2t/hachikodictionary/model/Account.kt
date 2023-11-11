@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "accounts", schema = "public")
 data class Account (
     @Id
     @GeneratedValue(generator = "UUID")

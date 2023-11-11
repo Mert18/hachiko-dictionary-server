@@ -4,10 +4,10 @@ import com.m2t.hachikodictionary.dto.LoginRequest;
 import com.m2t.hachikodictionary.dto.RefreshRequest;
 import com.m2t.hachikodictionary.dto.RegistrationRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.EmailAlreadyExistsException;
-import com.m2t.hachikodictionary.exception.InvalidCredentialsException;
-import com.m2t.hachikodictionary.exception.UsernameAlreadyExistsException;
+import com.m2t.hachikodictionary.exception.*;
+import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.service.AuthenticationService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,42 +28,49 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response> register(@RequestBody RegistrationRequest registrationRequest) {
+    public ResponseEntity<Response> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
         try {
+            return ResponseEntity.ok(authenticationService.register(registrationRequest));
+        } catch (PasswordsDoNotMatchException | UsernameAlreadyExistsException | EmailAlreadyExistsException e) {
             return ResponseEntity
-                    .ok(authenticationService.register(registrationRequest));
-        } catch (UsernameAlreadyExistsException | EmailAlreadyExistsException e) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
+                    .status(HttpStatus.BAD_REQUEST)
                     .body(new Response(false, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Registration failed."));
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Response> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Response> login(@RequestBody @Valid LoginRequest loginRequest) {
         try {
             return ResponseEntity
                     .ok(authenticationService.login(loginRequest));
-        }
-        catch (InvalidCredentialsException e) {
+        } catch (AccountNotFoundException | InvalidCredentialsException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(new Response(false, e.getMessage()));
-            }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response(false, "Login failed."));
         }
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<Response> refresh(@RequestBody  RefreshRequest refreshRequest) {
-        return ResponseEntity.ok(authenticationService.refreshToken(refreshRequest.getRefreshToken()));
+    public ResponseEntity<Response> refresh(@RequestBody @Valid RefreshRequest refreshRequest) {
+        try {
+            return ResponseEntity.ok(authenticationService.refreshToken(refreshRequest.getRefreshToken()));
+        } catch (InvalidTokenException e) {
+                return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(new Response(false, e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response(false, "Refresh token failed."));
+        }
     }
 
 }
