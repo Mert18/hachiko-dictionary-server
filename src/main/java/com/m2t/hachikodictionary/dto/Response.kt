@@ -2,11 +2,13 @@ package com.m2t.hachikodictionary.dto
 
 import java.time.LocalDateTime
 
+
 data class Response(
     val timestamp: LocalDateTime?,
     val success: Boolean?,
     val message: String?,
-    val data: Any? = null
+    val data: Any? = null,
+    val showNotification: Boolean? = true
 ) {
     constructor(success: Boolean, message: String) : this(
         timestamp = LocalDateTime.now(),
@@ -14,11 +16,26 @@ data class Response(
         message = message,
     )
 
+    constructor(success: Boolean, message: String, showNotification: Boolean?) : this(
+            timestamp = LocalDateTime.now(),
+            success = success,
+            message = message,
+            showNotification = showNotification
+    )
+
     constructor(success: Boolean, message: String, data: Any) : this(
         timestamp = LocalDateTime.now(),
         success = success,
         message = message,
         data = data
+    )
+
+    constructor(success: Boolean, message: String, data: Any, showNotification: Boolean?) : this(
+            timestamp = LocalDateTime.now(),
+            success = success,
+            message = message,
+            data = data,
+            showNotification = showNotification
     )
 
     override fun equals(other: Any?): Boolean {

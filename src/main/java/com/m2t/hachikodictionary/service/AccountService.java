@@ -96,7 +96,7 @@ public class AccountService implements UserDetailsService {
         jsonObject.put("email", account.getEmail());
         jsonObject.put("id", account.getId());
 
-        return new Response(true, "Check is completed.", jsonObject);
+        return new Response(true, "Check is completed.", jsonObject, false);
     }
 
     // Beans for authentication process.

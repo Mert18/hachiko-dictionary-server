@@ -48,7 +48,7 @@ public class LearnedWordService {
             }
             learnedWordRepository.save(newLearnedWord);
             logger.info("{} learned new word {}", account.getUsername(), word.getTitle());
-            return new Response(true, "Learned word created", newLearnedWord);
+            return new Response(true, "Learned word created", newLearnedWord, false);
         }
 
         if(updateLearnedWordRequest.getResult()){
@@ -62,6 +62,6 @@ public class LearnedWordService {
         }
 
         learnedWordRepository.save(learnedWord);
-        return new Response(true, "Learned word updated.", learnedWord);
+        return new Response(true, "Learned word updated.", learnedWord, false);
     }
 }

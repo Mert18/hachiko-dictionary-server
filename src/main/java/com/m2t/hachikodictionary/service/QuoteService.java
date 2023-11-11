@@ -24,7 +24,7 @@ public class QuoteService {
         if (quote == null) {
             throw new QuoteNotFoundException("Quote not found.");
         }
-        return new Response(true, "Quote retrieved successfully.", quote);
+        return new Response(true, "Quote retrieved successfully.", quote, false);
     }
 
     public Response createQuote(CreateQuoteRequest quote) {

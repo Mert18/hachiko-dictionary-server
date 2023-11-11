@@ -30,7 +30,7 @@ public class QuizService {
         quizRepository.save(quiz);
         logger.info("{} completed quiz with {} correct answers and {} incorrect answers.",
                 quiz.getAccount().getUsername(), quiz.getCorrectAnswers(), quiz.getIncorrectAnswers());
-        return new Response(true, "Quiz completed successfully.");
+        return new Response(true, "Quiz completed successfully.", false);
     }
 
     public Response generateQuiz(String difficulty) {
@@ -56,7 +56,7 @@ public class QuizService {
         NewQuiz newQuiz = new NewQuiz(quizQuestions, difficulty);
         logger.info("Quiz generated with difficulty {}.", difficulty);
 
-        return new Response(true, "Quiz generated successfully.", newQuiz);
+        return new Response(true, "Quiz generated successfully.", newQuiz, false);
     }
 
     public Response getAccountQuizzes(Account account) {
@@ -67,6 +67,6 @@ public class QuizService {
 
         QuizResponse quizResponse = new QuizResponse(account.getId(), gameCount, correctAnswers, incorrectAnswers);
 
-        return new Response(true, "Quizzes retrieved successfully.", quizResponse);
+        return new Response(true, "Quizzes retrieved successfully.", quizResponse, false);
     }
 }

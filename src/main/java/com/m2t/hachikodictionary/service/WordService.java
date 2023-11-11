@@ -34,7 +34,7 @@ public class WordService {
     public Response getWord(String id) {
         Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
         WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
-        Response response = new Response(true, "Word retrieval successful.", wordDto);
+        Response response = new Response(true, "Word retrieval successful.", wordDto, false);
         return response;
     }
 
@@ -51,7 +51,7 @@ public class WordService {
 
         WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
 
-        Response response = new Response(true, "Word retrieval successful.", wordDto);
+        Response response = new Response(true, "Word retrieval successful.", wordDto, false);
         return response;
     }
 
@@ -61,7 +61,7 @@ public class WordService {
             throw new WordNotFoundException("Word not found.");
         }
 
-        Response response = new Response(true, "Word retrieval successful.", words);
+        Response response = new Response(true, "Word retrieval successful.", words, false);
         return response;
     }
 
@@ -72,7 +72,7 @@ public class WordService {
         }
         WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
 
-        Response response = new Response(true, "Random word retrieval successful.", wordDto);
+        Response response = new Response(true, "Random word retrieval successful.", wordDto, false);
         return response;
     }
 

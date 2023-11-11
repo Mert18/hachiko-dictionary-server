@@ -104,7 +104,7 @@ public class AuthenticationService {
             throw new InvalidTokenException("Token could not be validated.");
         }
         AuthenticationResponse authResponse = jwtService.generateToken(account);
-        Response response = new Response(true, "Token refreshed.", authResponse);
+        Response response = new Response(true, "Token refreshed.", authResponse, false);
         return response;
     }
 }
