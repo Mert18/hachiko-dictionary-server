@@ -22,16 +22,7 @@ data class Quiz(
     val account: Account,
     val correctAnswers: Int,
     val incorrectAnswers: Int,
+    val notAnswered: Int = 0,
     val difficulty: String
-
 ) {
-    constructor(account: Account, correctAnswers: Int, incorrectAnswers: Int, difficulty: String) : this(
-        null,
-        account,
-        correctAnswers,
-        incorrectAnswers,
-        difficulty
-    ) {
-
-    }
 }

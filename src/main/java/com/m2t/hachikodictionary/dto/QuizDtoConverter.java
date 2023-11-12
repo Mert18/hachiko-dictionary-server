@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class QuizDtoConverter {
     public QuizDto quizDtoConverter(Quiz from) {
-        return new QuizDto(from.getAccount(), from.getCorrectAnswers(), from.getIncorrectAnswers(), from.getDifficulty());
+        return new QuizDto(from.getId(), from.getAccount(), from.getCorrectAnswers(), from.getIncorrectAnswers(), from.getNotAnswered(), from.getDifficulty());
     }
 
     public Quiz dtoQuizConverter(QuizDto from) {
-        return new Quiz(from.getAccount(), from.getCorrectAnswers(), from.getIncorrectAnswers(), from.getDifficulty());
+        return new Quiz(from.getId(), from.getAccount(), from.getCorrectAnswers(), from.getIncorrectAnswers(), from.getNotAnswered(), from.getDifficulty());
     }
 }
