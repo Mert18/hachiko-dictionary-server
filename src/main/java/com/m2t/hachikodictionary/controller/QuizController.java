@@ -32,14 +32,15 @@ public class QuizController {
     @PostMapping("/complete")
     public ResponseEntity<Response> completeQuiz(@RequestBody CompleteQuizRequest completeQuizRequest, @RequestHeader("Authorization") String token) {
         try {
-            if(completeQuizRequest.getCorrectAnswers() + completeQuizRequest.getIncorrectAnswers() != 10) {
-                throw new QuizNotValidException("Quiz must have 10 questions.");
-            }
             String jwtToken = token.substring(7);
             String accountId = jwtService.extractAccountId(jwtToken);
             Account account = accountService.findAccountById(accountId);
 
-            Quiz quiz = new Quiz(account, completeQuizRequest.getCorrectAnswers(), completeQuizRequest.getIncorrectAnswers(), completeQuizRequest.getDifficulty());
+            Quiz quiz = new Quiz(account.getId(), account,
+                    completeQuizRequest.getCorrectAnswers(),
+                    completeQuizRequest.getIncorrectAnswers(),
+                    completeQuizRequest.getNotAnswered(),
+                    completeQuizRequest.getDifficulty());
 
             return ResponseEntity.ok(quizService.completeQuiz(quiz));
         } catch (AccountNotFoundException | QuizNotValidException e) {
