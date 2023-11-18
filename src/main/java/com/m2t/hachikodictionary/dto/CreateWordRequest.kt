@@ -7,6 +7,7 @@ data class CreateWordRequest(
     val title: String,
     @field:NotBlank(message = "Kind cannot be blank.")
     val kind: String,
+    val difficulty: String,
     @field:NotBlank(message = "Description cannot be blank.")
     val descriptions: Set<String>,
     val synonyms: Set<String>,
