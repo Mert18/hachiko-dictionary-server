@@ -1,6 +1,7 @@
 # Hachiko Dictionary Server
 
-![hachiko dictionary banner](https://github.com/Mert18/hachiko-dictionary-server/assets/40024436/0aacee25-7e5c-484f-a521-21370029576c)
+![DALL·E 2023-11-29 11 19 02 - A banner image for _Hachiko Dictionary_, a dictionary application, featuring Java and JavaScript technologies  The main theme colors are green and whi](https://github.com/Mert18/hachiko-dictionary-server/assets/40024436/41e3b1c8-a19e-409f-b97c-c2cef3167cab)
+
 
 ## Hachiko Dictionary
 
