@@ -1,5 +1,7 @@
 # Hachiko Dictionary Server
 
+![hachiko dictionary banner](https://github.com/Mert18/hachiko-dictionary-server/assets/40024436/0aacee25-7e5c-484f-a521-21370029576c)
+
 ## Hachiko Dictionary
 
 Hachiko Dictionary offers an immersive learning experience for expanding one's vocabulary.
