@@ -29,48 +29,17 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<Response> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        try {
-            return ResponseEntity.ok(authenticationService.register(registrationRequest));
-        } catch (PasswordsDoNotMatchException | UsernameAlreadyExistsException | EmailAlreadyExistsException e) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Registration failed."));
-        }
+        return ResponseEntity.ok(authenticationService.register(registrationRequest));
     }
 
     @PostMapping("/login")
     public ResponseEntity<Response> login(@RequestBody @Valid LoginRequest loginRequest) {
-        try {
-            return ResponseEntity
-                    .ok(authenticationService.login(loginRequest));
-        } catch (AccountNotFoundException | InvalidCredentialsException e) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Login failed."));
-        }
+        return ResponseEntity.ok(authenticationService.login(loginRequest));
     }
 
     @PostMapping("/refresh")
     public ResponseEntity<Response> refresh(@RequestBody @Valid RefreshRequest refreshRequest) {
-        try {
-            return ResponseEntity.ok(authenticationService.refreshToken(refreshRequest.getRefreshToken()));
-        } catch (InvalidTokenException e) {
-                return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Refresh token failed."));
-        }
+        return ResponseEntity.ok(authenticationService.refreshToken(refreshRequest.getRefreshToken()));
     }
 
 }
