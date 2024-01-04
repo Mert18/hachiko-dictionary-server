@@ -39,16 +39,6 @@ public class AccountController {
 
     @GetMapping("/isconfirmed/{id}")
     public ResponseEntity<Response> isConfirmed(@PathVariable String id) {
-        try {
-            return ResponseEntity.ok(accountService.isAccountConfirmed(id));
-        } catch (AccountNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, e.getMessage()));
-        }
+        return ResponseEntity.ok(accountService.isAccountConfirmed(id));
     }
 }

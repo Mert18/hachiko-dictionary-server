@@ -24,23 +24,7 @@ public class ConfirmationController {
 
     @PostMapping("/confirm")
     public ResponseEntity<Response> confirmEmail(@RequestBody ConfirmEmailRequest confirmEmailRequest) {
-        try {
-            return ResponseEntity
-                    .ok(confirmationService.confirmEmail(confirmEmailRequest));
-        } catch (ConfirmationNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new Response(false, e.getMessage()));
-
-        } catch (InvalidTokenException e) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Confirmation failed."));
-        }
+        return ResponseEntity.ok(confirmationService.confirmEmail(confirmEmailRequest));
     }
 
 }

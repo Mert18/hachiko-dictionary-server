@@ -1,0 +1,23 @@
+spring:
+  sql:
+    init:
+      mode: always
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/hachiko-dictionary
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+jwt:
+  secret: TYKCIaCCs3FMts92xz6xPlWMUu+VIj6d6AoYrcse8orj9l5UoIu2cdZIhdXjBarCG/mSYCsJcYAHYfb+6mGnM3wX9FQtMwTtlQErRxb3k6fL7c/l2peTaMWXABZXVnN03EEnROC6Zsgo/ZW07cmw9MoAaggr663Yyb9nbubxiIzAQswGL//zpZFEJwINC59BBNdFXFR05kaTcjFmEnH6OGPvoOLjDdQLKNaLP9UBMttsEC/H23PrdFrmT+xyuqW0OcpqIWHC+o1iR/xPj+GEngr6Sh+TDPy+uFk3Hxr7zXCKRh4c9MCMAFhKaiSCRrcPOh3dBxWgyebn/4jafSsVpw==
+  accessExpirationDateInMs: 180000
+  refreshExpirationDateInMs: 3600000
+sendgrid:
+  api:
+    key: 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

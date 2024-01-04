@@ -22,56 +22,21 @@ public class WordController {
 
     @GetMapping("/all")
     public ResponseEntity<Response> getAllWords(Pageable pageable) {
-        try {
-            return ResponseEntity
-                    .ok(wordService.getAllWords(pageable));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Word retrieval failed."));
-        }
+        return ResponseEntity.ok(wordService.getAllWords(pageable));
     }
     @GetMapping("/{id}")
     public ResponseEntity<Response> getWord(@PathVariable String id) {
-        try {
-            return ResponseEntity
-                    .ok(wordService.getWord(id));
-        } catch(WordNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Word retrieval failed."));
-        }
+        return ResponseEntity.ok(wordService.getWord(id));
     }
 
     @GetMapping("/one/{difficulty}")
     public ResponseEntity<Response> getOneWordByDifficulty(@PathVariable String difficulty) {
-        try {
-            return ResponseEntity.ok(wordService.getOneWordByDifficulty(difficulty));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Word retrieval failed."));
-        }
+        return ResponseEntity.ok(wordService.getOneWordByDifficulty(difficulty));
     }
 
     @GetMapping("/title/{title}")
     public ResponseEntity<Response> getWordByTitle(@PathVariable String title) {
-        try {
-            return ResponseEntity
-                    .ok(wordService.getWordByTitle(title));
-        } catch(WordNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Word retrieval failed."));
-        }
+        return ResponseEntity.ok(wordService.getWordByTitle(title));
     }
 
     @PostMapping("/create")

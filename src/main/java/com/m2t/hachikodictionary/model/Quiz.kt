@@ -19,19 +19,10 @@ data class Quiz(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
-    val account: Account,
-    val correctAnswers: Int,
-    val incorrectAnswers: Int,
-    val difficulty: String
-
+    var account: Account,
+    var correctAnswers: Int,
+    var incorrectAnswers: Int,
+    var notAnswered: Int = 0,
+    var difficulty: String
 ) {
-    constructor(account: Account, correctAnswers: Int, incorrectAnswers: Int, difficulty: String) : this(
-        null,
-        account,
-        correctAnswers,
-        incorrectAnswers,
-        difficulty
-    ) {
-
-    }
 }

@@ -19,40 +19,17 @@ public class QuoteController {
 
     @GetMapping("/one/{difficulty}")
     public ResponseEntity<Response> getOneQuoteByDifficulty(@PathVariable String difficulty) {
-        try {
-            return ResponseEntity.ok(quoteService.getRandomQuote(difficulty));
-        } catch (QuoteNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new Response(false, e.getMessage()));
-        }catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Quote retrieval failed."));
-        }
+        return ResponseEntity.ok(quoteService.getRandomQuote(difficulty));
     }
 
     @PostMapping("/create")
     public ResponseEntity<Response> createQuote(@RequestBody CreateQuoteRequest quote) {
-        try {
-            return ResponseEntity.ok(quoteService.createQuote(quote));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Quote creation failed."));
-        }
-
+        return ResponseEntity.ok(quoteService.createQuote(quote));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Response> deleteQuote(@PathVariable String id) {
-        try {
-            return ResponseEntity.ok(quoteService.deleteQuote(id));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(500)
-                    .body(new Response(false, "Quote deletion failed."));
-        }
+        return ResponseEntity.ok(quoteService.deleteQuote(id));
     }
 
 }

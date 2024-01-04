@@ -13,7 +13,6 @@ import com.m2t.hachikodictionary.service.AccountService;
 import com.m2t.hachikodictionary.service.AuthenticationService;
 import com.m2t.hachikodictionary.service.ConfirmationService;
 import com.m2t.hachikodictionary.service.MailService;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

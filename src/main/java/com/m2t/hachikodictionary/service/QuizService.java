@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class QuizService {
@@ -28,8 +29,8 @@ public class QuizService {
 
     public Response completeQuiz(Quiz quiz) {
         quizRepository.save(quiz);
-        logger.info("{} completed quiz with {} correct answers and {} incorrect answers.",
-                quiz.getAccount().getUsername(), quiz.getCorrectAnswers(), quiz.getIncorrectAnswers());
+        logger.info("{} completed quiz with {} correct answers, {} incorrect answers and {} not answered.",
+                quiz.getAccount().getUsername(), quiz.getCorrectAnswers(), quiz.getIncorrectAnswers(), quiz.getNotAnswered());
         return new Response(true, "Quiz completed successfully.", false);
     }
 
@@ -64,8 +65,10 @@ public class QuizService {
         int gameCount = quizzes.size();
         int correctAnswers = quizzes.stream().mapToInt(Quiz::getCorrectAnswers).sum();
         int incorrectAnswers = quizzes.stream().mapToInt(Quiz::getIncorrectAnswers).sum();
+        int notAnswered = quizzes.stream().mapToInt(Quiz::getNotAnswered).sum();
+        int totalQuestions = correctAnswers + incorrectAnswers + notAnswered;
 
-        QuizResponse quizResponse = new QuizResponse(account.getId(), gameCount, correctAnswers, incorrectAnswers);
+        QuizResponse quizResponse = new QuizResponse(Objects.requireNonNull(account.getId()), gameCount, correctAnswers, incorrectAnswers, notAnswered, totalQuestions);
 
         return new Response(true, "Quizzes retrieved successfully.", quizResponse, false);
     }
