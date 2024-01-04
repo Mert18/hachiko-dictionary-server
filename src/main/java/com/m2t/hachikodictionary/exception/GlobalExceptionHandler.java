@@ -22,4 +22,11 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new Response(false, exception.getMessage()));
     }
+
+    @ExceptionHandler({ConfirmationNotFoundException.class})
+    public <T extends RuntimeException> ResponseEntity<Object> handleNotFoundExceptions(T exception) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new Response(false, exception.getMessage()));
+    }
 }
