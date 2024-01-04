@@ -25,6 +25,7 @@ public class LearnedWordService {
         this.wordService = wordService;
     }
 
+
     public Response updateLearnedWord(UpdateLearnedWordRequest updateLearnedWordRequest) {
         Account account = accountService.findAccountById(updateLearnedWordRequest.getAccountId());
         if (account == null) {
