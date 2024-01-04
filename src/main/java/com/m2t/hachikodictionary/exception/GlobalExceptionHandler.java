@@ -16,17 +16,24 @@ public class GlobalExceptionHandler {
                 .body(new Response(false, exception.getMessage()));
     }
 
-    @ExceptionHandler({PasswordsDoNotMatchException.class, UsernameAlreadyExistsException.class, EmailAlreadyExistsException.class})
+    @ExceptionHandler({PasswordsDoNotMatchException.class, UsernameAlreadyExistsException.class, EmailAlreadyExistsException.class, QuizNotValidException.class})
     public <T extends RuntimeException> ResponseEntity<Object> handleBadRequestExceptions(T exception) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new Response(false, exception.getMessage()));
     }
 
-    @ExceptionHandler({ConfirmationNotFoundException.class})
+    @ExceptionHandler({ConfirmationNotFoundException.class, WordNotFoundException.class, QuoteNotFoundException.class})
     public <T extends RuntimeException> ResponseEntity<Object> handleNotFoundExceptions(T exception) {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.NOT_FOUND)
+                .body(new Response(false, exception.getMessage()));
+    }
+
+    @ExceptionHandler({WordAlreadyExistsException.class})
+    public <T extends RuntimeException> ResponseEntity<Object> handleConflictExceptions(T exception) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(new Response(false, exception.getMessage()));
     }
 }

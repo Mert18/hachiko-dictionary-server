@@ -27,16 +27,6 @@ public class LearnedWordController {
 
     @PutMapping("/update")
     public ResponseEntity<Response> updateLearnedWord(@RequestBody @Valid UpdateLearnedWordRequest updateLearnedWordRequest) {
-        try {
-            return ResponseEntity.ok(learnedWordService.updateLearnedWord(updateLearnedWordRequest));
-        } catch (AccountNotFoundException | WordNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, e.getMessage()));
-        }
+        return ResponseEntity.ok(learnedWordService.updateLearnedWord(updateLearnedWordRequest));
     }
 }

@@ -31,44 +31,29 @@ public class QuizController {
 
     @PostMapping("/complete")
     public ResponseEntity<Response> completeQuiz(@RequestBody CompleteQuizRequest completeQuizRequest, @RequestHeader("Authorization") String token) {
-        try {
-            String jwtToken = token.substring(7);
-            String accountId = jwtService.extractAccountId(jwtToken);
-            Account account = accountService.findAccountById(accountId);
+        String jwtToken = token.substring(7);
+        String accountId = jwtService.extractAccountId(jwtToken);
+        Account account = accountService.findAccountById(accountId);
 
-            Quiz quiz = new Quiz(account.getId(), account,
-                    completeQuizRequest.getCorrectAnswers(),
-                    completeQuizRequest.getIncorrectAnswers(),
-                    completeQuizRequest.getNotAnswered(),
-                    completeQuizRequest.getDifficulty());
+        Quiz quiz = new Quiz(account.getId(), account,
+                completeQuizRequest.getCorrectAnswers(),
+                completeQuizRequest.getIncorrectAnswers(),
+                completeQuizRequest.getNotAnswered(),
+                completeQuizRequest.getDifficulty());
 
-            return ResponseEntity.ok(quizService.completeQuiz(quiz));
-        } catch (AccountNotFoundException | QuizNotValidException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response(false, e.getMessage()));
-        }
+        return ResponseEntity.ok(quizService.completeQuiz(quiz));
     }
 
     @GetMapping("/generate/{difficulty}")
     public ResponseEntity<Response> generateQuiz(@PathVariable String difficulty) {
-        try {
-            return ResponseEntity.ok(quizService.generateQuiz(difficulty));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response(false, e.getMessage()));
-        }
+        return ResponseEntity.ok(quizService.generateQuiz(difficulty));
     }
 
     @GetMapping("/my-quizzes")
     public ResponseEntity<Response> getMyQuizzes(@RequestHeader("Authorization") String token) {
-        try {
-            String jwtToken = token.substring(7);
-            String accountId = jwtService.extractAccountId(jwtToken);
-            Account account = accountService.findAccountById(accountId);
-            return ResponseEntity.ok(quizService.getAccountQuizzes(account));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, e.getMessage()));
-        }
+        String jwtToken = token.substring(7);
+        String accountId = jwtService.extractAccountId(jwtToken);
+        Account account = accountService.findAccountById(accountId);
+        return ResponseEntity.ok(quizService.getAccountQuizzes(account));
     }
 }
