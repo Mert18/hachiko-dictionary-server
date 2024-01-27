@@ -1,4 +1,4 @@
-package com.m2t.hachikodictionary.dto;
+package com.m2t.hachikodictionary.dto.word;
 
 import com.m2t.hachikodictionary.model.LearnedWord;
 import org.springframework.stereotype.Component;

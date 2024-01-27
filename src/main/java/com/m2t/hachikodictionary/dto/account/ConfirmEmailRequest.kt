@@ -1,4 +1,4 @@
-package com.m2t.hachikodictionary.dto
+package com.m2t.hachikodictionary.dto.account
 
 data class ConfirmEmailRequest(
     val email: String,

@@ -1,10 +1,8 @@
 package com.m2t.hachikodictionary.controller;
 
-import com.m2t.hachikodictionary.dto.CreateQuoteRequest;
+import com.m2t.hachikodictionary.dto.quote.CreateQuoteRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.QuoteNotFoundException;
 import com.m2t.hachikodictionary.service.QuoteService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

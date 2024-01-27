@@ -1,6 +1,6 @@
 package com.m2t.hachikodictionary.service;
 
-import com.m2t.hachikodictionary.dto.ConfirmEmailRequest;
+import com.m2t.hachikodictionary.dto.account.ConfirmEmailRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.ConfirmationNotFoundException;
 import com.m2t.hachikodictionary.exception.InvalidTokenException;

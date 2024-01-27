@@ -1,4 +1,4 @@
-package com.m2t.hachikodictionary.dto
+package com.m2t.hachikodictionary.dto.quiz
 
 data class CompleteQuizRequest(
     val correctAnswers: Int,

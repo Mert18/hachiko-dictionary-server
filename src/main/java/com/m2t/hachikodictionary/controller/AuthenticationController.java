@@ -1,14 +1,11 @@
 package com.m2t.hachikodictionary.controller;
 
-import com.m2t.hachikodictionary.dto.LoginRequest;
-import com.m2t.hachikodictionary.dto.RefreshRequest;
-import com.m2t.hachikodictionary.dto.RegistrationRequest;
+import com.m2t.hachikodictionary.dto.account.LoginRequest;
+import com.m2t.hachikodictionary.dto.account.RefreshRequest;
+import com.m2t.hachikodictionary.dto.account.RegistrationRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.*;
-import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.service.AuthenticationService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;

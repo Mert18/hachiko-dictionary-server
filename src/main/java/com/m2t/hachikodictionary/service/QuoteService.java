@@ -1,6 +1,6 @@
 package com.m2t.hachikodictionary.service;
 
-import com.m2t.hachikodictionary.dto.CreateQuoteRequest;
+import com.m2t.hachikodictionary.dto.quote.CreateQuoteRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.QuoteNotFoundException;
 import com.m2t.hachikodictionary.model.Quote;

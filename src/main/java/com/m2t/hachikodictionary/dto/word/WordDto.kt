@@ -1,4 +1,6 @@
-package com.m2t.hachikodictionary.dto
+package com.m2t.hachikodictionary.dto.word
+
+import java.time.LocalDateTime
 
 data class WordDto(
     val id: String?,
@@ -9,6 +11,8 @@ data class WordDto(
     val synonyms: Set<String>,
     val antonyms: Set<String>,
     val sentences: Set<String>,
+    val fileUrl: String?,
+    val audioFileCreatedAt: LocalDateTime?
 ) {
 }
 

@@ -1,12 +1,9 @@
 package com.m2t.hachikodictionary.controller;
 
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.dto.UpdateLearnedWordRequest;
-import com.m2t.hachikodictionary.exception.AccountNotFoundException;
-import com.m2t.hachikodictionary.exception.WordNotFoundException;
+import com.m2t.hachikodictionary.dto.word.UpdateLearnedWordRequest;
 import com.m2t.hachikodictionary.service.LearnedWordService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PutMapping;

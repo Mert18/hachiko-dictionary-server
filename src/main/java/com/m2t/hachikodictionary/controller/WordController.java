@@ -1,12 +1,9 @@
 package com.m2t.hachikodictionary.controller;
 
-import com.m2t.hachikodictionary.dto.CreateWordRequest;
+import com.m2t.hachikodictionary.dto.word.CreateWordRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.WordAlreadyExistsException;
-import com.m2t.hachikodictionary.exception.WordNotFoundException;
 import com.m2t.hachikodictionary.service.WordService;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
