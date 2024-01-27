@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -111,5 +112,11 @@ public class WordService {
         wordRepository.delete(word);
         logger.info("Word with title {} deleted.", word.getTitle());
         return new Response(true, "Word deletion successful.", null);
+    }
+
+    public Response searchWord(String title) {
+        logger.info("Searching term: {}", title);
+        List<Word> listOfWords = wordRepository.searchByWord(title);
+        return new Response(true, "Word search successful", listOfWords, false);
     }
 }

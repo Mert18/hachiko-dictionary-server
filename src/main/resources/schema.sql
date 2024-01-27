@@ -28,7 +28,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE IF NOT EXISTS public.accounts (
-    id character varying(255) NOT NULL,
+    id character varying(255) NOT NULL PRIMARY KEY,
     confirmed boolean NOT NULL,
     email character varying(255),
     password character varying(255),
@@ -45,7 +45,7 @@ ALTER TABLE public.accounts OWNER TO postgres;
 --
 
 CREATE TABLE IF NOT EXISTS public.confirmations (
-    id character varying(255) NOT NULL,
+    id character varying(255) NOT NULL PRIMARY KEY,
     email character varying(255),
     token character varying(255)
 );
@@ -73,7 +73,7 @@ ALTER TABLE public.learned_words OWNER TO postgres;
 --
 
 CREATE TABLE IF NOT EXISTS public.quizzes (
-    id character varying(255) NOT NULL,
+    id character varying(255) NOT NULL PRIMARY KEY,
     correct_answers integer NOT NULL,
     difficulty character varying(255),
     incorrect_answers integer NOT NULL,
@@ -89,7 +89,7 @@ ALTER TABLE public.quizzes OWNER TO postgres;
 --
 
 CREATE TABLE IF NOT EXISTS public.quotes (
-    id character varying(255) NOT NULL,
+    id character varying(255) NOT NULL PRIMARY KEY,
     author character varying(255),
     difficulty character varying(255),
     quote character varying(255)
@@ -156,7 +156,7 @@ ALTER TABLE public.word_synonyms OWNER TO postgres;
 --
 
 CREATE TABLE IF NOT EXISTS public.words (
-    id character varying(255) NOT NULL,
+    id character varying(255) NOT NULL PRIMARY KEY,
     difficulty character varying(255),
     kind character varying(255),
     title character varying(255)
