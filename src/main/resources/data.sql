@@ -620,7 +620,6 @@ INSERT INTO public.word_sentences (word_id, sentences) VALUES ('dfd48a8d-b268-41
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('75ed7c46-7355-4c45-a012-bfce4c2c5f1d', 'Each artist in the gallery has discretion over the price that will be charged for his or her work.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('75ed7c46-7355-4c45-a012-bfce4c2c5f1d', 'The coach used his own discretion to let the injured quarterback play.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('75ed7c46-7355-4c45-a012-bfce4c2c5f1d', 'He always uses care and discretion when dealing with others.');
-INSERT INTO public.word_sentences (word_id, sentences) VALUES ('1c53242a-5232-4387-b151-c851f3d9969f', 'Combustion may occur at high temperatures');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('8288696d-b528-42e4-b838-67581d2e7121', 'The class is intended to demystify the process of using a computer.');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('8288696d-b528-42e4-b838-67581d2e7121', 'A wine book that does a lot to demystify the subject for the casual drinker who just wants a good bottle for dinner');
 INSERT INTO public.word_sentences (word_id, sentences) VALUES ('9938b09a-b46c-4e10-bbda-0127c92350da', 'As in the sixties, being young then was in itself an empowerment; writing under Harding and Coolidge was impudent fun.');

@@ -34,17 +34,23 @@ public class WordnikClient {
 
         String url = wordnikUrl + "/word.json/" + title + "/audio?useCanonical=false&limit=1&api_key={api_key}";
         Map<String, String> params = Collections.singletonMap("api_key", wordnikApiKey);
-        List wordAudioResponse = restTemplate.getForObject(url, List.class, params);
-        if(wordAudioResponse != null && wordAudioResponse.get(0) != null) {
-            Map<String, Object> wordAudioMap = (Map<String, Object>) wordAudioResponse.get(0);
-            Integer wordAudioId = (Integer) wordAudioMap.get("id");
-            String wordTitle = (String) wordAudioMap.get("word");
-            Double duration = (Double) wordAudioMap.get("duration");
-            String fileUrl = (String) wordAudioMap.get("fileUrl");
-            WordAudio wordAudio = new WordAudio(wordAudioId, wordTitle, duration, fileUrl);
-            return wordAudio;
-        } else {
+        try {
+            List wordAudioResponse = restTemplate.getForObject(url, List.class, params);
+            if(wordAudioResponse != null && wordAudioResponse.get(0) != null) {
+                Map<String, Object> wordAudioMap = (Map<String, Object>) wordAudioResponse.get(0);
+                Integer wordAudioId = (Integer) wordAudioMap.get("id");
+                String wordTitle = (String) wordAudioMap.get("word");
+                Double duration = (Double) wordAudioMap.get("duration");
+                String fileUrl = (String) wordAudioMap.get("fileUrl");
+                WordAudio wordAudio = new WordAudio(wordAudioId, wordTitle, duration, fileUrl);
+                return wordAudio;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            logger.error("Error getting word audio from Wordnik: " + e.getMessage());
             return null;
         }
+
     }
 }
