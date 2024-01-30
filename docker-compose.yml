@@ -5,14 +5,14 @@ services:
     ports:
       - "8888:8888"
     depends_on:
-      PostgreSQL:
+      postgresql:
         condition: service_healthy
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/hachiko-dictionary
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/hachiko-dictionary
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
 
-  PostgreSQL:
+  postgresql:
     image: postgres
     ports:
       - "5432:5432"
