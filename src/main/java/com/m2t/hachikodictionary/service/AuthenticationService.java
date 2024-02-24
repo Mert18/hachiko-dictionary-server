@@ -1,9 +1,9 @@
 package com.m2t.hachikodictionary.service;
 
 import com.m2t.hachikodictionary.config.JWTService;
-import com.m2t.hachikodictionary.dto.AuthenticationResponse;
-import com.m2t.hachikodictionary.dto.LoginRequest;
-import com.m2t.hachikodictionary.dto.RegistrationRequest;
+import com.m2t.hachikodictionary.dto.account.AuthenticationResponse;
+import com.m2t.hachikodictionary.dto.account.LoginRequest;
+import com.m2t.hachikodictionary.dto.account.RegistrationRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.exception.*;
 import com.m2t.hachikodictionary.model.Account;

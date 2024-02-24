@@ -1,12 +1,9 @@
 package com.m2t.hachikodictionary.controller;
 
-import com.m2t.hachikodictionary.dto.CreateWordRequest;
+import com.m2t.hachikodictionary.dto.word.CreateWordRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.WordAlreadyExistsException;
-import com.m2t.hachikodictionary.exception.WordNotFoundException;
 import com.m2t.hachikodictionary.service.WordService;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,49 +38,21 @@ public class WordController {
 
     @PostMapping("/create")
     public ResponseEntity<Response> createWord(@RequestBody CreateWordRequest createWordRequest) {
-        try {
-            return ResponseEntity
-                    .ok(wordService.createWord(createWordRequest));
-        } catch (WordAlreadyExistsException e) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Word creation failed."));
-        }
+        return ResponseEntity.ok(wordService.createWord(createWordRequest));
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Response> updateWord(@PathVariable String id, @RequestBody CreateWordRequest createWordRequest) {
-        try {
-            return ResponseEntity
-                    .ok(wordService.updateWord(id, createWordRequest));
-        } catch (WordNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Word update failed."));
-        }
+        return ResponseEntity.ok(wordService.updateWord(id, createWordRequest));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Response> deleteWord(@PathVariable String id) {
-        try {
-            return ResponseEntity
-                    .ok(wordService.deleteWord(id));
-        } catch (WordNotFoundException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new Response(false, e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response(false, "Word deletion failed."));
-        }
+        return ResponseEntity.ok(wordService.deleteWord(id));
+    }
+
+    @GetMapping("/search/{title}")
+    public ResponseEntity<Response> searchWord(@PathVariable String title) {
+        return ResponseEntity.ok(wordService.searchWord(title));
     }
 }

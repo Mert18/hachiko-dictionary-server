@@ -1,12 +1,9 @@
 package com.m2t.hachikodictionary.controller;
 
 import com.m2t.hachikodictionary.config.JWTService;
-import com.m2t.hachikodictionary.dto.AccountDto;
+import com.m2t.hachikodictionary.dto.account.AccountDto;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.service.AccountService;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 package com.m2t.hachikodictionary.service;
 
-import com.m2t.hachikodictionary.dto.QuizResponse;
+import com.m2t.hachikodictionary.dto.quiz.QuizResponse;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.model.*;
 import com.m2t.hachikodictionary.repository.QuizRepository;

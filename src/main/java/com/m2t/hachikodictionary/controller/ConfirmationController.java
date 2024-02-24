@@ -1,11 +1,8 @@
 package com.m2t.hachikodictionary.controller;
 
-import com.m2t.hachikodictionary.dto.ConfirmEmailRequest;
+import com.m2t.hachikodictionary.dto.account.ConfirmEmailRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.ConfirmationNotFoundException;
-import com.m2t.hachikodictionary.exception.InvalidTokenException;
 import com.m2t.hachikodictionary.service.ConfirmationService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

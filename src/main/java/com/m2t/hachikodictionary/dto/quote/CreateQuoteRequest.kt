@@ -1,4 +1,4 @@
-package com.m2t.hachikodictionary.dto
+package com.m2t.hachikodictionary.dto.quote
 
 data class CreateQuoteRequest(
     val quote: String,

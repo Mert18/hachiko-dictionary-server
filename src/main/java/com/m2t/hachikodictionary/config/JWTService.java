@@ -1,6 +1,6 @@
 package com.m2t.hachikodictionary.config;
 
-import com.m2t.hachikodictionary.dto.AuthenticationResponse;
+import com.m2t.hachikodictionary.dto.account.AuthenticationResponse;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.service.AccountService;
 import io.jsonwebtoken.Claims;
@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;

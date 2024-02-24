@@ -1,9 +1,11 @@
 package com.m2t.hachikodictionary.service;
 
-import com.m2t.hachikodictionary.dto.CreateWordRequest;
+import com.m2t.hachikodictionary.client.WordnikClient;
+import com.m2t.hachikodictionary.dto.client.WordAudio;
+import com.m2t.hachikodictionary.dto.word.CreateWordRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.dto.WordDto;
-import com.m2t.hachikodictionary.dto.WordDtoConverter;
+import com.m2t.hachikodictionary.dto.word.WordDto;
+import com.m2t.hachikodictionary.dto.word.WordDtoConverter;
 import com.m2t.hachikodictionary.exception.WordAlreadyExistsException;
 import com.m2t.hachikodictionary.exception.WordNotFoundException;
 import com.m2t.hachikodictionary.model.Word;
@@ -15,24 +17,37 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class WordService {
     private final WordRepository wordRepository;
     private final WordPagingRepository wordPagingRepository;
     private final WordDtoConverter wordDtoConverter;
+    private final WordnikClient wordnikClient;
 
     private static final Logger logger = LoggerFactory.getLogger(WordService.class);
 
-    public WordService(WordRepository wordRepository, WordDtoConverter wordDtoConverter, WordPagingRepository wordPagingRepository) {
+    public WordService(WordRepository wordRepository, WordDtoConverter wordDtoConverter, WordPagingRepository wordPagingRepository, WordnikClient wordnikClient) {
         this.wordRepository = wordRepository;
         this.wordDtoConverter = wordDtoConverter;
         this.wordPagingRepository = wordPagingRepository;
+        this.wordnikClient = wordnikClient;
     }
 
     public Response getWord(String id) {
         Word word = wordRepository.findById(id).orElseThrow(() -> new WordNotFoundException("Word not found."));
+        if(word.getFileUrl() == null || (word.getAudioFileCreatedAt() != null && word.getAudioFileCreatedAt().isBefore(LocalDateTime.now().minusMinutes(10)))) {
+            WordAudio wordAudio = wordnikClient.getWordAudio(word.getTitle());
+            if(wordAudio != null) {
+                word.setFileUrl(wordAudio.getFileUrl());
+                word.setAudioFileCreatedAt(LocalDateTime.now());
+            }else {
+                word.setFileUrl("N/A");
+            }
+            wordRepository.save(word);
+        }
         WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
         return new Response(true, "Word retrieval successful.", wordDto, false);
     }
@@ -81,7 +96,9 @@ public class WordService {
                 createWordRequest.getDescriptions(),
                 createWordRequest.getSynonyms(),
                 createWordRequest.getAntonyms(),
-                createWordRequest.getSentences()
+                createWordRequest.getSentences(),
+                null,
+                null
         );
 
         wordRepository.save(word);
@@ -111,5 +128,11 @@ public class WordService {
         wordRepository.delete(word);
         logger.info("Word with title {} deleted.", word.getTitle());
         return new Response(true, "Word deletion successful.", null);
+    }
+
+    public Response searchWord(String title) {
+        logger.info("Searching term: {}", title);
+        List<Word> listOfWords = wordRepository.searchByWord(title);
+        return new Response(true, "Word search successful", listOfWords, false);
     }
 }

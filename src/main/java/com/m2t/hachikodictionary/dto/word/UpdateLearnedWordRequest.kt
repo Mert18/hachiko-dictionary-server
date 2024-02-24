@@ -1,4 +1,4 @@
-package com.m2t.hachikodictionary.dto
+package com.m2t.hachikodictionary.dto.word
 
 import jakarta.validation.constraints.NotBlank
 import org.springframework.lang.NonNull

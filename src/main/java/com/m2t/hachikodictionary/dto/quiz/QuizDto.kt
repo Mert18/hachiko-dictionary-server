@@ -1,4 +1,4 @@
-package com.m2t.hachikodictionary.dto
+package com.m2t.hachikodictionary.dto.quiz
 
 import com.m2t.hachikodictionary.model.Account
 

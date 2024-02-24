@@ -1,6 +1,6 @@
 package com.m2t.hachikodictionary.service;
 
-import com.m2t.hachikodictionary.dto.RegistrationRequest;
+import com.m2t.hachikodictionary.dto.account.RegistrationRequest;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;

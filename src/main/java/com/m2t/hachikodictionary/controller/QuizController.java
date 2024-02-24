@@ -1,16 +1,12 @@
 package com.m2t.hachikodictionary.controller;
 
 import com.m2t.hachikodictionary.config.JWTService;
-import com.m2t.hachikodictionary.dto.CompleteQuizRequest;
-import com.m2t.hachikodictionary.dto.QuizDto;
+import com.m2t.hachikodictionary.dto.quiz.CompleteQuizRequest;
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.exception.AccountNotFoundException;
-import com.m2t.hachikodictionary.exception.QuizNotValidException;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.model.Quiz;
 import com.m2t.hachikodictionary.service.AccountService;
 import com.m2t.hachikodictionary.service.QuizService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

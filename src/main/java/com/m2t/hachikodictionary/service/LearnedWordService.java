@@ -1,7 +1,7 @@
 package com.m2t.hachikodictionary.service;
 
 import com.m2t.hachikodictionary.dto.Response;
-import com.m2t.hachikodictionary.dto.UpdateLearnedWordRequest;
+import com.m2t.hachikodictionary.dto.word.UpdateLearnedWordRequest;
 import com.m2t.hachikodictionary.exception.AccountNotFoundException;
 import com.m2t.hachikodictionary.exception.WordNotFoundException;
 import com.m2t.hachikodictionary.model.Account;

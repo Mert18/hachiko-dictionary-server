@@ -1,8 +1,11 @@
 package com.m2t.hachikodictionary.model
 
+import jakarta.annotation.Nullable
 import jakarta.persistence.*
 import org.hibernate.annotations.GenericGenerator
 import org.springframework.boot.context.properties.bind.DefaultValue
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "words", schema = "public")
@@ -30,7 +33,13 @@ data class Word(
     var sentences: Set<String>,
 
     @OneToMany(mappedBy = "word", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val learnedWords: Set<LearnedWord>
+    val learnedWords: Set<LearnedWord>,
+
+    @Nullable
+    @Column(columnDefinition = "TEXT")
+    var fileUrl: String?,
+
+    var audioFileCreatedAt: LocalDateTime?
 ) {
     constructor(
         title: String,
@@ -39,6 +48,8 @@ data class Word(
         synonyms: MutableSet<String>,
         antonyms: MutableSet<String>,
         sentences: MutableSet<String>,
+            fileUrl: String?,
+        audioFileCreatedAt: LocalDateTime?
     ) : this(
         null,
         title,
@@ -48,7 +59,9 @@ data class Word(
         synonyms,
         antonyms,
         sentences,
-        emptySet()
+        emptySet(),
+        fileUrl,
+        audioFileCreatedAt
     )
 
     constructor(
@@ -59,6 +72,8 @@ data class Word(
         synonyms: MutableSet<String>,
         antonyms: MutableSet<String>,
         sentences: MutableSet<String>,
+        fileUrl: String?,
+        audioFileCreatedAt: LocalDateTime?
     ) : this(
         null,
         title,
@@ -68,7 +83,9 @@ data class Word(
         synonyms,
         antonyms,
         sentences,
-        emptySet()
+        emptySet(),
+        fileUrl,
+        audioFileCreatedAt
     )
 
     constructor(
@@ -79,7 +96,9 @@ data class Word(
         descriptions: MutableSet<String>,
         synonyms: MutableSet<String>,
         antonyms: MutableSet<String>,
-        sentences: MutableSet<String>
+        sentences: MutableSet<String>,
+        fileUrl: String?,
+        audioFileCreatedAt: LocalDateTime?
     ) : this(
         id,
         title,
@@ -89,7 +108,9 @@ data class Word(
         synonyms,
         antonyms,
         sentences,
-        emptySet()
+        emptySet(),
+        fileUrl,
+        audioFileCreatedAt
     )
 
 
