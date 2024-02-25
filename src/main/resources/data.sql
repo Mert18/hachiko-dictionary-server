@@ -1,150 +1,108 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 15.3
--- Dumped by pg_dump version 15.3
-
--- Started on 2023-06-25 13:03:48
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- TOC entry 3377 (class 0 OID 16610)
--- Dependencies: 214
--- Data for Name: accounts; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-TRUNCATE public.accounts CASCADE;
-TRUNCATE public.words CASCADE;
-TRUNCATE public.quotes CASCADE;
-TRUNCATE public.word_synonyms CASCADE;
-TRUNCATE public.word_antonyms CASCADE;
-TRUNCATE public.word_descriptions CASCADE;
-TRUNCATE public.word_sentences CASCADE;
-TRUNCATE public.learned_words CASCADE;
-TRUNCATE public.confirmations CASCADE;
-TRUNCATE public.quizzes CASCADE;
 
 -- test@gmail.com / test123
 INSERT INTO public.accounts (id, confirmed, email, password, role, username) VALUES ('845d0b58-74fc-46b9-915e-b5d370a479e3', false, 'test@gmail.com', '$2a$10$8EiTa1iVodDhOZF9j8YxZunSG2hUC0nhczgoJlnEvUxqlIoMP8nGG', 'USER', 'test');
 
---
--- TOC entry 3386 (class 0 OID 16665)
--- Dependencies: 223
--- Data for Name: words; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('febd3eaa-5564-4740-8d98-6c957587cf47', 'medium', 'verb', 'contend');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('d2584b62-8d35-42cd-b7d9-0ac2d558f65a', 'medium', 'adjective', 'perpetual');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('94fb8ea7-2cb2-4262-bbfc-5ba76736038f', 'medium', 'noun', 'accolade');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('cfc07696-bbc2-481a-a809-01a96cd34935', 'medium', 'adjective', 'amicable');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('289ee1a2-6f03-4b80-854d-37b75f417dc0', 'medium', 'verb', 'refrain');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('3d835b28-1231-457a-8a64-2cda90a5f37c', 'medium', 'adjective', 'imminent');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('6866972a-657a-40af-b85a-bb6da486b3b3', 'medium', 'verb', 'perpetuate');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('943230f8-d377-4b0b-8c04-5f0339b3a2cb', 'medium', 'verb', 'coddle');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('f9d15829-2995-44b8-baee-e22880fedd91', 'medium', 'adjective', 'pernicious');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('33a9b071-2b75-4e87-b630-c4d62810863c', 'medium', 'verb', 'bleach');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('6e1edbbf-24de-4276-bde7-a1338f828fd6', 'medium', 'verb', 'abhor');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('e24fe190-66c4-4923-ac4b-2e98d95e36e4', 'medium', 'verb', 'subvert');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('acebb5cf-48d3-44fc-8199-bb8044d061b2', 'medium', 'adjective', 'amiable');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('2e890c4d-e3ef-4342-a623-872047fa1865', 'medium', 'verb', 'distill');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('acb2f9cc-e711-4f60-af46-a9d3ce1b8014', 'medium', 'verb', 'extol');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('987a58bf-3c20-4507-a781-eec26cff4f01', 'medium', 'noun', 'combustion');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('316efa33-872e-4623-9f2e-df78062241fd', 'medium', 'adjective', 'unary');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('0dca143e-8982-40af-bd4f-64e3cd0fca63', 'medium', 'verb', 'digress');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('d9ef9cb7-31e9-4628-bc62-c1b9778778c2', 'medium', 'verb', 'divert');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('71366083-b515-4ac8-ba69-116911fcada7', 'medium', 'noun', 'strand');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('084036ee-4f42-4204-902a-fda4c5d41c91', 'medium', 'adjective', 'transient');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('ee557660-2f69-41e5-ad9b-dd4d9df7591b', 'medium', 'verb', 'chide');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('34f2aa4b-1ec7-4c07-bb2b-d16a87fac240', 'medium', 'verb', 'tinker');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('b0e8bac4-c7c1-4388-9c16-9f9b84dec659', 'medium', 'noun', 'repugnance');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('03a0bc9a-c7cd-4135-9f91-174495842c37', 'medium', 'adjective', 'expedient');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('476d3e0b-e79f-456e-b601-25441b787659', 'medium', 'verb', 'coalesce');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('974d1246-7159-4b4e-acef-3d715c5b4235', 'medium', 'noun', 'clamor');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('4848716e-bdcb-457d-a5e9-8a6c4527f1fc', 'medium', 'adjective', 'sublime');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('22b9ea85-49a9-4da4-8861-98c3d7604c96', 'medium', 'adjective', 'profound');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('dfd48a8d-b268-4101-a378-de9414367622', 'medium', 'noun', 'rear');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('75ed7c46-7355-4c45-a012-bfce4c2c5f1d', 'medium', 'noun', 'discretion');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('1c53242a-5232-4387-b151-c851f3d9969f', 'medium', 'noun', 'combustion');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('8288696d-b528-42e4-b838-67581d2e7121', 'medium', 'verb', 'demystify');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('9938b09a-b46c-4e10-bbda-0127c92350da', 'medium', 'adjective', 'impudent');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('ed61669f-3f4b-4e8f-915e-a791efe85ff1', 'medium', 'noun', 'asylum');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('8c0596ec-e800-4865-8541-25a594f8db9f', 'medium', 'noune', 'confine');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('8b4c1639-1213-49ee-ba3f-b81d2fcebe95', 'medium', 'verb', 'tamper');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('f61d8598-6a3e-4957-a7fa-e9ea17344ab3', 'medium', 'adjective', 'tempting');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('1923b62b-38b7-4557-a9d5-4dfa346725f8', 'medium', 'verb', 'forsake');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('a8a53ea3-21f2-44bf-8ef0-8a53a9ba9dc0', 'medium', 'noun', 'deed');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('04439f1a-7f9b-4bf8-b783-ad4727dded06', 'medium', 'adjective', 'poignant');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('5db1ee1b-43e0-4b96-bb10-3f130439c6a9', 'medium', 'verb', 'resonate');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('496ffa5e-55e2-4836-bc92-bd2b86215638', 'medium', 'verb', 'divulge');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('f1d3a83b-78af-42cb-ac63-dfc34cb737b6', 'medium', 'verb', 'agitate');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('e22273fb-23ae-4cc6-8327-4bbd29d1fa65', 'medium', 'verb', 'ponder');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('3c953a0c-3e3d-486f-8979-1ff3b0965ce1', 'medium', 'adjective', 'superfluous');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('3552979c-f9fa-473a-83d5-f388a5deadef', 'medium', 'adjective', 'budding');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('26b59c3f-f7b0-4429-bb71-10c6593fce89', 'medium', 'verb', 'bruit');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('4b6aa1ec-1298-416d-8c1f-cc4813a237b8', 'medium', 'adjective', 'blatant');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('891c3316-8b90-4b16-92ac-ef25a9700323', 'medium', 'verb', 'indict');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('ca523e1d-1c77-4cde-b585-f8f05eaaad38', 'medium', 'noun', 'throes');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('e3a07a46-4ddf-44d4-a582-26f87eaac9aa', 'medium', 'noun', 'omnipotence');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('8489e353-b834-4461-83e8-88baee167ec4', 'medium', 'verb', 'reconcile');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('4dc02076-1ce8-40ce-8a55-7f4250271bc4', 'medium', 'adjective', 'nominal');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('88ef1792-5446-487e-96f6-20406d9c9029', 'medium', 'adjective', 'forlorn');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('71747417-ea91-4796-a3aa-e74ac64ace23', 'medium', 'noun', 'infamy');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('492e060c-9aa4-4495-9e61-7604396cc3a0', 'medium', 'noun', 'alacrity');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('fe58474c-bae6-4082-bed0-bd08720be1f2', 'medium', 'noun', 'varnish');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('bda5fb6c-ff7d-415f-82c6-5454fc006a83', 'medium', 'noun', 'premise');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('25f2a9db-982a-4015-ac0f-27a3bb67048f', 'medium', 'verb', 'hinder');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('c8e06366-f076-4778-881f-bec5d3e53127', 'medium', 'verb', 'exalt');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('22e71fef-c4be-49d3-a5a8-ce72d1891f1f', 'medium', 'adjective', 'recondite');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('3c645c59-1764-46fc-97b8-39943d6adac9', 'medium', 'verb', 'entangle');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('3d81b6f5-9d85-4574-829c-0f1b4437b76b', 'medium', 'noun', 'prospect');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('7b860f3a-4f78-4467-ab84-952cbd41c997', 'medium', 'verb', 'feign');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('cc0b16f1-021b-42ac-8835-20c88196c0ad', 'medium', 'verb', 'convey');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('365d617b-1558-45b1-adcc-161df52d274f', 'medium', 'noun', 'ordeal');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('02e6f83b-bae0-4916-b15d-7c36f52ad1a0', 'medium', 'verb', 'pertain');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('987d1f40-2602-43dd-bd70-7b2c637fc09e', 'medium', 'noun', 'seam');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('853937c8-a734-4fc7-a3ef-b41114cb700b', 'medium', 'noun', 'leverage');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('42d1918a-52e5-4fa2-966f-d64f7a96ce87', 'medium', 'adjective', 'degenerate');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('7662bb8b-95b7-4c19-9ccf-ad3f6089a17e', 'medium', 'adjective', 'confidential');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('30dbdfa5-47bf-4ba3-b612-b70edcdca547', 'medium', 'adjective', 'subsidiary');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('4545b40a-f38d-462c-993f-c3166f177586', 'medium', 'adverb', 'asunder');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('27167d6a-0e8d-480e-9e92-548b052d79fe', 'medium', 'noune', 'demise');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('74a52231-0363-4786-a2a9-f9d4e18bcc1e', 'medium', 'adjective', 'callous');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('6ae6bdf5-6653-48e6-b11d-58bc7bf934bb', 'medium', 'verb', 'debase');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('0a73a9be-0202-4b09-822e-d8feaaa90787', 'medium', 'adjective', 'venerable');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('ca6cd98d-d8f2-4c33-80e7-3b9084f00600', 'medium', 'adjective', 'unscathed');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('3c6b0a51-55be-48e7-bf11-33a45ee0bc88', 'medium', 'verb', 'frown');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('6c613b4a-d6a4-4b6e-aa65-98790347f901', 'medium', 'verb', 'occlude');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('bb2efe7b-3b69-4cfb-a9b9-e3b7ba92c85d', 'medium', 'adjective', 'gullible');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('833f82a4-e3f5-47e3-b80e-f27ffc07aaef', 'medium', 'verb', 'preempt');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('4fde5db4-864f-4035-86c0-41fecf525196', 'medium', 'verb', 'elongate');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('988faa4a-9f5e-4308-b053-75131d130e98', 'medium', 'verb', 'relinquish');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('e5c16ad5-239b-45d3-aa06-a757cbe32280', 'medium', 'adjective', 'bound');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('2c24e3f5-4331-48b9-a673-5ba0ffb76e18', 'medium', 'noun', 'behest');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('75d3b2dd-1a0e-4e25-a31e-da7366ee438d', 'medium', 'verb', 'debilitate');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('65e88d9b-e1f2-4511-85c2-56777bfa6b84', 'medium', 'noun', 'caveat');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('4c67b28e-6c56-4ff7-9997-a21f09648d21', 'medium', 'verb', 'retain');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('81a659e0-6ab1-4aee-8827-f79b41bb5f39', 'medium', 'noun', 'matrimony');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('5b0bce95-acde-4650-8166-eeb17d1e9da2', 'medium', 'adjective', 'submissive');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('6b96acd8-45f8-458b-8dd0-c84c17f8a7a1', 'medium', 'verb', 'proclaim');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('86528a08-88b7-4e04-adf9-65aeadfb2c9a', 'medium', 'adjective', 'imperious');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('4017d565-14b5-46f5-9d36-e43d23b458cc', 'medium', 'adjective', 'bewildering');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('c29a9b26-5235-4093-a1f7-821b7735a0ff', 'medium', 'verb', 'scribble');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('73d8c390-cff8-4c0a-858a-1c1867a5b0f1', 'medium', 'adjective', 'aberrant');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('9c6c393d-2ffc-45c7-9e24-3fde1f7ff20b', 'medium', 'verb', 'rejoice');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('26f75a63-940b-49d1-ba91-b05ebaea5b98', 'medium', 'noun', 'consternation');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('4e862e08-804e-40fb-bed9-7c4f5b0e475e', 'medium', 'verb', 'interrogate');
-INSERT INTO public.words (id, difficulty, kind, title) VALUES ('34d63f7e-06ce-41a6-925b-f4c9a8d5d26f', 'medium', 'verb', 'bicker');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'contend');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'perpetual');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'accolade');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'amicable');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'refrain');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'imminent');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'perpetuate');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'coddle');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'pernicious');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'bleach');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'abhor');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'subvert');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'amiable');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'distill');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'extol');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'combustion');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'unary');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'digress');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'divert');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'strand');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'transient');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'chide');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'tinker');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'repugnance');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'expedient');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'coalesce');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'clamor');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'sublime');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'profound');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'rear');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'discretion');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'combustion');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'demystify');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'impudent');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'asylum');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noune', 'confine');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'tamper');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'tempting');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'forsake');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'deed');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'poignant');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'resonate');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'divulge');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'agitate');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'ponder');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'superfluous');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'budding');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'bruit');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'blatant');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'indict');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'throes');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'omnipotence');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'reconcile');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'nominal');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'forlorn');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'infamy');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'alacrity');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'varnish');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'premise');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'hinder');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'exalt');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'recondite');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'entangle');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'prospect');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'feign');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'convey');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'ordeal');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'pertain');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'seam');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'leverage');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'degenerate');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'confidential');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'subsidiary');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adverb', 'asunder');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noune', 'demise');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'callous');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'debase');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'venerable');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'unscathed');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'frown');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'occlude');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'gullible');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'preempt');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'elongate');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'relinquish');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'bound');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'behest');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'debilitate');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'caveat');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'retain');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'matrimony');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'submissive');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'proclaim');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'imperious');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'bewildering');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'scribble');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'adjective', 'aberrant');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'rejoice');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'noun', 'consternation');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'interrogate');
+INSERT INTO public.words (difficulty, kind, title) VALUES ('medium', 'verb', 'bicker');
 
 --
 -- TOC entry 3381 (class 0 OID 16638)
@@ -1194,11 +1152,3 @@ INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('4e862e08-804e-40fb
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('34d63f7e-06ce-41a6-925b-f4c9a8d5d26f', 'disagree');
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('34d63f7e-06ce-41a6-925b-f4c9a8d5d26f', 'quarrel');
 INSERT INTO public.word_synonyms (word_id, synonyms) VALUES ('34d63f7e-06ce-41a6-925b-f4c9a8d5d26f', 'brawl');
-
-
--- Completed on 2023-06-25 13:03:48
-
---
--- PostgreSQL database dump complete
---
-

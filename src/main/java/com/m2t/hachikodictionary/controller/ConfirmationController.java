@@ -4,13 +4,11 @@ import com.m2t.hachikodictionary.dto.account.ConfirmEmailRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.service.ConfirmationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/confirmation")
+@CrossOrigin("*")
 public class ConfirmationController {
 
     private final ConfirmationService confirmationService;

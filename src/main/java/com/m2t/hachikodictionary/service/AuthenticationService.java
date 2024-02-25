@@ -86,10 +86,10 @@ public class AuthenticationService {
         }
 
         authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                    account.getUsername(),
-                    loginRequest.getPassword()
-            ));
+                new UsernamePasswordAuthenticationToken(
+                        account.getUsername(),
+                        loginRequest.getPassword()
+                ));
 
         AuthenticationResponse authResponse = jwtService.generateToken(account);
         logger.info("{} login successful.", account.getUsername());
