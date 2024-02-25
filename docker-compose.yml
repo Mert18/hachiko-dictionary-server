@@ -4,6 +4,3 @@ services:
     image: 'hachiko2k/hachiko-dictionary:0.0.1'
     ports:
       - "8888:8888"
-    depends_on:
-      postgresql:
-        condition: service_healthy
