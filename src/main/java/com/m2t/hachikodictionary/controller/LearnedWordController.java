@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/learned-word")
 @Validated
-@CrossOrigin("*")
 public class LearnedWordController {
 
     private final LearnedWordService learnedWordService;

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/quiz")
-@CrossOrigin("*")
 public class QuizController {
 
     private final QuizService quizService;

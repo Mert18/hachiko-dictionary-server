@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/word")
 @Validated
-@CrossOrigin("*")
 public class WordController {
     private final WordService wordService;
     public WordController(WordService wordService) {
