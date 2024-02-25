@@ -9,7 +9,7 @@ import java.util.Objects;
 public class WordDtoConverter {
 
     public Word dtoWordConverter(WordDto from) {
-        return new Word(Objects.requireNonNull(from.getId()), from.getTitle(), from.getKind(), from.getDifficulty(), from.getDescriptions(),
+        return new Word(from.getId(), from.getTitle(), from.getKind(), from.getDifficulty(), from.getDescription(),
                 from.getSynonyms(), from.getAntonyms(), from.getSentences(), from.getFileUrl(), from.getAudioFileCreatedAt());
     }
     public WordDto wordDtoConverter(Word from) {

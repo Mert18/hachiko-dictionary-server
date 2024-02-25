@@ -92,7 +92,7 @@ public class AccountService implements UserDetailsService {
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode jsonObject = mapper.createObjectNode();
-        jsonObject.put("confirmed", account.getConfirmed());
+        jsonObject.put("confirmed", account.isConfirmed());
         jsonObject.put("email", account.getEmail());
         jsonObject.put("id", account.getId());
 

@@ -107,7 +107,7 @@ class AccountServiceTest {
         Account capturedAccount = accountCaptor.getValue();
 
         // Assert
-        assertTrue(capturedAccount.getConfirmed());
+        assertTrue(capturedAccount.isConfirmed());
     }
 
     @Test
@@ -122,7 +122,7 @@ class AccountServiceTest {
         // Setup
         Account existingAccount = new Account("1", "username", "password", "email", Role.USER, true);
         ObjectNode jsonObject = objectMapper.createObjectNode();
-        jsonObject.put("confirmed", existingAccount.getConfirmed());
+        jsonObject.put("confirmed", existingAccount.isConfirmed());
         jsonObject.put("email", existingAccount.getEmail());
         jsonObject.put("id", existingAccount.getId());
         Response expectedResponse = new Response(true, "Check is completed.", jsonObject);

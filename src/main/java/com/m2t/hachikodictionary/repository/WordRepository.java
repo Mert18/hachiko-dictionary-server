@@ -1,20 +1,24 @@
 package com.m2t.hachikodictionary.repository;
 
 import com.m2t.hachikodictionary.model.Word;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.Aggregation;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
-public interface WordRepository extends JpaRepository<Word, String> {
+public interface WordRepository extends MongoRepository<Word, String> {
 
-    @Query("SELECT u FROM Word u WHERE u.difficulty= :difficulty ORDER BY RANDOM() LIMIT 1")
+    @Aggregation(pipeline = {
+            "{ $match: { difficulty: ?0 } }",
+            "{ $sample: { size: 1 } }"
+    })
     Word findRandomWordByDifficulty(String difficulty);
 
     Word findWordByTitle(String title);
 
     Boolean existsByTitle(String title);
 
-    @Query("SELECT d FROM Word d WHERE LOWER(d.title) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
+    @Query("{ 'title': { $regex: ?0, $options: 'i' } }")
     List<Word> searchByWord(String searchTerm);
 }

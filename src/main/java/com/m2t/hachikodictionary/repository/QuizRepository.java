@@ -1,11 +1,11 @@
 package com.m2t.hachikodictionary.repository;
 
 import com.m2t.hachikodictionary.model.Quiz;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface QuizRepository extends JpaRepository<Quiz, String> {
+public interface QuizRepository extends MongoRepository<Quiz, String> {
 
     List<Quiz> findAllByAccountId(String accountId);
 

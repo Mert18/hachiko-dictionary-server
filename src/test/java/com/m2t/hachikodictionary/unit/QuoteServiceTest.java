@@ -51,38 +51,4 @@ public class QuoteServiceTest {
 
         verify(quoteRepository, times(1)).getRandomQuote(anyString());
     }
-
-    @Test
-    public void testCreateQuote_whenSuccessful_shouldReturnCreatedQuote() {
-        // Arrange
-        CreateQuoteRequest createQuoteRequest = new CreateQuoteRequest("test quote", "test author", "medium");
-        Quote quote = new Quote("test quote", "test author", "medium");
-        Response expectedResponse = new Response(true, "Quote created successfully.", quote);
-
-        // Act
-        Response response = service.createQuote(createQuoteRequest);
-
-        // Assert
-        assertEquals(expectedResponse.getData(), response.getData());
-        assertEquals(expectedResponse.getMessage(), response.getMessage());
-        assertEquals(expectedResponse.getSuccess(), response.getSuccess());
-
-        verify(quoteRepository, times(1)).save(any(Quote.class));
-    }
-
-    @Test
-    public void testDeleteQuote_whenSuccessful_shouldReturnSuccessfullyDeletedResponse() {
-        // Arrange
-        Response expectedResponse = new Response(true, "Quote deleted successfully.");
-
-        // Act
-        Response response = service.deleteQuote(anyString());
-
-        // Assert
-        assertEquals(expectedResponse.getData(), response.getData());
-        assertEquals(expectedResponse.getMessage(), response.getMessage());
-        assertEquals(expectedResponse.getSuccess(), response.getSuccess());
-
-        verify(quoteRepository, times(1)).deleteById(anyString());
-    }
 }

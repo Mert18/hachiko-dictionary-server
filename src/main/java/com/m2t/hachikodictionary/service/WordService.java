@@ -93,7 +93,7 @@ public class WordService {
                 createWordRequest.getTitle(),
                 createWordRequest.getKind(),
                 createWordRequest.getDifficulty(),
-                createWordRequest.getDescriptions(),
+                createWordRequest.getDescription(),
                 createWordRequest.getSynonyms(),
                 createWordRequest.getAntonyms(),
                 createWordRequest.getSentences(),
@@ -111,7 +111,7 @@ public class WordService {
         word.setTitle(createWordRequest.getTitle());
         word.setKind(createWordRequest.getKind());
         word.setDifficulty(createWordRequest.getDifficulty());
-        word.setDescriptions(createWordRequest.getDescriptions());
+        word.setDescriptions(createWordRequest.getDescription());
         word.setSynonyms(createWordRequest.getSynonyms());
         word.setAntonyms(createWordRequest.getAntonyms());
         word.setSentences(createWordRequest.getSentences());
