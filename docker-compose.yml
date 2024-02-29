@@ -1,6 +1,27 @@
-version: '3.1'
+version: "3.8"
+
 services:
-  dictionary:
-    image: 'hachiko2k/hachiko-dictionary:0.0.1'
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
     ports:
-      - "8888:8888"
+      - "27018:27017"
+    volumes:
+      - ./src/main/resources/data/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./src/main/resources/data/words.json:/words.json:ro
+
+  dictionary:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dictionary
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.data.mongodb.uri" : "mongodb://root:example@mongodb:27017/dictionary?authSource=admin"
+      }'
