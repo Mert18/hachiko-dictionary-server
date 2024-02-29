@@ -13,9 +13,7 @@ services:
       - ./src/main/resources/data/words.json:/words.json:ro
 
   dictionary:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: hachiko2k/hachiko-dictionary:0.9.0
     container_name: dictionary
     ports:
       - "8080:8080"
