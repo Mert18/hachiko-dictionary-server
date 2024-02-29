@@ -21,8 +21,9 @@ public class WordnikClient {
     @Value("${wordnik.url}")
     private String wordnikUrl;
 
-    @Value("${wordnik.api.key}")
+    @Value("${WORDNIK_API_KEY}")
     private String wordnikApiKey;
+
 
     public WordnikClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;

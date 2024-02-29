@@ -22,6 +22,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      SPRING_APPLICATION_JSON: '{
-        "spring.data.mongodb.uri" : "mongodb://root:example@mongodb:27017/dictionary?authSource=admin"
-      }'
+      - SPRING_DATA_MONGODB_URI=mongodb://root:example@mongodb:27017/dictionary?authSource=admin
+      - JWT_SECRET=DUCDEByL4Ve2nNk0No9X8z+x4ClrSx3/wbZE6A7G5mQyT0w+qZsYVOU0gDBd1JoOKH4GdSRtMCc50FrwQNCC7jVeWtBfcs13U64YiV6odjDHfjRxLgcKCdlmCE7s+PyOV5WsDQecQfYkFzDpBj24gO6Uxb1BvqaKz2b/ZLqEPnrIw8A+0pqSWzAry4GkZJokk/Ku7rqlYUZjiIBgQPbGg6GrjQyPNtbBtWQpCPp1kiLfehtaShgFLJt9zfmfeJSSQ3GJzPd2+l5f5mG0zWUUtAx3mJTBqlW/1mJuLB+zAre5NydN6nEPlmUriqGgd1I9xWRqQvaP0ddC9zv4E6Oncg==
+      - WORDNIK_API_KEY=notavailable
+      - SENDGRID_API_KEY=notavailable

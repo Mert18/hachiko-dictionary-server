@@ -17,7 +17,7 @@ public class MailService {
     private static final Logger logger = Logger.getLogger(MailService.class.getName());
     private String sendGridApiKey;
 
-    @Value("${sendgrid.api.key}")
+    @Value("${SENDGRID_API_KEY}")
     public void setSendGridApiKey(String sendGridApiKey) {
         this.sendGridApiKey = sendGridApiKey;
     }

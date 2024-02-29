@@ -37,7 +37,7 @@ public class JWTService {
         this.accountService = accountService;
     }
 
-    @Value("${jwt.secret}")
+    @Value("${JWT_SECRET}")
     public void setJwtSecret(String jwtSecret) {
         this.jwtSecret = jwtSecret;
     }
