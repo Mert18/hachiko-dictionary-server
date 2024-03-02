@@ -26,7 +26,7 @@ public class QuoteServiceTest {
     @Test
     public void testGetRandomQuote_whenSuccessful_shouldReturnRandomQuote() {
         // Arrange
-        Quote quote = new Quote("test quote", "test author", "medium");
+        Quote quote = new Quote("test quote", "test author");
         Mockito.when(quoteRepository.getRandomQuote()).thenReturn(quote);
         Response expectedResponse = new Response(true, "Quote retrieved successfully.", quote, false);
 
