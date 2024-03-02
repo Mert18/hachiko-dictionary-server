@@ -9,12 +9,15 @@ import com.m2t.hachikodictionary.exception.*;
 import com.m2t.hachikodictionary.model.Account;
 import com.m2t.hachikodictionary.model.Role;
 import com.m2t.hachikodictionary.repository.AccountRepository;
+import com.postmarkapp.postmark.client.exception.PostmarkException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 public class AuthenticationService {
@@ -40,7 +43,7 @@ public class AuthenticationService {
         this.confirmationService = confirmationService;
     }
 
-    public Response register(RegistrationRequest registrationRequest) {
+    public Response register(RegistrationRequest registrationRequest) throws PostmarkException, IOException {
         // Checks
         if(!registrationRequest.getPassword().equals(registrationRequest.getConfirmPassword())) {
             throw new PasswordsDoNotMatchException("Passwords do not match.");
@@ -67,9 +70,14 @@ public class AuthenticationService {
         AuthenticationResponse authResponse = jwtService.generateToken(account);
         String token = confirmationService.create(registrationRequest.getEmail());
 
-        // Send email
-        mailService.sendConfirmationEmail(registrationRequest, token);
-        logger.info("Confirmation mail sent to user {}", account.getUsername());
+        try {
+            // Send email
+            mailService.sendConfirmationEmail(registrationRequest, token);
+            logger.info("Confirmation mail sent to user {}", account.getUsername());
+        } catch (Exception e) {
+            logger.info("Error sending email to {}:  {}", account.getEmail(), e.getMessage());
+        }
+
 
         return new Response(true, "Registration successful.", authResponse);
     }
