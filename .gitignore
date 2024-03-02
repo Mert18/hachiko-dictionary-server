@@ -8,7 +8,7 @@ target/
 
 # Environment variables
 src/main/resources/application.yml
-src/main/resources/application.properties
+src/main/resources/application-dev.properties
 
 ### STS ###
 .apt_generated
