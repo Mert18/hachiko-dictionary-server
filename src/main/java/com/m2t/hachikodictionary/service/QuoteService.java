@@ -28,7 +28,7 @@ public class QuoteService {
     }
 
     public Response createQuote(CreateQuoteRequest quote) {
-        Quote newQuote = new Quote(quote.getQuote(), quote.getAuthor(), quote.getDifficulty());
+        Quote newQuote = new Quote(quote.getQuote(), quote.getAuthor());
         quoteRepository.save(newQuote);
         logger.info("Quote created: {}", quote.getQuote());
         return new Response(true, "Quote created successfully.", newQuote);
