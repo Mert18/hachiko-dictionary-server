@@ -13,12 +13,14 @@ import com.m2t.hachikodictionary.service.AccountService;
 import com.m2t.hachikodictionary.service.AuthenticationService;
 import com.m2t.hachikodictionary.service.ConfirmationService;
 import com.m2t.hachikodictionary.service.MailService;
+import com.postmarkapp.postmark.client.exception.PostmarkException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +51,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    public void testRegister_whenSuccessful_shouldReturnSuccessfulResponse() {
+    public void testRegister_whenSuccessful_shouldReturnSuccessfulResponse() throws PostmarkException, IOException {
         // Arrange
         RegistrationRequest registrationRequest = new RegistrationRequest("testuser",
                 "testpassword",

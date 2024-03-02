@@ -5,10 +5,13 @@ import com.m2t.hachikodictionary.dto.account.RefreshRequest;
 import com.m2t.hachikodictionary.dto.account.RegistrationRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.service.AuthenticationService;
+import com.postmarkapp.postmark.client.exception.PostmarkException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -22,7 +25,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
+    public ResponseEntity<Response> register(@RequestBody @Valid RegistrationRequest registrationRequest) throws PostmarkException, IOException {
         return ResponseEntity.ok(authenticationService.register(registrationRequest));
     }
 
