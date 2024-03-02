@@ -1,6 +1,7 @@
 package com.m2t.hachikodictionary.unit;
 
 import com.m2t.hachikodictionary.client.WordnikClient;
+import com.m2t.hachikodictionary.dto.client.WordAudio;
 import com.m2t.hachikodictionary.dto.word.CreateWordRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.dto.word.WordDto;
@@ -38,6 +39,7 @@ public class WordServiceTest {
         wordRepository = Mockito.mock(WordRepository.class);
         wordPagingRepository = Mockito.mock(WordPagingRepository.class);
         wordDtoConverter = Mockito.mock(WordDtoConverter.class);
+        wordnikClient = Mockito.mock(WordnikClient.class);
         service = new WordService(wordRepository, wordDtoConverter, wordPagingRepository, wordnikClient);
     }
 
@@ -50,6 +52,7 @@ public class WordServiceTest {
 
         Mockito.when(wordRepository.findById("1")).thenReturn(Optional.of(word));
         Mockito.when(wordDtoConverter.wordDtoConverter(word)).thenReturn(wordDto);
+        Mockito.when(wordnikClient.getWordAudio(any())).thenReturn(null);
 
         // Act
         Response result = service.getWord("1");
