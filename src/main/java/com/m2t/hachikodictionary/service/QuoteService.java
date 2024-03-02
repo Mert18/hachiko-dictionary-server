@@ -19,8 +19,8 @@ public class QuoteService {
         this.quoteRepository = quoteRepository;
     }
 
-    public Response getRandomQuote(String difficulty) {
-        Quote quote = quoteRepository.getRandomQuote(difficulty);
+    public Response getRandomQuote() {
+        Quote quote = quoteRepository.getRandomQuote();
         if (quote == null) {
             throw new QuoteNotFoundException("Quote not found.");
         }

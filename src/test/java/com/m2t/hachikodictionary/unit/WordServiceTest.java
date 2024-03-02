@@ -138,29 +138,29 @@ public class WordServiceTest {
         WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
         Response expectedResponse = new Response(true, "Random word retrieval successful.", wordDto, false);
 
-        Mockito.when(wordRepository.findRandomWordByDifficulty(anyString())).thenReturn(word);
+        Mockito.when(wordRepository.findRandomWord()).thenReturn(word);
         Mockito.when(wordDtoConverter.wordDtoConverter(word)).thenReturn(wordDto);
 
         // Act
-        Response result = service.getOneWordByDifficulty("medium");
+        Response result = service.getRandomWord();
 
         // Assert
         assertEquals(expectedResponse.getMessage(), result.getMessage());
         assertEquals(expectedResponse.getData(), result.getData());
         assertEquals(expectedResponse.getSuccess(), result.getSuccess());
 
-        verify(wordRepository, times(1)).findRandomWordByDifficulty("medium");
+        verify(wordRepository, times(1)).findRandomWord();
         verify(wordDtoConverter, times(1)).wordDtoConverter(word);
     }
 
     @Test
     public void testGetOneWordByDifficulty_whenWordDoesNotExist_shouldThrowWordNotFoundException() {
         // Arrange
-        Mockito.when(wordRepository.findRandomWordByDifficulty(anyString())).thenReturn(null);
+        Mockito.when(wordRepository.findRandomWord()).thenReturn(null);
 
         // Act & Assert
-        assertThrows(WordNotFoundException.class, () -> service.getOneWordByDifficulty("medium"));
-        verify(wordRepository, times(1)).findRandomWordByDifficulty("medium");
+        assertThrows(WordNotFoundException.class, () -> service.getRandomWord());
+        verify(wordRepository, times(1)).findRandomWord();
     }
 
     @Test

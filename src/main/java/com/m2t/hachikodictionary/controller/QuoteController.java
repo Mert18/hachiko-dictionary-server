@@ -15,9 +15,9 @@ public class QuoteController {
         this.quoteService = quoteService;
     }
 
-    @GetMapping("/one/{difficulty}")
-    public ResponseEntity<Response> getOneQuoteByDifficulty(@PathVariable String difficulty) {
-        return ResponseEntity.ok(quoteService.getRandomQuote(difficulty));
+    @GetMapping("/random")
+    public ResponseEntity<Response> getRandomQuote() {
+        return ResponseEntity.ok(quoteService.getRandomQuote());
     }
 
     @PostMapping("/create")

@@ -27,28 +27,28 @@ public class QuoteServiceTest {
     public void testGetRandomQuote_whenSuccessful_shouldReturnRandomQuote() {
         // Arrange
         Quote quote = new Quote("test quote", "test author", "medium");
-        Mockito.when(quoteRepository.getRandomQuote(anyString())).thenReturn(quote);
+        Mockito.when(quoteRepository.getRandomQuote()).thenReturn(quote);
         Response expectedResponse = new Response(true, "Quote retrieved successfully.", quote, false);
 
         // Act
-        Response response = service.getRandomQuote(anyString());
+        Response response = service.getRandomQuote();
 
         // Assert
         assertEquals(expectedResponse.getData(), response.getData());
         assertEquals(expectedResponse.getMessage(), response.getMessage());
         assertEquals(expectedResponse.getSuccess(), response.getSuccess());
 
-        verify(quoteRepository, times(1)).getRandomQuote(anyString());
+        verify(quoteRepository, times(1)).getRandomQuote();
     }
 
     @Test
     public void testGetRandomQuote_whenQuoteNotFound_shouldThrowQuoteNotFoundException() {
         // Arrange
-        Mockito.when(quoteRepository.getRandomQuote(anyString())).thenReturn(null);
+        Mockito.when(quoteRepository.getRandomQuote()).thenReturn(null);
 
         // Act & Assert
-        assertThrows(QuoteNotFoundException.class, () -> service.getRandomQuote(anyString()));
+        assertThrows(QuoteNotFoundException.class, () -> service.getRandomQuote());
 
-        verify(quoteRepository, times(1)).getRandomQuote(anyString());
+        verify(quoteRepository, times(1)).getRandomQuote();
     }
 }

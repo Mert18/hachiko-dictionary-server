@@ -10,15 +10,11 @@ import java.util.List;
 public interface WordRepository extends MongoRepository<Word, String> {
 
     @Aggregation(pipeline = {
-            "{ $match: { difficulty: ?0 } }",
             "{ $sample: { size: 1 } }"
     })
-    Word findRandomWordByDifficulty(String difficulty);
+    Word findRandomWord();
 
     Word findWordByTitle(String title);
 
     Boolean existsByTitle(String title);
-
-    @Query("{ 'title': { $regex: ?0, $options: 'i' } }")
-    List<Word> searchByWord(String searchTerm);
 }

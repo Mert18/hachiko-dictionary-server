@@ -26,9 +26,9 @@ public class WordController {
         return ResponseEntity.ok(wordService.getWord(id));
     }
 
-    @GetMapping("/one/{difficulty}")
-    public ResponseEntity<Response> getOneWordByDifficulty(@PathVariable String difficulty) {
-        return ResponseEntity.ok(wordService.getOneWordByDifficulty(difficulty));
+    @GetMapping("/random")
+    public ResponseEntity<Response> getRandomWord() {
+        return ResponseEntity.ok(wordService.getRandomWord());
     }
 
     @GetMapping("/title/{title}")
@@ -49,10 +49,5 @@ public class WordController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Response> deleteWord(@PathVariable String id) {
         return ResponseEntity.ok(wordService.deleteWord(id));
-    }
-
-    @GetMapping("/search/{title}")
-    public ResponseEntity<Response> searchWord(@PathVariable String title) {
-        return ResponseEntity.ok(wordService.searchWord(title));
     }
 }

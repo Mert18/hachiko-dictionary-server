@@ -21,6 +21,7 @@ db = db.getSiblingDB('hachiko-dictionary');
 
 db.createCollection('words');
 db.createCollection('accounts');
+db.createCollection("quotes");
 db.accounts.insertOne(
     {
         "_id" : ObjectId("65de34002a1ec24d2968b8bd"),
@@ -32,7 +33,12 @@ db.accounts.insertOne(
         "_class" : "com.m2t.hachikodictionary.model.Account"
     }
 )
-
+db.quotes.insertOne(
+    {
+        "quote": "How you spend your days is, of course, how you spend your life.",
+        "author": "Annie Dillard"
+    }
+)
 
 
 db.words.insertMany(jsonData);

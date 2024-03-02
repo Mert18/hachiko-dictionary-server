@@ -74,11 +74,11 @@ public class WordService {
         return new Response(true, "Word retrieval successful.", words, false);
     }
 
-    public Response getOneWordByDifficulty(String difficulty) {
-        Word word = wordRepository.findRandomWordByDifficulty(difficulty);
+    public Response getRandomWord() {
+        Word word = wordRepository.findRandomWord();
         if(word == null) {
-            logger.error("Word with difficulty {} not found.", difficulty);
-            throw new WordNotFoundException("Word not found.");
+            logger.error("No word found.");
+            throw new WordNotFoundException("No word found.");
         }
         WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
 
@@ -128,11 +128,5 @@ public class WordService {
         wordRepository.delete(word);
         logger.info("Word with title {} deleted.", word.getTitle());
         return new Response(true, "Word deletion successful.", null);
-    }
-
-    public Response searchWord(String title) {
-        logger.info("Searching term: {}", title);
-        List<Word> listOfWords = wordRepository.searchByWord(title);
-        return new Response(true, "Word search successful", listOfWords, false);
     }
 }

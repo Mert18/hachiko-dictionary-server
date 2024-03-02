@@ -38,14 +38,14 @@ public class QuizService {
         List<QuizQuestion> quizQuestions = new ArrayList<>();
 
         while(quizQuestions.size() < 10) {
-            Word newWord = wordRepository.findRandomWordByDifficulty(difficulty);
+            Word newWord = wordRepository.findRandomWord();
             List<String> choices = new ArrayList<>(4);
             choices.add(newWord.getTitle());
             for(int i=0; i<3; i++) {
-                String choice = wordRepository.findRandomWordByDifficulty(difficulty).getTitle();
+                String choice = wordRepository.findRandomWord().getTitle();
 
                 while(choices.contains(choice)) {
-                    choice = wordRepository.findRandomWordByDifficulty(difficulty).getTitle();
+                    choice = wordRepository.findRandomWord().getTitle();
                 }
                 choices.add(choice);
             }

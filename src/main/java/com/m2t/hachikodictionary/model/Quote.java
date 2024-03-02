@@ -10,6 +10,4 @@ import lombok.NoArgsConstructor;
 public class Quote {
     private String quote;
     private String author;
-    private String difficulty;
-
 }
