@@ -79,6 +79,16 @@ public class WordService {
         if(word == null) {
             logger.error("No word found.");
             throw new WordNotFoundException("No word found.");
+        }else if(word.getFileUrl() == null || (word.getAudioFileCreatedAt() != null && word.getAudioFileCreatedAt().isBefore(LocalDateTime.now().minusMinutes(10)))){{
+                WordAudio wordAudio = wordnikClient.getWordAudio(word.getTitle());
+                if(wordAudio != null) {
+                    word.setFileUrl(wordAudio.getFileUrl());
+                    word.setAudioFileCreatedAt(LocalDateTime.now());
+                }else {
+                    word.setFileUrl("N/A");
+                }
+                wordRepository.save(word);
+            }
         }
         WordDto wordDto = wordDtoConverter.wordDtoConverter(word);
 
