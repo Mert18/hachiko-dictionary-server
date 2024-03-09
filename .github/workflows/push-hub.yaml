@@ -8,6 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      WORDNIK_URL: ${{secrets.WORDNIK_URL}}
+      WORDNIK_API_KEY: ${{secrets.WORDNIK_API_KEY}}
+      POSTMARK_API_KEY: ${{secrets.POSTMARK_API_KEY}}
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
+      JWT_REFRESH_EXP: ${{secrets.JWT_REFRESH_EXP}}
+      JWT_ACCESS_EXP: ${{secrets.JWT_ACCESS_EXP}}
 
     steps:
       - name: Checkout code
