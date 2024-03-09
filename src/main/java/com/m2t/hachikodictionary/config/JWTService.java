@@ -42,12 +42,12 @@ public class JWTService {
         this.jwtSecret = jwtSecret;
     }
 
-    @Value("${jwt.refreshExpirationDateInMs}")
+    @Value("${JWT_REFRESH_EXP}")
     public void setRefreshExpirationDateInMs(int refreshExpirationDateInMs) {
         this.refreshExpirationDateInMs = refreshExpirationDateInMs;
     }
 
-    @Value("${jwt.accessExpirationDateInMs}")
+    @Value("${JWT_ACCESS_EXP}")
     public void setAccessExpirationDateInMs(int accessExpirationDateInMs) {
         this.accessExpirationDateInMs = accessExpirationDateInMs;
     }

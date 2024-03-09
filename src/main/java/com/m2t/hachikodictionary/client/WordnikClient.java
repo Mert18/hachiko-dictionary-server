@@ -18,7 +18,7 @@ public class WordnikClient {
     private final RestTemplate restTemplate;
     private static final Logger logger = LoggerFactory.getLogger(WordnikClient.class);
 
-    @Value("${wordnik.url}")
+    @Value("${WORDNIK_URL}")
     private String wordnikUrl;
 
     @Value("${WORDNIK_API_KEY}")
