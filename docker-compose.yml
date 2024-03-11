@@ -13,8 +13,8 @@ services:
       - ./src/main/resources/data/words.json:/words.json:ro
 
   dictionary:
-    image: hachiko2k/hachiko-dictionary:0.9.0
-    container_name: dictionary
+    image: hachiko2k/hachiko-dictionary
+    container_name: hachiko-dictionary
     ports:
       - "8080:8080"
     depends_on:
