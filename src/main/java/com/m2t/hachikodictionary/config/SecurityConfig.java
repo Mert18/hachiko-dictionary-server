@@ -38,6 +38,7 @@ public class SecurityConfig {
                             try {
                                 auth
                                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                                        .requestMatchers("/actuator/**").permitAll()
                                         .requestMatchers("/api/v1/auth/**").permitAll()
                                         .requestMatchers("/api/v1/confirmation/**").permitAll()
                                         .requestMatchers("/api/v1/account/**").hasAnyAuthority("USER", "ADMIN")
