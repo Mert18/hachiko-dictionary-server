@@ -48,6 +48,8 @@ public class SecurityConfig {
                                         .requestMatchers("/api/v1/word/**").hasAnyAuthority("USER", "ADMIN")
                                         .requestMatchers("/api/v1/quote/create").hasAnyAuthority("ADMIN")
                                         .requestMatchers("/api/v1/quote/delete").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/stored-image/create").hasAnyAuthority("ADMIN")
+                                        .requestMatchers("/api/v1/stored-image/list").permitAll()
                                         .requestMatchers("/api/v1/quote/**").permitAll()
                                         .requestMatchers("/api/v1/learned-word/**").hasAnyAuthority("USER", "ADMIN")
                                         .requestMatchers("/api/v1/quiz/**").hasAnyAuthority("USER", "ADMIN")

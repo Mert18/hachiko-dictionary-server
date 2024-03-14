@@ -54,9 +54,6 @@ public class AccountService implements UserDetailsService {
 
     public Account loadUserByEmail(String email) {
         Account account = accountRepository.findAccountByEmail(email);
-        if(account == null) {
-            throw new AccountNotFoundException("Account not found.");
-        }
         return account;
     }
 
