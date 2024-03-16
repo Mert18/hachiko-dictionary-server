@@ -11,5 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CreateStoredImageRequest {
     private String url;
+    private String description;
     private LocalDate date;
 }

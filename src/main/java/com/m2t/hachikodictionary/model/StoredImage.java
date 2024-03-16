@@ -19,6 +19,7 @@ public class StoredImage {
     private String id;
 
     private String url;
+    private String description;
     private LocalDate date;
     private LocalDateTime uploadedAt;
 }

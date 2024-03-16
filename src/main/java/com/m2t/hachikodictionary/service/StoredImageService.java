@@ -25,6 +25,7 @@ public class StoredImageService {
     public StoredImage createStoredImage(CreateStoredImageRequest request) {
         StoredImage storedImage = new StoredImage();
         storedImage.setUrl(request.getUrl());
+        storedImage.setDescription(request.getDescription());
         storedImage.setDate(request.getDate());
         storedImage.setUploadedAt(LocalDateTime.now());
         return storedImageRepository.save(storedImage);
