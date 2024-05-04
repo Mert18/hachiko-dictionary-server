@@ -21,7 +21,5 @@ public class WordDto {
     private Set<String> sentences;
     private String fileUrl;
     private LocalDateTime audioFileCreatedAt;
-
-
-
+    private String etymology;
 }

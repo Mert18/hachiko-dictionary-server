@@ -1,7 +1,9 @@
 package com.m2t.hachikodictionary.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -33,6 +35,7 @@ public class Word {
     private String fileUrl;
 
     private LocalDateTime audioFileCreatedAt;
+    private String etymology = null;
 
     public Word(String title, String kind, String difficulty, Set<String> descriptions, Set<String> synonyms, Set<String> antonyms, Set<String> sentences, Set<LearnedWord> learnedWords, String fileUrl) {
         this.title = title;
