@@ -15,6 +15,6 @@ public class WordDtoConverter {
     public WordDto wordDtoConverter(Word from) {
         return new WordDto(from.getId(), from.getTitle(), from.getKind(), from.getDifficulty(),
                 from.getDescriptions(), from.getSynonyms(),
-                from.getAntonyms(), from.getSentences(), from.getFileUrl(), from.getAudioFileCreatedAt());
+                from.getAntonyms(), from.getSentences(), from.getFileUrl(), from.getAudioFileCreatedAt(), from.getEtymology());
     }
 }

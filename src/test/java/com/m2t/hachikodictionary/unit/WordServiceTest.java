@@ -47,7 +47,7 @@ public class WordServiceTest {
     public void testFindWordById_whenWordExists_shouldReturnWord() {
         // Arrange
         Word word = new Word("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
-        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
+        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null, null);
         Response expectedResponse = new Response(true, "Word retrieval successful.", wordDto, false);
 
         Mockito.when(wordRepository.findById("1")).thenReturn(Optional.of(word));
@@ -80,7 +80,7 @@ public class WordServiceTest {
     public void testGetWordByTitle_whenWordExists_shouldReturnWord() {
         // Arrange
         Word word = new Word("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
-        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
+        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null, null);
 
         Mockito.when(wordRepository.findWordByTitle("title")).thenReturn(word);
         Mockito.when(wordDtoConverter.wordDtoConverter(word)).thenReturn(wordDto);
@@ -135,7 +135,7 @@ public class WordServiceTest {
     public void testGetOneWordByDifficulty_whenWordExists_shouldReturnWord() {
         // Arrange
         Word word = new Word("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
-        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
+        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null, null);
         Response expectedResponse = new Response(true, "Random word retrieval successful.", wordDto, false);
 
         Mockito.when(wordRepository.findRandomWord()).thenReturn(word);
@@ -202,7 +202,7 @@ public class WordServiceTest {
         // Arrange
         CreateWordRequest createWordRequest = new CreateWordRequest("newTitle", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null);
         Word word = new Word("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
-        WordDto wordDto = new WordDto("1", "newTitle", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
+        WordDto wordDto = new WordDto("1", "newTitle", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null, null);
 
         Response expectedResponse = new Response(true, "Word update successful.", wordDto, false);
 

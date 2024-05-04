@@ -17,4 +17,10 @@ public interface WordRepository extends MongoRepository<Word, String> {
     Word findWordByTitle(String title);
 
     Boolean existsByTitle(String title);
+
+    @Aggregation(pipeline = {
+            "{ $match: { etymology: { $ne: null } } }",  // Filter to include only documents where etymology is not null
+            "{ $sample: { size: 1 } }"                  // Randomly select one document from those filtered
+    })
+    Word findRandomWordWithEtymology();
 }

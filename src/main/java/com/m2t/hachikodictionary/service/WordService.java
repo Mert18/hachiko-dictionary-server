@@ -139,4 +139,15 @@ public class WordService {
         logger.info("Word with title {} deleted.", word.getTitle());
         return new Response(true, "Word deletion successful.", null);
     }
+
+    public Response getRandomWordWithEtymology() {
+        Word word = wordRepository.findRandomWordWithEtymology();
+
+        if(word == null) {
+            logger.error("No word found.");
+            throw new WordNotFoundException("No word found.");
+        }
+
+        return new Response(true, "Random word with etymology retrieval successful.", wordDtoConverter.wordDtoConverter(word), false);
+    }
 }

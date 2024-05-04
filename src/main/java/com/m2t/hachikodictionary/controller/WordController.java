@@ -50,4 +50,9 @@ public class WordController {
     public ResponseEntity<Response> deleteWord(@PathVariable String id) {
         return ResponseEntity.ok(wordService.deleteWord(id));
     }
+
+    @GetMapping("/random-etymology")
+    public ResponseEntity<Response> getRandomEtymology() {
+        return ResponseEntity.ok(wordService.getRandomWordWithEtymology());
+    }
 }
