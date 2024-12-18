@@ -55,4 +55,15 @@ public class WordController {
     public ResponseEntity<Response> getRandomEtymology() {
         return ResponseEntity.ok(wordService.getRandomWordWithEtymology());
     }
+
+    @GetMapping("/word-of-the-day")
+    public ResponseEntity<Response> getWordOfTheDay() {
+        return ResponseEntity.ok(wordService.getWordOfTheDay());
+    }
+
+    @GetMapping("/word-of-the-day-local")
+    public ResponseEntity<Response> getWordOfTheDayLocal() {
+        System.out.println(wordService.getWordOfTheDayLocal());
+        return ResponseEntity.ok(wordService.getWordOfTheDayLocal());
+    }
 }
