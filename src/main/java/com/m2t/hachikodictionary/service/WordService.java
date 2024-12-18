@@ -1,7 +1,9 @@
 package com.m2t.hachikodictionary.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2t.hachikodictionary.client.WordnikClient;
 import com.m2t.hachikodictionary.dto.client.WordAudio;
+import com.m2t.hachikodictionary.dto.client.WordOfTheDay;
 import com.m2t.hachikodictionary.dto.word.CreateWordRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.dto.word.WordDto;
@@ -19,6 +21,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.io.File;
+import java.io.IOException;
 
 @Service
 public class WordService {
@@ -26,14 +31,17 @@ public class WordService {
     private final WordPagingRepository wordPagingRepository;
     private final WordDtoConverter wordDtoConverter;
     private final WordnikClient wordnikClient;
+    private final ObjectMapper objectMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(WordService.class);
 
-    public WordService(WordRepository wordRepository, WordDtoConverter wordDtoConverter, WordPagingRepository wordPagingRepository, WordnikClient wordnikClient) {
+    public WordService(WordRepository wordRepository, WordDtoConverter wordDtoConverter,
+            WordPagingRepository wordPagingRepository, WordnikClient wordnikClient, ObjectMapper objectMapper) {
         this.wordRepository = wordRepository;
         this.wordDtoConverter = wordDtoConverter;
         this.wordPagingRepository = wordPagingRepository;
         this.wordnikClient = wordnikClient;
+        this.objectMapper = objectMapper;
     }
 
     public Response getWord(String id) {
@@ -149,5 +157,25 @@ public class WordService {
         }
 
         return new Response(true, "Random word with etymology retrieval successful.", wordDtoConverter.wordDtoConverter(word), false);
+    }
+
+    public Response getWordOfTheDay() {
+        WordOfTheDay wordOfTheDay = wordnikClient.getWordOfTheDay();
+
+        if (wordOfTheDay == null) {
+            logger.error("Failed to retrieve Word of the Day from Wordnik.");
+            throw new WordNotFoundException("Word of the Day not found.");
+        }
+        return new Response(true, "Word of the Day retrieved successfully.", wordOfTheDay, false);
+    }
+
+    public Response getWordOfTheDayLocal(){
+        try {
+            File jsonFile = new File("src/main/resources/data/wordOfTheDay.json");
+            Map<String, Object> wordOfTheDay = objectMapper.readValue(jsonFile, Map.class);
+            return new Response(true, "Word of the Day retrieved successfully.", wordOfTheDay, false);
+        } catch (IOException e) {
+            return new Response(false, "Failed to retrieve Word of the Day: " + e.getMessage(), false);
+        }
     }
 }

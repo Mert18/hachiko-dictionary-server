@@ -1,7 +1,7 @@
 package com.m2t.hachikodictionary.unit;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2t.hachikodictionary.client.WordnikClient;
-import com.m2t.hachikodictionary.dto.client.WordAudio;
 import com.m2t.hachikodictionary.dto.word.CreateWordRequest;
 import com.m2t.hachikodictionary.dto.Response;
 import com.m2t.hachikodictionary.dto.word.WordDto;
@@ -40,7 +40,7 @@ public class WordServiceTest {
         wordPagingRepository = Mockito.mock(WordPagingRepository.class);
         wordDtoConverter = Mockito.mock(WordDtoConverter.class);
         wordnikClient = Mockito.mock(WordnikClient.class);
-        service = new WordService(wordRepository, wordDtoConverter, wordPagingRepository, wordnikClient);
+        service = new WordService(wordRepository, wordDtoConverter, wordPagingRepository, wordnikClient, new ObjectMapper());
     }
 
     @Test
@@ -80,7 +80,8 @@ public class WordServiceTest {
     public void testGetWordByTitle_whenWordExists_shouldReturnWord() {
         // Arrange
         Word word = new Word("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
-        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null, null);
+        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null,
+                null, null);
 
         Mockito.when(wordRepository.findWordByTitle("title")).thenReturn(word);
         Mockito.when(wordDtoConverter.wordDtoConverter(word)).thenReturn(wordDto);
@@ -135,7 +136,8 @@ public class WordServiceTest {
     public void testGetOneWordByDifficulty_whenWordExists_shouldReturnWord() {
         // Arrange
         Word word = new Word("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
-        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null, null);
+        WordDto wordDto = new WordDto("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null,
+                null, null);
         Response expectedResponse = new Response(true, "Random word retrieval successful.", wordDto, false);
 
         Mockito.when(wordRepository.findRandomWord()).thenReturn(word);
@@ -167,7 +169,8 @@ public class WordServiceTest {
     public void testCreateWord_whenWordDoesNotExist_shouldCreateWord() {
         // Arrange
         Word word = new Word("newWord", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
-        CreateWordRequest createWordRequest = new CreateWordRequest("newWord", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null);
+        CreateWordRequest createWordRequest = new CreateWordRequest("newWord", "verb", "medium", Set.of(), Set.of(),
+                Set.of(), Set.of(), null);
         Response expectedResponse = new Response(true, "Word creation successful.", word);
 
         Mockito.when(wordRepository.existsByTitle(anyString())).thenReturn(false);
@@ -188,7 +191,8 @@ public class WordServiceTest {
     @Test
     public void testCreateWord_whenWordExists_shouldThrowWordAlreadyExistsException() {
         // Arrange
-        CreateWordRequest createWordRequest = new CreateWordRequest("newWord", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null);
+        CreateWordRequest createWordRequest = new CreateWordRequest("newWord", "verb", "medium", Set.of(), Set.of(),
+                Set.of(), Set.of(), null);
 
         Mockito.when(wordRepository.existsByTitle(anyString())).thenReturn(true);
 
@@ -200,9 +204,11 @@ public class WordServiceTest {
     @Test
     public void testUpdateWord_whenWordExists_shouldUpdateWord() {
         // Arrange
-        CreateWordRequest createWordRequest = new CreateWordRequest("newTitle", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null);
+        CreateWordRequest createWordRequest = new CreateWordRequest("newTitle", "verb", "medium", Set.of(), Set.of(),
+                Set.of(), Set.of(), null);
         Word word = new Word("1", "title", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null);
-        WordDto wordDto = new WordDto("1", "newTitle", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null, null, null);
+        WordDto wordDto = new WordDto("1", "newTitle", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null,
+                null, null);
 
         Response expectedResponse = new Response(true, "Word update successful.", wordDto, false);
 
@@ -225,7 +231,8 @@ public class WordServiceTest {
     @Test
     public void testUpdateWord_whenWordDoesNotExist_shouldThrowWordNotFoundException() {
         // Arrange
-        CreateWordRequest createWordRequest = new CreateWordRequest("newTitle", "verb", "medium", Set.of(), Set.of(), Set.of(), Set.of(), null);
+        CreateWordRequest createWordRequest = new CreateWordRequest("newTitle", "verb", "medium", Set.of(), Set.of(),
+                Set.of(), Set.of(), null);
 
         Mockito.when(wordRepository.findById("1")).thenReturn(Optional.empty());
 

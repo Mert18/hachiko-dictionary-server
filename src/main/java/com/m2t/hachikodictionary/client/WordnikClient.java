@@ -1,6 +1,7 @@
 package com.m2t.hachikodictionary.client;
 
 import com.m2t.hachikodictionary.dto.client.WordAudio;
+import com.m2t.hachikodictionary.dto.client.WordOfTheDay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +55,34 @@ public class WordnikClient {
             logger.error("Error getting word audio from Wordnik: " + e.getMessage());
             return null;
         }
+    }
 
+    public WordOfTheDay getWordOfTheDay() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        LocalDate currentDate = LocalDate.now();
+        String date = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String url = wordnikUrl + "/word.json/wordOfTheDay?date=" + date + "&api_key={api_key}";
+        Map<String, String> params = Collections.singletonMap("api_key", wordnikApiKey);
+        try {
+            Map<String, Object> wordOfTheDayMap = restTemplate.getForObject(url, Map.class, params);
+            if (wordOfTheDayMap != null) {
+                Integer wordOfTheDayId = (Integer) wordOfTheDayMap.get("id");
+                String wordOfTheDayTitle = (String) wordOfTheDayMap.get("word");
+                String wordOfTheDayDefinition = (String) wordOfTheDayMap.get("note");
+
+                List<Map<String, Object>> definitions = (List<Map<String, Object>>) wordOfTheDayMap.get("definitions");
+                String wordOfTheDayType = null;
+                if (definitions != null && !definitions.isEmpty()) {
+                    wordOfTheDayType = (String) definitions.get(0).get("partOfSpeech");
+                }
+                return new WordOfTheDay(wordOfTheDayId, wordOfTheDayTitle, wordOfTheDayDefinition, wordOfTheDayType);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            logger.error("Error getting Word of the Day from Wordnik: " + e.getMessage(), e);
+            return null;
+        }
     }
 }
